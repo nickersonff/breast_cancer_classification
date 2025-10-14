@@ -37,3 +37,8 @@ preprocessing(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
 * debug_datalist: path to the dataset JSON file.
 * debug_dataset_root: output folder for image processing.
 
+### 2.2 Running Tests on Multiple Datasets.
+
+    lista = ['/home/nfferreira/data/dataset_site-1_VINDR_DDSM.json', '/home/nfferreira/data/dataset_site-1_DDSM.json', /home/nfferreira/data/dataset_site-1_VINDR_ALLMAN.json]
+    for i in lista:
+        preprocessing(debug_datalist=i, debug_dataset_root=argumentos[2])

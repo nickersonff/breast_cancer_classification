@@ -28,7 +28,7 @@ The main functions for configuring test scenarios are: pipelines and preprocessi
 ### 2.1 Run tests by passing arguments through the command line.
 
 python3 ./code/pt/learners/local_mammo_learner.py '/home/nfferreira/data/dataset_site-1_DDSM.json' './data/preprocess/'
-pipelines(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
+```pipelines(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])```
 
 * debug_datalist: path to the dataset JSON file.
 * debug_dataset_root: output folder for image processing.

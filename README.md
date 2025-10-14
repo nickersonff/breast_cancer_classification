@@ -23,7 +23,7 @@ The main functions for configuring test scenarios are: pipelines and preprocessi
 
 *  pipelines : function responsible for building the test scenario, which consists of generating 25 random pipelines for validation for specific dataset.
 
-# 2.1 Run tests by passing arguments through the command line.
+### 2.1 Run tests by passing arguments through the command line.
 
 e.g. pipelines(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
 

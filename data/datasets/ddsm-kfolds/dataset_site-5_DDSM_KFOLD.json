@@ -1,0 +1,3606 @@
+{
+    "train": [
+        {
+            "patient_id": "P_00010",
+            "image": "Calc-Training_P_00010_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00010",
+            "image": "Calc-Training_P_00010_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00030",
+            "image": "Calc-Training_P_00030_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00030",
+            "image": "Calc-Training_P_00030_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00030",
+            "image": "Calc-Training_P_00030_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00030",
+            "image": "Calc-Training_P_00030_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00038",
+            "image": "Calc-Test_P_00038_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00038",
+            "image": "Calc-Test_P_00038_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00048",
+            "image": "Calc-Training_P_00048_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00048",
+            "image": "Calc-Training_P_00048_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00077",
+            "image": "Calc-Test_P_00077_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00077",
+            "image": "Calc-Test_P_00077_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00077",
+            "image": "Calc-Test_P_00077_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00077",
+            "image": "Calc-Test_P_00077_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00098",
+            "image": "Calc-Training_P_00098_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00098",
+            "image": "Calc-Training_P_00098_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00098",
+            "image": "Calc-Training_P_00098_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00098",
+            "image": "Calc-Training_P_00098_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Mass-Training_P_00106_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Calc-Training_P_00106_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Mass-Training_P_00106_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Mass-Training_P_00106_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Mass-Training_P_00106_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00106",
+            "image": "Calc-Training_P_00106_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00112",
+            "image": "Calc-Training_P_00112_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00112",
+            "image": "Calc-Training_P_00112_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00112",
+            "image": "Calc-Training_P_00112_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00112",
+            "image": "Calc-Training_P_00112_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00140",
+            "image": "Calc-Test_P_00140_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00140",
+            "image": "Calc-Test_P_00140_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00140",
+            "image": "Calc-Test_P_00140_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00140",
+            "image": "Calc-Test_P_00140_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00180",
+            "image": "Calc-Test_P_00180_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00180",
+            "image": "Calc-Test_P_00180_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00238",
+            "image": "Mass-Test_P_00238_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00343",
+            "image": "Mass-Test_P_00343_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00343",
+            "image": "Mass-Test_P_00343_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00343",
+            "image": "Mass-Test_P_00343_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00343",
+            "image": "Mass-Test_P_00343_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00376",
+            "image": "Mass-Training_P_00376_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00376",
+            "image": "Mass-Training_P_00376_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00394",
+            "image": "Mass-Test_P_00394_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00394",
+            "image": "Calc-Training_P_00394_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00402",
+            "image": "Calc-Test_P_00402_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00402",
+            "image": "Calc-Test_P_00402_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00418",
+            "image": "Calc-Training_P_00418_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00418",
+            "image": "Calc-Training_P_00418_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00468",
+            "image": "Mass-Training_P_00468_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00468",
+            "image": "Mass-Training_P_00468_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00471",
+            "image": "Calc-Training_P_00471_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00471",
+            "image": "Calc-Training_P_00471_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00476",
+            "image": "Calc-Training_P_00476_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00476",
+            "image": "Calc-Training_P_00476_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00476",
+            "image": "Calc-Training_P_00476_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00476",
+            "image": "Calc-Training_P_00476_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00495",
+            "image": "Mass-Training_P_00495_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00495",
+            "image": "Calc-Test_P_00495_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00495",
+            "image": "Mass-Training_P_00495_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00495",
+            "image": "Calc-Test_P_00495_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00506",
+            "image": "Mass-Training_P_00506_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00506",
+            "image": "Calc-Training_P_00506_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00506",
+            "image": "Calc-Training_P_00506_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00519",
+            "image": "Calc-Training_P_00519_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00519",
+            "image": "Calc-Training_P_00519_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00529",
+            "image": "Calc-Training_P_00529_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00529",
+            "image": "Calc-Training_P_00529_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00529",
+            "image": "Calc-Training_P_00529_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00557",
+            "image": "Calc-Training_P_00557_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00557",
+            "image": "Calc-Training_P_00557_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00635",
+            "image": "Calc-Training_P_00635_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00635",
+            "image": "Calc-Training_P_00635_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00635",
+            "image": "Calc-Training_P_00635_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00635",
+            "image": "Calc-Training_P_00635_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00639",
+            "image": "Mass-Test_P_00639_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00641",
+            "image": "Mass-Test_P_00641_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00641",
+            "image": "Mass-Test_P_00641_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00666",
+            "image": "Mass-Training_P_00666_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00666",
+            "image": "Mass-Training_P_00666_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00675",
+            "image": "Mass-Training_P_00675_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00675",
+            "image": "Mass-Training_P_00675_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00711",
+            "image": "Mass-Training_P_00711_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00711",
+            "image": "Mass-Training_P_00711_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00750",
+            "image": "Calc-Training_P_00750_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00750",
+            "image": "Calc-Training_P_00750_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00750",
+            "image": "Calc-Training_P_00750_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00750",
+            "image": "Calc-Training_P_00750_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00767",
+            "image": "Calc-Training_P_00767_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00767",
+            "image": "Calc-Training_P_00767_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00767",
+            "image": "Calc-Training_P_00767_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00767",
+            "image": "Calc-Training_P_00767_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01864",
+            "image": "Calc-Training_P_01864_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01864",
+            "image": "Mass-Training_P_01864_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01864",
+            "image": "Calc-Training_P_01864_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01864",
+            "image": "Calc-Training_P_01864_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01864",
+            "image": "Calc-Training_P_01864_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01867",
+            "image": "Calc-Test_P_01867_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01867",
+            "image": "Calc-Test_P_01867_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01885",
+            "image": "Calc-Training_P_01885_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01885",
+            "image": "Calc-Training_P_01885_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01885",
+            "image": "Calc-Training_P_01885_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01885",
+            "image": "Calc-Training_P_01885_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00008",
+            "image": "Calc-Training_P_00008_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00008",
+            "image": "Calc-Training_P_00008_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00008",
+            "image": "Calc-Training_P_00008_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00008",
+            "image": "Calc-Training_P_00008_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Calc-Training_P_00385_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Calc-Training_P_00385_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Mass-Training_P_00385_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Mass-Training_P_00385_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Calc-Training_P_00385_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00385",
+            "image": "Calc-Training_P_00385_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00467",
+            "image": "Calc-Training_P_00467_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00467",
+            "image": "Calc-Training_P_00467_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00517",
+            "image": "Mass-Training_P_00517_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00517",
+            "image": "Mass-Training_P_00517_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00674",
+            "image": "Calc-Training_P_00674_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00674",
+            "image": "Calc-Training_P_00674_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00895",
+            "image": "Calc-Training_P_00895_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00895",
+            "image": "Calc-Training_P_00895_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01030",
+            "image": "Calc-Test_P_01030_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01030",
+            "image": "Calc-Test_P_01030_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01090",
+            "image": "Mass-Test_P_01090_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01200",
+            "image": "Calc-Training_P_01200_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01200",
+            "image": "Calc-Training_P_01200_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01352",
+            "image": "Calc-Test_P_01352_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01352",
+            "image": "Calc-Test_P_01352_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01457",
+            "image": "Calc-Training_P_01457_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01457",
+            "image": "Calc-Training_P_01457_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01457",
+            "image": "Calc-Training_P_01457_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01457",
+            "image": "Calc-Training_P_01457_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01849",
+            "image": "Mass-Training_P_01849_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01849",
+            "image": "Mass-Training_P_01849_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00041",
+            "image": "Mass-Training_P_00041_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00041",
+            "image": "Calc-Test_P_00041_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00041",
+            "image": "Calc-Test_P_00041_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00041",
+            "image": "Mass-Training_P_00041_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00214",
+            "image": "Calc-Test_P_00214_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00214",
+            "image": "Calc-Test_P_00214_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00214",
+            "image": "Calc-Test_P_00214_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00256",
+            "image": "Calc-Training_P_00256_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00256",
+            "image": "Calc-Training_P_00256_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00282",
+            "image": "Calc-Training_P_00282_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00328",
+            "image": "Mass-Training_P_00328_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00425",
+            "image": "Calc-Training_P_00425_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00425",
+            "image": "Calc-Training_P_00425_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00432",
+            "image": "Calc-Training_P_00432_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00432",
+            "image": "Calc-Training_P_00432_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00452",
+            "image": "Calc-Training_P_00452_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00452",
+            "image": "Calc-Training_P_00452_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00452",
+            "image": "Calc-Training_P_00452_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00452",
+            "image": "Calc-Training_P_00452_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00455",
+            "image": "Calc-Training_P_00455_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00455",
+            "image": "Calc-Training_P_00455_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00480",
+            "image": "Calc-Training_P_00480_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00480",
+            "image": "Calc-Training_P_00480_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00480",
+            "image": "Calc-Training_P_00480_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00480",
+            "image": "Calc-Training_P_00480_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00505",
+            "image": "Calc-Training_P_00505_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00505",
+            "image": "Calc-Training_P_00505_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00505",
+            "image": "Calc-Training_P_00505_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00505",
+            "image": "Calc-Training_P_00505_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Calc-Training_P_00510_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Mass-Test_P_00510_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Mass-Test_P_00510_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Calc-Training_P_00510_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Calc-Training_P_00510_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00510",
+            "image": "Calc-Training_P_00510_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00538",
+            "image": "Calc-Training_P_00538_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00538",
+            "image": "Calc-Training_P_00538_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00555",
+            "image": "Calc-Training_P_00555_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00555",
+            "image": "Calc-Training_P_00555_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00562",
+            "image": "Calc-Test_P_00562_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00562",
+            "image": "Calc-Test_P_00562_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00562",
+            "image": "Calc-Test_P_00562_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00562",
+            "image": "Calc-Test_P_00562_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00607",
+            "image": "Mass-Training_P_00607_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00613",
+            "image": "Calc-Training_P_00613_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00613",
+            "image": "Calc-Training_P_00613_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00642",
+            "image": "Calc-Training_P_00642_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00642",
+            "image": "Calc-Training_P_00642_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00673",
+            "image": "Calc-Training_P_00673_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00673",
+            "image": "Mass-Training_P_00673_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00673",
+            "image": "Calc-Training_P_00673_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00680",
+            "image": "Calc-Training_P_00680_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00680",
+            "image": "Calc-Training_P_00680_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00680",
+            "image": "Calc-Training_P_00680_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00680",
+            "image": "Calc-Training_P_00680_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00705",
+            "image": "Calc-Training_P_00705_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00705",
+            "image": "Calc-Training_P_00705_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00744",
+            "image": "Calc-Training_P_00744_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00744",
+            "image": "Calc-Training_P_00744_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00778",
+            "image": "Mass-Training_P_00778_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00778",
+            "image": "Mass-Training_P_00778_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00780",
+            "image": "Calc-Training_P_00780_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00780",
+            "image": "Calc-Training_P_00780_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00780",
+            "image": "Calc-Training_P_00780_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00780",
+            "image": "Calc-Training_P_00780_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00799",
+            "image": "Calc-Training_P_00799_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00799",
+            "image": "Calc-Training_P_00799_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00799",
+            "image": "Calc-Training_P_00799_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00799",
+            "image": "Calc-Training_P_00799_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00840",
+            "image": "Calc-Training_P_00840_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00840",
+            "image": "Calc-Training_P_00840_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00847",
+            "image": "Mass-Training_P_00847_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00855",
+            "image": "Calc-Training_P_00855_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00858",
+            "image": "Calc-Training_P_00858_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00858",
+            "image": "Calc-Training_P_00858_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00924",
+            "image": "Calc-Training_P_00924_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00924",
+            "image": "Mass-Test_P_00924_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00924",
+            "image": "Calc-Training_P_00924_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00924",
+            "image": "Calc-Training_P_00924_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00924",
+            "image": "Calc-Training_P_00924_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00970",
+            "image": "Mass-Training_P_00970_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01003",
+            "image": "Calc-Training_P_01003_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01003",
+            "image": "Calc-Training_P_01003_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01039",
+            "image": "Mass-Training_P_01039_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01039",
+            "image": "Mass-Training_P_01039_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01099",
+            "image": "Calc-Training_P_01099_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01099",
+            "image": "Calc-Training_P_01099_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01099",
+            "image": "Calc-Training_P_01099_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01099",
+            "image": "Calc-Training_P_01099_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01185",
+            "image": "Mass-Training_P_01185_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01185",
+            "image": "Mass-Training_P_01185_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01336",
+            "image": "Calc-Training_P_01336_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01336",
+            "image": "Calc-Training_P_01336_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01336",
+            "image": "Calc-Training_P_01336_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01336",
+            "image": "Calc-Training_P_01336_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01337",
+            "image": "Calc-Training_P_01337_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01337",
+            "image": "Calc-Training_P_01337_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01407",
+            "image": "Calc-Test_P_01407_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01407",
+            "image": "Calc-Test_P_01407_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01408",
+            "image": "Calc-Training_P_01408_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01408",
+            "image": "Calc-Training_P_01408_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01440",
+            "image": "Calc-Training_P_01440_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01440",
+            "image": "Calc-Training_P_01440_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01440",
+            "image": "Calc-Training_P_01440_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01440",
+            "image": "Calc-Training_P_01440_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01487",
+            "image": "Calc-Training_P_01487_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01740",
+            "image": "Calc-Training_P_01740_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01740",
+            "image": "Calc-Training_P_01740_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01740",
+            "image": "Calc-Training_P_01740_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01740",
+            "image": "Calc-Training_P_01740_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01769",
+            "image": "Calc-Training_P_01769_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01769",
+            "image": "Calc-Training_P_01769_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01769",
+            "image": "Calc-Training_P_01769_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01769",
+            "image": "Calc-Training_P_01769_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01830",
+            "image": "Calc-Training_P_01830_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01830",
+            "image": "Calc-Training_P_01830_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01830",
+            "image": "Calc-Training_P_01830_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01830",
+            "image": "Calc-Training_P_01830_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01875",
+            "image": "Calc-Training_P_01875_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01875",
+            "image": "Calc-Training_P_01875_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01875",
+            "image": "Calc-Training_P_01875_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01875",
+            "image": "Calc-Training_P_01875_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00815",
+            "image": "Mass-Training_P_00815_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00269",
+            "image": "Calc-Training_P_00269_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00601",
+            "image": "Calc-Training_P_00601_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00038",
+            "image": "Calc-Test_P_00038_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01654",
+            "image": "Mass-Training_P_01654_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01484",
+            "image": "Mass-Training_P_01484_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01787",
+            "image": "Mass-Test_P_01787_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00132",
+            "image": "Calc-Test_P_00132_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01256",
+            "image": "Calc-Training_P_01256_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00990",
+            "image": "Mass-Training_P_00990_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_02226",
+            "image": "Calc-Training_P_02226_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00081",
+            "image": "Mass-Training_P_00081_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01358",
+            "image": "Calc-Training_P_01358_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00017",
+            "image": "Mass-Test_P_00017_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00516",
+            "image": "Mass-Test_P_00516_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00240",
+            "image": "Mass-Training_P_00240_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00419",
+            "image": "Mass-Training_P_00419_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01314",
+            "image": "Calc-Training_P_01314_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01810",
+            "image": "Calc-Training_P_01810_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00595",
+            "image": "Calc-Training_P_00595_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00403",
+            "image": "Calc-Test_P_00403_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01397",
+            "image": "Calc-Training_P_01397_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00862",
+            "image": "Calc-Training_P_00862_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01006",
+            "image": "Calc-Test_P_01006_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01861",
+            "image": "Calc-Test_P_01861_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00731",
+            "image": "Mass-Training_P_00731_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00016",
+            "image": "Mass-Test_P_00016_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00709",
+            "image": "Calc-Training_P_00709_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01132",
+            "image": "Calc-Test_P_01132_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01669",
+            "image": "Mass-Training_P_01669_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00418",
+            "image": "Calc-Training_P_00418_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01433",
+            "image": "Mass-Training_P_01433_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00499",
+            "image": "Mass-Training_P_00499_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00600",
+            "image": "Calc-Training_P_00600_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00774",
+            "image": "Calc-Test_P_00774_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00512",
+            "image": "Mass-Training_P_00512_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00136",
+            "image": "Calc-Training_P_00136_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00593",
+            "image": "Calc-Training_P_00593_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01719",
+            "image": "Mass-Test_P_01719_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01856",
+            "image": "Calc-Training_P_01856_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00870",
+            "image": "Mass-Training_P_00870_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00718",
+            "image": "Mass-Test_P_00718_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00514",
+            "image": "Mass-Test_P_00514_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00358",
+            "image": "Mass-Test_P_00358_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01148",
+            "image": "Calc-Test_P_01148_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00622",
+            "image": "Mass-Training_P_00622_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00677",
+            "image": "Mass-Test_P_00677_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00181",
+            "image": "Calc-Training_P_00181_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00257",
+            "image": "Calc-Test_P_00257_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00646",
+            "image": "Calc-Test_P_00646_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01785",
+            "image": "Mass-Training_P_01785_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00757",
+            "image": "Calc-Training_P_00757_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01477",
+            "image": "Mass-Test_P_01477_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01322",
+            "image": "Mass-Test_P_01322_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00700",
+            "image": "Mass-Training_P_00700_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00017",
+            "image": "Mass-Test_P_00017_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01259",
+            "image": "Calc-Training_P_01259_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00296",
+            "image": "Mass-Test_P_00296_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00751",
+            "image": "Calc-Training_P_00751_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00741",
+            "image": "Mass-Test_P_00741_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01111",
+            "image": "Calc-Training_P_01111_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00045",
+            "image": "Mass-Training_P_00045_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00146",
+            "image": "Mass-Training_P_00146_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00430",
+            "image": "Mass-Training_P_00430_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00086",
+            "image": "Mass-Training_P_00086_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01290",
+            "image": "Mass-Training_P_01290_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01553",
+            "image": "Mass-Training_P_01553_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01150",
+            "image": "Mass-Training_P_01150_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01643",
+            "image": "Calc-Test_P_01643_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01455",
+            "image": "Calc-Training_P_01455_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00621",
+            "image": "Calc-Training_P_00621_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01446",
+            "image": "Calc-Training_P_01446_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00729",
+            "image": "Calc-Training_P_00729_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00368",
+            "image": "Calc-Test_P_00368_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00527",
+            "image": "Calc-Training_P_00527_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00410",
+            "image": "Calc-Training_P_00410_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01611",
+            "image": "Mass-Training_P_01611_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00430",
+            "image": "Mass-Training_P_00430_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01454",
+            "image": "Mass-Training_P_01454_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01669",
+            "image": "Mass-Training_P_01669_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00683",
+            "image": "Calc-Training_P_00683_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00255",
+            "image": "Calc-Training_P_00255_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00299",
+            "image": "Calc-Test_P_00299_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00735",
+            "image": "Calc-Training_P_00735_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01347",
+            "image": "Mass-Test_P_01347_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00291",
+            "image": "Calc-Training_P_00291_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00471",
+            "image": "Mass-Training_P_00471_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00662",
+            "image": "Mass-Test_P_00662_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00276",
+            "image": "Calc-Training_P_00276_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01160",
+            "image": "Calc-Training_P_01160_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00321",
+            "image": "Calc-Training_P_00321_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00375",
+            "image": "Mass-Test_P_00375_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00515",
+            "image": "Mass-Training_P_00515_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00508",
+            "image": "Calc-Training_P_00508_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00163",
+            "image": "Calc-Test_P_00163_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00896",
+            "image": "Mass-Training_P_00896_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00420",
+            "image": "Mass-Training_P_00420_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01334",
+            "image": "Calc-Training_P_01334_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00568",
+            "image": "Mass-Training_P_00568_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00732",
+            "image": "Mass-Training_P_00732_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00497",
+            "image": "Calc-Test_P_00497_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00058",
+            "image": "Mass-Training_P_00058_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00242",
+            "image": "Mass-Training_P_00242_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00283",
+            "image": "Mass-Training_P_00283_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00199",
+            "image": "Mass-Training_P_00199_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00118",
+            "image": "Mass-Test_P_00118_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00412",
+            "image": "Mass-Training_P_00412_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01826",
+            "image": "Mass-Training_P_01826_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00669",
+            "image": "Calc-Training_P_00669_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00127",
+            "image": "Calc-Test_P_00127_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01095",
+            "image": "Calc-Training_P_01095_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01840",
+            "image": "Calc-Training_P_01840_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00653",
+            "image": "Mass-Training_P_00653_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00100",
+            "image": "Calc-Test_P_00100_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00779",
+            "image": "Mass-Training_P_00779_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01160",
+            "image": "Calc-Training_P_01160_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00157",
+            "image": "Calc-Training_P_00157_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01399",
+            "image": "Calc-Test_P_01399_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01754",
+            "image": "Mass-Training_P_01754_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00320",
+            "image": "Mass-Training_P_00320_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00413",
+            "image": "Mass-Training_P_00413_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00530",
+            "image": "Calc-Training_P_00530_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01037",
+            "image": "Calc-Training_P_01037_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00515",
+            "image": "Mass-Training_P_00515_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00422",
+            "image": "Calc-Training_P_00422_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00486",
+            "image": "Calc-Training_P_00486_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01888",
+            "image": "Mass-Training_P_01888_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01643",
+            "image": "Calc-Test_P_01643_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01544",
+            "image": "Mass-Training_P_01544_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01127",
+            "image": "Calc-Training_P_01127_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00474",
+            "image": "Calc-Training_P_00474_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00834",
+            "image": "Calc-Training_P_00834_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00225",
+            "image": "Mass-Training_P_00225_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01130",
+            "image": "Mass-Training_P_01130_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01360",
+            "image": "Mass-Training_P_01360_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00316",
+            "image": "Calc-Training_P_00316_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00314",
+            "image": "Mass-Training_P_00314_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00266",
+            "image": "Calc-Training_P_00266_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00293",
+            "image": "Calc-Training_P_00293_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00322",
+            "image": "Calc-Training_P_00322_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_02437",
+            "image": "Calc-Training_P_02437_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00243",
+            "image": "Calc-Training_P_00243_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00302",
+            "image": "Calc-Training_P_00302_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01319",
+            "image": "Calc-Training_P_01319_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00194",
+            "image": "Mass-Test_P_00194_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00458",
+            "image": "Calc-Training_P_00458_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00084",
+            "image": "Calc-Training_P_00084_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00207",
+            "image": "Mass-Training_P_00207_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00556",
+            "image": "Calc-Training_P_00556_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00712",
+            "image": "Calc-Training_P_00712_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00024",
+            "image": "Calc-Training_P_00024_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00485",
+            "image": "Calc-Test_P_00485_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00474",
+            "image": "Calc-Training_P_00474_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00395",
+            "image": "Calc-Training_P_00395_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00160",
+            "image": "Mass-Training_P_00160_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01215",
+            "image": "Mass-Training_P_01215_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01044",
+            "image": "Mass-Test_P_01044_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00129",
+            "image": "Calc-Training_P_00129_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01878",
+            "image": "Mass-Training_P_01878_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00120",
+            "image": "Mass-Training_P_00120_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01370",
+            "image": "Calc-Training_P_01370_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00442",
+            "image": "Mass-Training_P_00442_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00377",
+            "image": "Calc-Training_P_00377_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01108",
+            "image": "Calc-Training_P_01108_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01436",
+            "image": "Calc-Training_P_01436_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00417",
+            "image": "Mass-Training_P_00417_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00857",
+            "image": "Calc-Test_P_00857_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01791",
+            "image": "Calc-Training_P_01791_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00369",
+            "image": "Mass-Test_P_00369_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01316",
+            "image": "Mass-Test_P_01316_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00479",
+            "image": "Calc-Training_P_00479_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00978",
+            "image": "Calc-Training_P_00978_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01716",
+            "image": "Mass-Test_P_01716_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00302",
+            "image": "Calc-Training_P_00302_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00121",
+            "image": "Calc-Training_P_00121_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00397",
+            "image": "Calc-Test_P_00397_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01259",
+            "image": "Calc-Training_P_01259_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01604",
+            "image": "Mass-Training_P_01604_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00403",
+            "image": "Calc-Test_P_00403_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00134",
+            "image": "Mass-Training_P_00134_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00360",
+            "image": "Calc-Training_P_00360_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_02508",
+            "image": "Calc-Training_P_02508_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00842",
+            "image": "Calc-Training_P_00842_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00395",
+            "image": "Calc-Training_P_00395_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01655",
+            "image": "Calc-Training_P_01655_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00246",
+            "image": "Calc-Test_P_00246_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00951",
+            "image": "Mass-Test_P_00951_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01666",
+            "image": "Mass-Test_P_01666_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00465",
+            "image": "Mass-Training_P_00465_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00678",
+            "image": "Mass-Training_P_00678_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01262",
+            "image": "Calc-Training_P_01262_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00716",
+            "image": "Mass-Training_P_00716_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00581",
+            "image": "Mass-Training_P_00581_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00084",
+            "image": "Calc-Training_P_00084_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00275",
+            "image": "Calc-Training_P_00275_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01190",
+            "image": "Mass-Training_P_01190_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00372",
+            "image": "Calc-Test_P_00372_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00606",
+            "image": "Calc-Training_P_00606_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00570",
+            "image": "Calc-Test_P_00570_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00649",
+            "image": "Calc-Test_P_00649_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00369",
+            "image": "Mass-Test_P_00369_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00159",
+            "image": "Calc-Training_P_00159_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00543",
+            "image": "Mass-Training_P_00543_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00942",
+            "image": "Mass-Test_P_00942_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00684",
+            "image": "Calc-Training_P_00684_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01752",
+            "image": "Calc-Test_P_01752_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00232",
+            "image": "Calc-Training_P_00232_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00732",
+            "image": "Mass-Training_P_00732_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01625",
+            "image": "Calc-Training_P_01625_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01009",
+            "image": "Mass-Training_P_01009_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00339",
+            "image": "Calc-Training_P_00339_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00526",
+            "image": "Mass-Training_P_00526_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00280",
+            "image": "Calc-Training_P_00280_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00181",
+            "image": "Calc-Training_P_00181_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01883",
+            "image": "Calc-Test_P_01883_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00090",
+            "image": "Mass-Training_P_00090_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01082",
+            "image": "Mass-Training_P_01082_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00203",
+            "image": "Mass-Test_P_00203_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00973",
+            "image": "Calc-Training_P_00973_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00571",
+            "image": "Calc-Training_P_00571_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00608",
+            "image": "Calc-Test_P_00608_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00572",
+            "image": "Mass-Training_P_00572_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01200",
+            "image": "Calc-Training_P_01200_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00337",
+            "image": "Calc-Training_P_00337_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01229",
+            "image": "Calc-Training_P_01229_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00679",
+            "image": "Calc-Test_P_00679_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01248",
+            "image": "Mass-Training_P_01248_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00690",
+            "image": "Mass-Training_P_00690_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00638",
+            "image": "Calc-Training_P_00638_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00577",
+            "image": "Mass-Training_P_00577_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00576",
+            "image": "Mass-Test_P_00576_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00901",
+            "image": "Mass-Training_P_00901_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00254",
+            "image": "Mass-Training_P_00254_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00332",
+            "image": "Mass-Training_P_00332_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_02508",
+            "image": "Calc-Training_P_02508_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00287",
+            "image": "Mass-Training_P_00287_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00018",
+            "image": "Mass-Training_P_00018_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00202",
+            "image": "Calc-Test_P_00202_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00870",
+            "image": "Mass-Training_P_00870_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00297",
+            "image": "Calc-Training_P_00297_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00447",
+            "image": "Calc-Training_P_00447_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01340",
+            "image": "Mass-Training_P_01340_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00758",
+            "image": "Mass-Test_P_00758_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00734",
+            "image": "Calc-Training_P_00734_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00370",
+            "image": "Mass-Training_P_00370_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00620",
+            "image": "Calc-Test_P_00620_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01461",
+            "image": "Mass-Training_P_01461_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00370",
+            "image": "Mass-Training_P_00370_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01319",
+            "image": "Calc-Training_P_01319_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01411",
+            "image": "Mass-Training_P_01411_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01719",
+            "image": "Mass-Test_P_01719_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00265",
+            "image": "Mass-Training_P_00265_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00328",
+            "image": "Mass-Training_P_00328_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00596",
+            "image": "Mass-Training_P_00596_RIGHT_CC.npy",
+            "label": 1
+        }
+    ],
+    "test": [
+        {
+            "patient_id": "P_00795",
+            "image": "Calc-Test_P_00795_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00795",
+            "image": "Calc-Test_P_00795_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00812",
+            "image": "Calc-Training_P_00812_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00812",
+            "image": "Calc-Training_P_00812_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00878",
+            "image": "Calc-Training_P_00878_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00878",
+            "image": "Calc-Training_P_00878_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00905",
+            "image": "Calc-Test_P_00905_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00905",
+            "image": "Calc-Test_P_00905_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00991",
+            "image": "Calc-Training_P_00991_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00991",
+            "image": "Calc-Training_P_00991_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00992",
+            "image": "Calc-Training_P_00992_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_00992",
+            "image": "Calc-Training_P_00992_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01029",
+            "image": "Calc-Training_P_01029_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01029",
+            "image": "Calc-Training_P_01029_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01029",
+            "image": "Calc-Training_P_01029_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01029",
+            "image": "Calc-Training_P_01029_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01049",
+            "image": "Calc-Training_P_01049_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01049",
+            "image": "Calc-Training_P_01049_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01069",
+            "image": "Calc-Training_P_01069_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01069",
+            "image": "Calc-Training_P_01069_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01069",
+            "image": "Calc-Training_P_01069_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01069",
+            "image": "Calc-Training_P_01069_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01102",
+            "image": "Calc-Training_P_01102_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01102",
+            "image": "Calc-Training_P_01102_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01165",
+            "image": "Mass-Training_P_01165_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01165",
+            "image": "Mass-Training_P_01165_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01169",
+            "image": "Calc-Training_P_01169_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01169",
+            "image": "Calc-Training_P_01169_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01207",
+            "image": "Mass-Training_P_01207_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01211",
+            "image": "Calc-Test_P_01211_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01211",
+            "image": "Calc-Test_P_01211_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01211",
+            "image": "Calc-Test_P_01211_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01211",
+            "image": "Calc-Test_P_01211_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01224",
+            "image": "Calc-Test_P_01224_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01224",
+            "image": "Calc-Test_P_01224_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01250",
+            "image": "Mass-Training_P_01250_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01250",
+            "image": "Mass-Training_P_01250_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01270",
+            "image": "Mass-Training_P_01270_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01270",
+            "image": "Mass-Training_P_01270_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01274",
+            "image": "Calc-Training_P_01274_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01274",
+            "image": "Calc-Training_P_01274_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01274",
+            "image": "Calc-Training_P_01274_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01274",
+            "image": "Mass-Training_P_01274_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01274",
+            "image": "Calc-Training_P_01274_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01276",
+            "image": "Calc-Training_P_01276_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01276",
+            "image": "Calc-Training_P_01276_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01306",
+            "image": "Calc-Training_P_01306_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01306",
+            "image": "Calc-Training_P_01306_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01306",
+            "image": "Calc-Training_P_01306_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01306",
+            "image": "Calc-Training_P_01306_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01332",
+            "image": "Mass-Training_P_01332_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01332",
+            "image": "Mass-Training_P_01332_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01398",
+            "image": "Mass-Training_P_01398_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01398",
+            "image": "Mass-Training_P_01398_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01409",
+            "image": "Calc-Training_P_01409_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01409",
+            "image": "Calc-Training_P_01409_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01435",
+            "image": "Calc-Training_P_01435_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01435",
+            "image": "Calc-Training_P_01435_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01437",
+            "image": "Calc-Training_P_01437_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01437",
+            "image": "Calc-Training_P_01437_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01437",
+            "image": "Calc-Training_P_01437_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01437",
+            "image": "Calc-Training_P_01437_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01460",
+            "image": "Calc-Test_P_01460_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01460",
+            "image": "Calc-Test_P_01460_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01460",
+            "image": "Calc-Test_P_01460_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01460",
+            "image": "Calc-Test_P_01460_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01462",
+            "image": "Calc-Training_P_01462_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01462",
+            "image": "Calc-Training_P_01462_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01563",
+            "image": "Calc-Training_P_01563_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01563",
+            "image": "Calc-Training_P_01563_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01563",
+            "image": "Calc-Training_P_01563_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01563",
+            "image": "Calc-Training_P_01563_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01577",
+            "image": "Calc-Training_P_01577_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01577",
+            "image": "Calc-Training_P_01577_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01628",
+            "image": "Calc-Training_P_01628_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01628",
+            "image": "Calc-Training_P_01628_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01628",
+            "image": "Calc-Training_P_01628_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01628",
+            "image": "Calc-Training_P_01628_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01635",
+            "image": "Mass-Training_P_01635_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01635",
+            "image": "Mass-Training_P_01635_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01664",
+            "image": "Calc-Training_P_01664_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01664",
+            "image": "Calc-Training_P_01664_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01664",
+            "image": "Calc-Training_P_01664_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01664",
+            "image": "Calc-Training_P_01664_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01691",
+            "image": "Calc-Training_P_01691_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01691",
+            "image": "Calc-Training_P_01691_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01700",
+            "image": "Calc-Training_P_01700_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01700",
+            "image": "Calc-Training_P_01700_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01700",
+            "image": "Calc-Training_P_01700_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01700",
+            "image": "Calc-Training_P_01700_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01711",
+            "image": "Calc-Test_P_01711_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01711",
+            "image": "Calc-Test_P_01711_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01760",
+            "image": "Calc-Training_P_01760_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01760",
+            "image": "Calc-Training_P_01760_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01784",
+            "image": "Calc-Training_P_01784_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01784",
+            "image": "Calc-Training_P_01784_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01800",
+            "image": "Mass-Test_P_01800_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01819",
+            "image": "Mass-Training_P_01819_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01823",
+            "image": "Calc-Training_P_01823_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01823",
+            "image": "Calc-Training_P_01823_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01823",
+            "image": "Calc-Training_P_01823_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01823",
+            "image": "Calc-Training_P_01823_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01838",
+            "image": "Calc-Training_P_01838_RIGHT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01838",
+            "image": "Calc-Training_P_01838_LEFT_MLO.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01838",
+            "image": "Calc-Training_P_01838_LEFT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01838",
+            "image": "Calc-Training_P_01838_RIGHT_CC.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "P_01623",
+            "image": "Mass-Test_P_01623_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01741",
+            "image": "Mass-Test_P_01741_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01419",
+            "image": "Calc-Test_P_01419_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01173",
+            "image": "Mass-Training_P_01173_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01225",
+            "image": "Mass-Training_P_01225_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01505",
+            "image": "Calc-Training_P_01505_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01186",
+            "image": "Calc-Training_P_01186_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01144",
+            "image": "Mass-Training_P_01144_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01418",
+            "image": "Mass-Training_P_01418_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01053",
+            "image": "Calc-Training_P_01053_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01165",
+            "image": "Mass-Training_P_01165_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01400",
+            "image": "Calc-Training_P_01400_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01776",
+            "image": "Mass-Training_P_01776_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01276",
+            "image": "Calc-Training_P_01276_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01467",
+            "image": "Mass-Test_P_01467_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01040",
+            "image": "Calc-Training_P_01040_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01187",
+            "image": "Mass-Test_P_01187_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01574",
+            "image": "Calc-Training_P_01574_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00899",
+            "image": "Calc-Training_P_00899_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00937",
+            "image": "Calc-Training_P_00937_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01518",
+            "image": "Mass-Test_P_01518_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01000",
+            "image": "Mass-Training_P_01000_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01572",
+            "image": "Mass-Training_P_01572_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00945",
+            "image": "Calc-Training_P_00945_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01405",
+            "image": "Mass-Training_P_01405_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01514",
+            "image": "Mass-Training_P_01514_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01179",
+            "image": "Calc-Test_P_01179_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01109",
+            "image": "Mass-Training_P_01109_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01788",
+            "image": "Mass-Training_P_01788_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01799",
+            "image": "Mass-Training_P_01799_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01379",
+            "image": "Mass-Training_P_01379_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01103",
+            "image": "Mass-Training_P_01103_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01419",
+            "image": "Calc-Test_P_01419_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01140",
+            "image": "Mass-Test_P_01140_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01642",
+            "image": "Mass-Training_P_01642_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01326",
+            "image": "Mass-Training_P_01326_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01845",
+            "image": "Calc-Test_P_01845_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01850",
+            "image": "Mass-Training_P_01850_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01821",
+            "image": "Mass-Training_P_01821_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01803",
+            "image": "Calc-Test_P_01803_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01443",
+            "image": "Calc-Training_P_01443_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00925",
+            "image": "Calc-Training_P_00925_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01725",
+            "image": "Mass-Training_P_01725_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01753",
+            "image": "Mass-Training_P_01753_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01353",
+            "image": "Calc-Test_P_01353_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01459",
+            "image": "Calc-Training_P_01459_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01225",
+            "image": "Mass-Training_P_01225_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01083",
+            "image": "Mass-Training_P_01083_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00971",
+            "image": "Calc-Training_P_00971_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01218",
+            "image": "Mass-Training_P_01218_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01204",
+            "image": "Mass-Test_P_01204_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00899",
+            "image": "Calc-Training_P_00899_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01425",
+            "image": "Calc-Test_P_01425_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01545",
+            "image": "Calc-Training_P_01545_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00969",
+            "image": "Calc-Training_P_00969_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01641",
+            "image": "Mass-Training_P_01641_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01721",
+            "image": "Calc-Training_P_01721_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01068",
+            "image": "Mass-Test_P_01068_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01562",
+            "image": "Calc-Test_P_01562_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01112",
+            "image": "Mass-Training_P_01112_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01129",
+            "image": "Calc-Training_P_01129_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01034",
+            "image": "Calc-Training_P_01034_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00864",
+            "image": "Calc-Training_P_00864_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00811",
+            "image": "Calc-Test_P_00811_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00912",
+            "image": "Calc-Training_P_00912_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01414",
+            "image": "Calc-Test_P_01414_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01084",
+            "image": "Calc-Training_P_01084_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01526",
+            "image": "Calc-Training_P_01526_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01084",
+            "image": "Mass-Training_P_01084_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01201",
+            "image": "Mass-Training_P_01201_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00925",
+            "image": "Calc-Training_P_00925_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01824",
+            "image": "Mass-Training_P_01824_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01241",
+            "image": "Mass-Training_P_01241_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01163",
+            "image": "Mass-Training_P_01163_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01362",
+            "image": "Mass-Training_P_01362_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01230",
+            "image": "Mass-Training_P_01230_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01361",
+            "image": "Calc-Training_P_01361_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01815",
+            "image": "Mass-Test_P_01815_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01138",
+            "image": "Mass-Training_P_01138_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01818",
+            "image": "Calc-Training_P_01818_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01086",
+            "image": "Mass-Training_P_01086_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01209",
+            "image": "Mass-Training_P_01209_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01123",
+            "image": "Mass-Training_P_01123_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01777",
+            "image": "Calc-Training_P_01777_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01035",
+            "image": "Mass-Training_P_01035_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01502",
+            "image": "Calc-Test_P_01502_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01853",
+            "image": "Mass-Training_P_01853_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01156",
+            "image": "Calc-Training_P_01156_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01599",
+            "image": "Mass-Test_P_01599_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01227",
+            "image": "Calc-Training_P_01227_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01249",
+            "image": "Calc-Training_P_01249_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01443",
+            "image": "Calc-Training_P_01443_RIGHT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01793",
+            "image": "Calc-Training_P_01793_LEFT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00995",
+            "image": "Mass-Training_P_00995_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01534",
+            "image": "Calc-Test_P_01534_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01092",
+            "image": "Calc-Test_P_01092_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01163",
+            "image": "Mass-Training_P_01163_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00832",
+            "image": "Calc-Training_P_00832_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00836",
+            "image": "Mass-Training_P_00836_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00868",
+            "image": "Calc-Training_P_00868_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00843",
+            "image": "Calc-Test_P_00843_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01573",
+            "image": "Calc-Training_P_01573_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01540",
+            "image": "Mass-Training_P_01540_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_00923",
+            "image": "Calc-Training_P_00923_RIGHT_MLO.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01605",
+            "image": "Calc-Training_P_01605_LEFT_CC.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "P_01134",
+            "image": "Mass-Training_P_01134_RIGHT_CC.npy",
+            "label": 1
+        }
+    ]
+}

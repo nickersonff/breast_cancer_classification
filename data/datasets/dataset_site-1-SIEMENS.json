@@ -1,0 +1,3126 @@
+{
+    "train": [
+        {
+            "patient_id": "96f69471adaac2bdad7539367b0e1289",
+            "image": "96f69471adaac2bdad7539367b0e1289_e1903db5e457961ff8bd95e77faa92c7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "38f0774c2e72c4d5407df23a43aa1ff7",
+            "image": "38f0774c2e72c4d5407df23a43aa1ff7_00be38a5c0566291168fe381ba0028e6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5fe1adc27826e88ec772649906b027f9",
+            "image": "5fe1adc27826e88ec772649906b027f9_1542f73caaab37a544bf725be5b4ff0f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c1328ae8d386f50f20398eab60144517",
+            "image": "c1328ae8d386f50f20398eab60144517_805ac4538a0ca3897476bb63a44569ed.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9ec3039bf215173edf48a8b4f23ad56a",
+            "image": "9ec3039bf215173edf48a8b4f23ad56a_8338207743a394ab8b56b5b920fc30b6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c626a17d9f6aa2a128d94d064819e60d",
+            "image": "c626a17d9f6aa2a128d94d064819e60d_642e3c4fc9781baacd965a5d6b5d6f1f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5391295c0b9ae2214d1b53debaafea83",
+            "image": "5391295c0b9ae2214d1b53debaafea83_5868f5dca604bc07a0724742acc87778.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e39602b13a9eea13c99888f2f47cc77f",
+            "image": "e39602b13a9eea13c99888f2f47cc77f_15ad456e4bc707e7ffeee20e60a3a820.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b0b8a20cc3a04a24bf03ebaebdc6f0b8",
+            "image": "b0b8a20cc3a04a24bf03ebaebdc6f0b8_526953b6dda80f65eaf0732fc8d105a6.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9d43744e7f5533035b11f527ae4290a1",
+            "image": "9d43744e7f5533035b11f527ae4290a1_4e90f52d5df989bce9c684b4cdc25383.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6fa80c03f14a225a5c2250da38ea8d31",
+            "image": "6fa80c03f14a225a5c2250da38ea8d31_ab02794d7eaa048f6b359e99d98ea008.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "54b84438aceebc33848f1ed19877b330",
+            "image": "54b84438aceebc33848f1ed19877b330_95fc8c105d16ac569c2a2ac2966e8c55.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5f7bf8df16c893f068c2bba748edbc0f",
+            "image": "5f7bf8df16c893f068c2bba748edbc0f_5b1bf542f3b6b98ff5b6d9f4436b115a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4a70ff4f20fa72a6943948ff05711ddd",
+            "image": "4a70ff4f20fa72a6943948ff05711ddd_e9452a876b44934e054a21ddce2f2a91.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2aba852b18dae4cb74a05136d62fb145",
+            "image": "2aba852b18dae4cb74a05136d62fb145_a133cfb3a90b7fe83ff104f3800f8ac8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "32f07a78114fa2c7684de6bf49ac5ff4",
+            "image": "32f07a78114fa2c7684de6bf49ac5ff4_e04a2193610f7950f95fb603ecd15e2c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6f2591b3a72ae0d007a7f84813757bcc",
+            "image": "6f2591b3a72ae0d007a7f84813757bcc_dff394286a109ff7d6931933eb9bff20.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "40fd171bb41c81180c7d1f1983d6c2fb",
+            "image": "40fd171bb41c81180c7d1f1983d6c2fb_bf62934c9cb946d05b37ca6fa31c3651.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5e738b21ece161aa495b59fee9c11455",
+            "image": "5e738b21ece161aa495b59fee9c11455_ffe25766ac37ab145ae7f0bd78665f81.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5719e63e448362e02a245939bcf66dc4",
+            "image": "5719e63e448362e02a245939bcf66dc4_5f0aad18470ae8834a1a26ef05a29590.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bad08dacb34157c457fad3e9448ff883",
+            "image": "bad08dacb34157c457fad3e9448ff883_c566372442f5d13adf8949c7f839eabb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c9bf7a8ab7246729d66d3125f77250c5",
+            "image": "c9bf7a8ab7246729d66d3125f77250c5_6db25afb04a1b448503aa037a4b955f4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5d603a1605de79e05c9e9999aeb54e7d",
+            "image": "5d603a1605de79e05c9e9999aeb54e7d_2674091a22efce4b2ba85778fb5ce269.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e49d8e95ce75cfec372ac63495490225",
+            "image": "e49d8e95ce75cfec372ac63495490225_019b9f6365fa641db040b5b643fadc42.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "eff31eb110bc0a5d76f2db4c240dfd14",
+            "image": "eff31eb110bc0a5d76f2db4c240dfd14_c171898cd8cce888b5f8e198dda75546.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "65d3434250194d7df9dda9db408fcdcc",
+            "image": "65d3434250194d7df9dda9db408fcdcc_508d8a62ef2b584eab250759e3d03be1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2ef5fba7c70432c284692aed3cee1afb",
+            "image": "2ef5fba7c70432c284692aed3cee1afb_f776fba59264d93e4c3a28c24b669cac.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2b9e6ab131f62510961203e19ffa2829",
+            "image": "2b9e6ab131f62510961203e19ffa2829_5bdf1bcb7ca27a2e260e9d5dbcdec548.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ff708a7a7d6af0f90b6b3ddee658f468",
+            "image": "ff708a7a7d6af0f90b6b3ddee658f468_931546b73a9e156d1f2a71306eb1089f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e480e873a319b8caa10cb1508d537252",
+            "image": "e480e873a319b8caa10cb1508d537252_2a04163be4ae7d6f70732904202cc934.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b306bdb2fa3bb2890ba420d32b3f8fcb",
+            "image": "b306bdb2fa3bb2890ba420d32b3f8fcb_b163d5081f17dcf491d3364762732154.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1f85b3aa70098ca6512a70eb5b64253e",
+            "image": "1f85b3aa70098ca6512a70eb5b64253e_8b8a5fc22981d783644c15594185f295.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8d488f7bfa2f1b08032abd2fea36b4f1",
+            "image": "8d488f7bfa2f1b08032abd2fea36b4f1_2bfafe903b3edfefb46d098b15651b9d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b2deb4a18f3ebd2ea976864f1117b00c",
+            "image": "b2deb4a18f3ebd2ea976864f1117b00c_726295f9d45ec3a07126e31a87faa15e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "382a5331fae3a148d8c1aa3808ac71ec",
+            "image": "382a5331fae3a148d8c1aa3808ac71ec_9cda9b93e5130a856ff7b435ab940e85.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c7a6bcb9dd5cb7f576bc2eda4034e94d",
+            "image": "c7a6bcb9dd5cb7f576bc2eda4034e94d_61639cfff95dae27b1a9953fbb7b4339.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ac9af4a1786443fb9471b28d43cca24c",
+            "image": "ac9af4a1786443fb9471b28d43cca24c_155d06e7b464e905a66840f908c828f0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a3f6452bbf7c42f47122882ac59fbecb",
+            "image": "a3f6452bbf7c42f47122882ac59fbecb_f9752db4838de26b89c97d2b708a3a16.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "38f0774c2e72c4d5407df23a43aa1ff7",
+            "image": "38f0774c2e72c4d5407df23a43aa1ff7_99b304a3e368041ed3674dd654c6cf8c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c7a6bcb9dd5cb7f576bc2eda4034e94d",
+            "image": "c7a6bcb9dd5cb7f576bc2eda4034e94d_4d40458601ac49f2e07a56ead392a189.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1a1adc50f9e51ffabe94bbaa139a5456",
+            "image": "1a1adc50f9e51ffabe94bbaa139a5456_ed54216bc453e7ca22f93e502d6fd240.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5ee619d5a5ae60e93039e85216f56eae",
+            "image": "5ee619d5a5ae60e93039e85216f56eae_8ee444c21b4152204f05ef7b5358005f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "26ad56e068d9c31a33165302d78e7bb1",
+            "image": "26ad56e068d9c31a33165302d78e7bb1_726e579eb8982c5fb3c120039a64fe01.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e233b75f7dc52e0ea37c88ad1c4df17d",
+            "image": "e233b75f7dc52e0ea37c88ad1c4df17d_8c799782afb5ab3a1a9cd5236dbddb98.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "30c7a7e7006e2accae013da275f4c13d",
+            "image": "30c7a7e7006e2accae013da275f4c13d_7fb9181e0f69329c2487ff94b5586980.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "365bc88dcb6760d9d2250a0162064211",
+            "image": "365bc88dcb6760d9d2250a0162064211_840cccc37e9e1e55729407c20fa3b165.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "da6ce640b22100d327694fac20224427",
+            "image": "da6ce640b22100d327694fac20224427_f60e4a6ab3f58f13e178fe8d98e532c5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b4dafd5cb6e57975c584c97088c3e291",
+            "image": "b4dafd5cb6e57975c584c97088c3e291_7bee6a6a6877762b7a40dcd9878f0e85.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ae9a3ca076fb6c8d1671e609a2d91ecd",
+            "image": "ae9a3ca076fb6c8d1671e609a2d91ecd_c7cc80f1bcfb86b99b0186b693d7d5de.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4279642f86acf6669b6555401fbb1ddb",
+            "image": "4279642f86acf6669b6555401fbb1ddb_f86712f699aa15698bc23fb25c8233d9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4152e212d727057984702e2dfbdee234",
+            "image": "4152e212d727057984702e2dfbdee234_9f3a7288c7c0d992ffe69a23fe34b1e4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "48975fff28d21f8a852624749fcc7411",
+            "image": "48975fff28d21f8a852624749fcc7411_9b41ab605b23a804f8891e25b37097fd.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d8d9c121cc587f31710f61b20fb8c98c",
+            "image": "d8d9c121cc587f31710f61b20fb8c98c_660d6f19556bd5eab8d81c40150c2ba0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dd98abaf0ef843feae62a29c31caee45",
+            "image": "dd98abaf0ef843feae62a29c31caee45_c8039851546da1cee882dd8b016ba1cd.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bcb0736132d431b4b79b564afbb3fa8d",
+            "image": "bcb0736132d431b4b79b564afbb3fa8d_16a7ae04fb0ec0039afbceb6c920906f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e964b3b698d9c99b76205489afe7cd2f",
+            "image": "e964b3b698d9c99b76205489afe7cd2f_d3fa7c942df60ce750fc793d8f5a836f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "832b88cae0834e29b23c984f2a49d6b0",
+            "image": "832b88cae0834e29b23c984f2a49d6b0_a5a0bfb7df5e0693857bf0166b025787.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "27d4dc70d6f73554e4ead70f01867167",
+            "image": "27d4dc70d6f73554e4ead70f01867167_01958718afdf303581e758cdf34eaf8a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bd4a5bacc4a53667f8dcfb1bc28f7370",
+            "image": "bd4a5bacc4a53667f8dcfb1bc28f7370_4938947eced3f5ef14626fdd8658004b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "07307a4c40b7cd296037005f3457063c",
+            "image": "07307a4c40b7cd296037005f3457063c_0c1d968ae4ba60a78dc38da6317cbfa1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "892b764de0e7acb04c6b739b69927d2d",
+            "image": "892b764de0e7acb04c6b739b69927d2d_c1b02c974a905530a7ce61b194e4a361.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "003700f3c960e0b9bca2b8437c3dbf05",
+            "image": "003700f3c960e0b9bca2b8437c3dbf05_51b47f9024ccad1356354f56ac916f29.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "76e244156371789a3b60dd9a1f8fe36c",
+            "image": "76e244156371789a3b60dd9a1f8fe36c_2dd78131c9c75ec3151c2d9535829037.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "175f10693af82fdf9bdf9e711697ec13",
+            "image": "175f10693af82fdf9bdf9e711697ec13_031592807c30b54e2fb4bd2400e634e8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "44f8a6c67c79d21903c3202c980244fd",
+            "image": "44f8a6c67c79d21903c3202c980244fd_84a662914bd6294e308b3a5611e91443.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b8f8fdca9f95cb0f5291e11a7d796a28",
+            "image": "b8f8fdca9f95cb0f5291e11a7d796a28_d6b37bf4be96c08b1f5459287aa8884f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4f23cdd4785c6fcd7e182a9ab6772f49",
+            "image": "4f23cdd4785c6fcd7e182a9ab6772f49_6202355f08b8036890db6f1f8dfaa826.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a3efa110e27ffa4d5b2636e388a5c700",
+            "image": "a3efa110e27ffa4d5b2636e388a5c700_77f31b96295aff83e7a21df366da19b1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1f85b3aa70098ca6512a70eb5b64253e",
+            "image": "1f85b3aa70098ca6512a70eb5b64253e_1d15e5c98d1e27d9fe80aac31d573d9b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "75df369020dfec63262df17496882be4",
+            "image": "75df369020dfec63262df17496882be4_e38002fcb59bdbe4d065eb2659026d35.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2eed237aeeb4c9edca6d5923e6107fd8",
+            "image": "2eed237aeeb4c9edca6d5923e6107fd8_3f3ec60b56a3366e747d8c1e2679edd9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6c1673b5ab22a98988e9ba8349dc9554",
+            "image": "6c1673b5ab22a98988e9ba8349dc9554_7b6d13368cc589ddd4453f0d0c05b7d9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "62d3de922e860fa5bba67883926864a5",
+            "image": "62d3de922e860fa5bba67883926864a5_c6d548ad2a3585ab49bcbb43f2ca9233.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8cc9e2bcb5229c6c018aa3afb40b1756",
+            "image": "8cc9e2bcb5229c6c018aa3afb40b1756_b73e9bd407021305a036b7dc359dfd0d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5227b4cebf4102403818f365bdb145ab",
+            "image": "5227b4cebf4102403818f365bdb145ab_f6134abd9929d8749885eddf27148a00.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3d69a7800411de271a7ba6503b05bef6",
+            "image": "3d69a7800411de271a7ba6503b05bef6_b8ad72c3472c5490c59f664b2a6f6269.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "90bdb495b39d53271b2ccf97cde90bac",
+            "image": "90bdb495b39d53271b2ccf97cde90bac_15a47ab4144332ccee35214af3cd030a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "eaffca1d93f249b54f4dfb6620060fb5",
+            "image": "eaffca1d93f249b54f4dfb6620060fb5_91f8118d5aad4eaa03d93e7c125ef241.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b9c15e629cf02f501acbc194420d749c",
+            "image": "b9c15e629cf02f501acbc194420d749c_002074412a8fc178c271fb93b55c3e29.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "919f518e970369e72c8bc6bbf2f23196",
+            "image": "919f518e970369e72c8bc6bbf2f23196_4791bb1a315601af743c5fed74d7bddd.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6a513ba4c316bad225420ec1e1370e6e",
+            "image": "6a513ba4c316bad225420ec1e1370e6e_c368ddd11e70a207a8b86f543eb0b5cf.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ecf23dfece05e009f4bbdd8fc386efde",
+            "image": "ecf23dfece05e009f4bbdd8fc386efde_e9f60c6702fa4dfe424362daa1b95e46.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "db67ca25983a5c5af8bd2602126352d3",
+            "image": "db67ca25983a5c5af8bd2602126352d3_2bb70b7bf4a2307acce289f301d1f2a4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "44547b977313c66f106c07f99e492ee2",
+            "image": "44547b977313c66f106c07f99e492ee2_62bc0c3735b87acc2c86f5c80497149b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d653b35230d6ab6ef57e016e545c7261",
+            "image": "d653b35230d6ab6ef57e016e545c7261_0e4934773c1bf4a9a4569bcf00da0fca.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2aa5a38e39e63a089feb1ecf4dbc2ea4",
+            "image": "2aa5a38e39e63a089feb1ecf4dbc2ea4_d24c088be30f0d1b4b3346f45a4a9e78.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bc49201d8fe55e4c3df5c2d75a51b6ee",
+            "image": "bc49201d8fe55e4c3df5c2d75a51b6ee_008bc6050f6d31fc255e5d87bcc87ba2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d2df932837bbafb9d7bd1bca86df397a",
+            "image": "d2df932837bbafb9d7bd1bca86df397a_d3608e08c17fa916dcde1203ed5faf61.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c38f7f72e375edbd288ae100764baeb3",
+            "image": "c38f7f72e375edbd288ae100764baeb3_9b02648262402328fc7e5bbaf4723a89.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9a6f70ccba8034a3d658f88677e4b553",
+            "image": "9a6f70ccba8034a3d658f88677e4b553_2ee7f36fd6e157b40d4f0326f6fcc0d2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8c19cfad3d0e8fe657a033e31a445de8",
+            "image": "8c19cfad3d0e8fe657a033e31a445de8_908ec10e68a5ffcb8d8ad108a655cc19.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2367222f179f8e739145c5bca65cea19",
+            "image": "2367222f179f8e739145c5bca65cea19_0f61d5d79a4e3ffc693ba79aec7e035f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "388d68977e9c5f3508b2cd705f47965c",
+            "image": "388d68977e9c5f3508b2cd705f47965c_ac4c36046d69b5b5f7c525cb520420a6.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "40ecd5d8f7e9f7fd4a82606bf8c3e938",
+            "image": "40ecd5d8f7e9f7fd4a82606bf8c3e938_9645f095cea288553e67fd7816c9379a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d830b7036fce84695f5ede7fdd419c2d",
+            "image": "d830b7036fce84695f5ede7fdd419c2d_319b502b652fb2db2b50dad4d36c8177.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a6f485d4d0c82a3d2df10fbb36f3f8b1",
+            "image": "a6f485d4d0c82a3d2df10fbb36f3f8b1_3514fe2b6fc2101ffa22622fffb71ae4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f5d2bee5cad38ebb282de2494704f7d5",
+            "image": "f5d2bee5cad38ebb282de2494704f7d5_955d96a0171f3f7b6da5e788decba0fa.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7b97956c34608dc42d43c96a800eb55f",
+            "image": "7b97956c34608dc42d43c96a800eb55f_9b128499fd3b3e33f8bfe40db94924c3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "31fa226bc9f87e0a2cb2de6dddbc2270",
+            "image": "31fa226bc9f87e0a2cb2de6dddbc2270_625aa350502a7038cfe5f9ca5f1a65f4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8caa9e54b30e54edbdcbc771e7386fd7",
+            "image": "8caa9e54b30e54edbdcbc771e7386fd7_11dbf2405e94335db8d8011db532a5ac.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a2de7a8acd2f855a1d69f61a25af3c1f",
+            "image": "a2de7a8acd2f855a1d69f61a25af3c1f_3e8d4b6b0df6faf2675ce51e16d5c444.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "73ddabe812dadcc6ece2c48a246f72f5",
+            "image": "73ddabe812dadcc6ece2c48a246f72f5_e8dfd88e396c4cc90611cd8b6a2278ac.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1860e56f068c2e2ccb2017de6e6f8eb8",
+            "image": "1860e56f068c2e2ccb2017de6e6f8eb8_a09e8001e6b29128dcae4cc0d1b02cca.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c3487424fee1bdd4515b72dc3fd69813",
+            "image": "c3487424fee1bdd4515b72dc3fd69813_adf961b5379855af0293ca526f3d0c51.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0fd8d8bb0261fbe6ff535358361a8530",
+            "image": "0fd8d8bb0261fbe6ff535358361a8530_111568cba425ee964d26095c80fa84d1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c38f7f72e375edbd288ae100764baeb3",
+            "image": "c38f7f72e375edbd288ae100764baeb3_7cbfcf34be7198528dde3e9d159df4a0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "73ddabe812dadcc6ece2c48a246f72f5",
+            "image": "73ddabe812dadcc6ece2c48a246f72f5_27a35305fa91c508fdb8dc2a7e7978ee.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "524684f24059c3e8ec0734eb1d06050e",
+            "image": "524684f24059c3e8ec0734eb1d06050e_80cfd7487bd19ea3d43b56ec9410a1f2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6b1c4a9ef24d15a5bb55173142dd5475",
+            "image": "6b1c4a9ef24d15a5bb55173142dd5475_17d2f5831c5cecb238f512e28f0277d7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9158a0b468ec50c25a871422e815ac82",
+            "image": "9158a0b468ec50c25a871422e815ac82_bd95ab37157520d1b0eb195da3d3c0b7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "18473ad623483f5475dd3e79a7b4f264",
+            "image": "18473ad623483f5475dd3e79a7b4f264_b99033098412c5bc6d2a52680f502bef.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6c6af8c910bca9e8e91dcd757b2060bd",
+            "image": "6c6af8c910bca9e8e91dcd757b2060bd_09839c8aabaef0fe9c5f2b87cbbfeff1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "563643e06302bcd7216c2ca8de3157e5",
+            "image": "563643e06302bcd7216c2ca8de3157e5_fde50065b6d598d0bb62a08a0f0d97b7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ddfd49edc828c7a0a383d761aa308497",
+            "image": "ddfd49edc828c7a0a383d761aa308497_48077b50003f018e6e639ff1b42846de.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9531f606ede9f33cd7932032f0fcf230",
+            "image": "9531f606ede9f33cd7932032f0fcf230_db91cd04fabc279ec4bf33f43fff3cf9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "cff56208d45f1ca8182a15fc2148c535",
+            "image": "cff56208d45f1ca8182a15fc2148c535_2406be2d03fbb50b1602745dec9f7a89.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a379ed2555effcd53e53db61dfd9f1ce",
+            "image": "a379ed2555effcd53e53db61dfd9f1ce_298e5b0956d0a8da8a4f23fc397c4e22.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9d1310c46334e503a6f40fb1497c34a4",
+            "image": "9d1310c46334e503a6f40fb1497c34a4_26370e9d2e597c2748bf674f2e2de853.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a882006940256e1fe2503d6d09cac40d",
+            "image": "a882006940256e1fe2503d6d09cac40d_78942ae419d616103ddcb48b478061c0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3f8ad54f66c2cb71548bfa0ec7ba88f9",
+            "image": "3f8ad54f66c2cb71548bfa0ec7ba88f9_e1ad3882c48c3e953b037813ff8fbe3a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d010dbb93a1a164ce8afc0b62d22de98",
+            "image": "d010dbb93a1a164ce8afc0b62d22de98_2530e73814b6a250140fab195ac789cc.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "014d843f13a9d86fec945664e2541fe6",
+            "image": "014d843f13a9d86fec945664e2541fe6_a3abc78b80b104b171f2dd76c215f1a5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e2fc4c70a807fe80c4120d58b9274ca3",
+            "image": "e2fc4c70a807fe80c4120d58b9274ca3_5c685c5c9bfa937cf5e0a4db37618578.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0ae82360b078b1c7ca36e5d12a57180e",
+            "image": "0ae82360b078b1c7ca36e5d12a57180e_4472acbc78ac42a0f1c28e7029956052.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8b99ca393abc7123ee91a33a3e52232a",
+            "image": "8b99ca393abc7123ee91a33a3e52232a_87f0ee76b74975a33b718a41b32d70c9.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4b0dce5f7fd39f2999bc1bba7731b412",
+            "image": "4b0dce5f7fd39f2999bc1bba7731b412_cd745eb10feb213e6d641f8eac552f37.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "175f10693af82fdf9bdf9e711697ec13",
+            "image": "175f10693af82fdf9bdf9e711697ec13_30caea823462601262e5d393e6d0312a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "93b2edbe1a3302f122be0e3d985f8875",
+            "image": "93b2edbe1a3302f122be0e3d985f8875_85f3d816cbc001fd851880c1cf369a8c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "06442aebc06bd6609f458d219dca90b3",
+            "image": "06442aebc06bd6609f458d219dca90b3_19704dfad3bd4ceed53a912eb94ac13e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6db648c3e684230add2cb3189b3e7f82",
+            "image": "6db648c3e684230add2cb3189b3e7f82_9f57b616c50edb4a67ef9711917e86e5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b825ddf6de3c16c635ba603365171579",
+            "image": "b825ddf6de3c16c635ba603365171579_d9a63d0f763c9d3052931ddffc33bf9f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e728b8791952436211babd8f7334ac85",
+            "image": "e728b8791952436211babd8f7334ac85_ba322371a93f02c9570040357f83ff51.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4e48710a80ade05bda7581cfa340c9d1",
+            "image": "4e48710a80ade05bda7581cfa340c9d1_27bfa83b6fe841f5f9cb21856fa3e927.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bf048e93602fb8c1265193ee62148762",
+            "image": "bf048e93602fb8c1265193ee62148762_83c03739370289cead5ce6b866632b47.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "64777bbe7e1f7ee9bc9387615e62acd9",
+            "image": "64777bbe7e1f7ee9bc9387615e62acd9_04c64dd7683662188094816c7c2ca88d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a852d73fa8b570c3d916ed33815e0c2f",
+            "image": "a852d73fa8b570c3d916ed33815e0c2f_996afe5978952c26c7d2e851d328eb80.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c9881e07b3445a6fb8aa5f11d6d2413e",
+            "image": "c9881e07b3445a6fb8aa5f11d6d2413e_1bc0bb5082b6f20d9dea0014ae5276db.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b4af77205b86dac60f95a1e995f4c14a",
+            "image": "b4af77205b86dac60f95a1e995f4c14a_b934cbba248e3072f93a27ad0bc842ab.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d83817281146df15fb5b4fadeeefe1da",
+            "image": "d83817281146df15fb5b4fadeeefe1da_8975932e99482f7ad994559512e6fd35.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "14bed708ddedd6d06ed11141c060264e",
+            "image": "14bed708ddedd6d06ed11141c060264e_892f1862773701284b90007c6ad415c7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2b439535813e682037b43be6d4b25732",
+            "image": "2b439535813e682037b43be6d4b25732_363ca8a34a7b54d334cc02d1c12c1585.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "014d843f13a9d86fec945664e2541fe6",
+            "image": "014d843f13a9d86fec945664e2541fe6_e82b6324ff951df4158627cf430996b7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "78480822998350f5d116d49ecc50f6a3",
+            "image": "78480822998350f5d116d49ecc50f6a3_f727cb1ce049cd0f565a7bf1e919a5bf.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "58a2640209d9244ab1eca8f0686effd4",
+            "image": "58a2640209d9244ab1eca8f0686effd4_9992a1941e974a38b391b2a5fa78e6c6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4199129f94749397e0d71d2bd5a01d19",
+            "image": "4199129f94749397e0d71d2bd5a01d19_812ac0e47a788ac6d95720067cfd42e9.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d6c5932b95b9f03f4a70dc627ac7b8de",
+            "image": "d6c5932b95b9f03f4a70dc627ac7b8de_7e279279174120a7bd49d2e142c0bac6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1749223c9b8005f17587fe51a62c6af7",
+            "image": "1749223c9b8005f17587fe51a62c6af7_ff545784db5739a99ada9c6912a7ba7a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "58f909e936a14049de83be0ad193a562",
+            "image": "58f909e936a14049de83be0ad193a562_519e1a01bd3c08ad8a46fc476730ca0c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8dd986e8174fc84c2a984e66a416ff9f",
+            "image": "8dd986e8174fc84c2a984e66a416ff9f_6a8ea59036175422f3f8253b21b3230e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "77265393c274ed0a3f847116ef2c141e",
+            "image": "77265393c274ed0a3f847116ef2c141e_230d6029b2c287ae8a1b5e17517471a6.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "40fd171bb41c81180c7d1f1983d6c2fb",
+            "image": "40fd171bb41c81180c7d1f1983d6c2fb_9ce14208660e0a576713f532e9867557.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "11083fc737704d5c6a8fc47e195f4b2b",
+            "image": "11083fc737704d5c6a8fc47e195f4b2b_3f67417d7d98eba147c4d0ae4cb6c63f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6e758d1d77cc3d29488cde65ca3c83d1",
+            "image": "6e758d1d77cc3d29488cde65ca3c83d1_d4f07098fc9275d58e17b57004a57cff.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "93b2edbe1a3302f122be0e3d985f8875",
+            "image": "93b2edbe1a3302f122be0e3d985f8875_a1042b0876c24f5b7b66f4de6280d929.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ff2f7856595af1e0bf89e5ce92029f09",
+            "image": "ff2f7856595af1e0bf89e5ce92029f09_b821f26947d67932afed6e9bf64d23e1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5073ea1640196a292b9518747295f9ee",
+            "image": "5073ea1640196a292b9518747295f9ee_c83e67237e3f5725cfde01836e9d8327.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5a286b78f7e0e3cfe6c861e23a9fa8c3",
+            "image": "5a286b78f7e0e3cfe6c861e23a9fa8c3_32a6cb78f0e4a0bdd95c56c4cb6ac673.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b3383a2e469e9cbea69059877482f6ea",
+            "image": "b3383a2e469e9cbea69059877482f6ea_a2ea8ab493740b85fb79710150394ae2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1734a10c08f2565315493df00a2fd134",
+            "image": "1734a10c08f2565315493df00a2fd134_396bea28fd4be11598bc53bf5f2b7460.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0ae82360b078b1c7ca36e5d12a57180e",
+            "image": "0ae82360b078b1c7ca36e5d12a57180e_587cfd57ab066178cf59b2b03c5d5c6c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fd2fccc2650d1857a5669c28441300b2",
+            "image": "fd2fccc2650d1857a5669c28441300b2_cbd30d8f2d8eb4dd4278a86381f38a3d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a02c18ad550874d9e9b9018756e555f4",
+            "image": "a02c18ad550874d9e9b9018756e555f4_d72685e0d58da41051852b0f0288ca1f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0f0551f4edb5494b0d8765c23fe421ae",
+            "image": "0f0551f4edb5494b0d8765c23fe421ae_bef2aebeeee11a80478eb621fa6666d8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b6c6b380d81aed73223e7ef535696064",
+            "image": "b6c6b380d81aed73223e7ef535696064_17d91701b085d4cb0ae1c7b1c0af2bb1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f29e8e9f6fdaa7773fbc32ca85e64238",
+            "image": "f29e8e9f6fdaa7773fbc32ca85e64238_febada4618f7fa4d72350264fb2aa79d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0ae82360b078b1c7ca36e5d12a57180e",
+            "image": "0ae82360b078b1c7ca36e5d12a57180e_15220c5956d299ad20e155171f4bde56.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b62d019b2016d4f8c2a745c9091e2b36",
+            "image": "b62d019b2016d4f8c2a745c9091e2b36_868d720577915dffb177fdbbf19e5327.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "684937efecd3be7a9da628d7ce8b5c20",
+            "image": "684937efecd3be7a9da628d7ce8b5c20_499d1a6fb19120fafc58ba47bc406b26.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "948bf68244fa6c00dc9963dcd62cd14c",
+            "image": "948bf68244fa6c00dc9963dcd62cd14c_1513f5d691d471605b882f111d388d46.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f2794837a4d5a4b234853483c7a20d49",
+            "image": "f2794837a4d5a4b234853483c7a20d49_c7ddaccc6c3fcc314d9e7b4f4eabfbc3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "3d69a7800411de271a7ba6503b05bef6",
+            "image": "3d69a7800411de271a7ba6503b05bef6_94ded0fb1036a6f4f044beba047b8d3a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "aea8a489a726e3e313069846dca5640c",
+            "image": "aea8a489a726e3e313069846dca5640c_1c77399720e266b2124c6151b7bec82b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "37c08fd1d60e1ee8eb4bec7a27b44e26",
+            "image": "37c08fd1d60e1ee8eb4bec7a27b44e26_96644e4db54cfd8459a512926a00442d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "63303252b1fb34780163ab8a47ba89f9",
+            "image": "63303252b1fb34780163ab8a47ba89f9_2f48022a49d11be37b6b391fbc5bc47c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b57a5a2715f6f07f9363e82a1732bd7c",
+            "image": "b57a5a2715f6f07f9363e82a1732bd7c_035b0223ac7c0f0b3357ddbc32515510.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f8894c9173aaa865bd43751eeeacd3b0",
+            "image": "f8894c9173aaa865bd43751eeeacd3b0_238f203e9015232c6cc241fb6c1fe5de.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4141898a609bbcdf7fa4e9b49188514e",
+            "image": "4141898a609bbcdf7fa4e9b49188514e_1d2d50c66ee2e230c6327076c2fe6d00.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "97e25f2f88f13545187827a890e8650a",
+            "image": "97e25f2f88f13545187827a890e8650a_1903924bfb18e38e9b81c76adc603377.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fe042502144842f20ce8bd9dcb1f7203",
+            "image": "fe042502144842f20ce8bd9dcb1f7203_ec0b304e24c9156bf4788648f5f77302.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4fc011ee4b49040648fdd2d3dcf883c3",
+            "image": "4fc011ee4b49040648fdd2d3dcf883c3_a9c839293c5d12e8ccccd20281ffb692.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2a8cd95b9669b986f94125ad06dd5740",
+            "image": "2a8cd95b9669b986f94125ad06dd5740_ed28c12302d910bcc96dc589f2ec75b9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c3af0a475602a02fb0ca5c067fc21e64",
+            "image": "c3af0a475602a02fb0ca5c067fc21e64_182416817adf847620e100ac6d850704.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b4793c38ac56c6d63a1c1c661b5e3ba5",
+            "image": "b4793c38ac56c6d63a1c1c661b5e3ba5_882b30e3340087216ebb86d18a8a6f82.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c82df7b09c2da5f21e83347bf221609e",
+            "image": "c82df7b09c2da5f21e83347bf221609e_437a5cf58fedd970ffb2d9a00dea0d6c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d66c863eb6f38fb5907e0d75c06e5bfc",
+            "image": "d66c863eb6f38fb5907e0d75c06e5bfc_4f46d57e77955c4b795f175ba7b01607.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c7d2c1b81ca7fd149b1590a6e29394a9",
+            "image": "c7d2c1b81ca7fd149b1590a6e29394a9_3b46267ffa238158eda9aa2a63a2c5ed.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "04afe127c8d6daf4d27d227c64fa8aea",
+            "image": "04afe127c8d6daf4d27d227c64fa8aea_8f5dc20318bcfa01a511c12bc019fd66.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ec4a630e53f03ba960d7ba4c6680ecac",
+            "image": "ec4a630e53f03ba960d7ba4c6680ecac_7d13a9b1bc20e17abe19fcee64e52070.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c62b5d2c968c21580c416465da363433",
+            "image": "c62b5d2c968c21580c416465da363433_508c0070418b4836b97c06b546fccf53.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fa12beafe73d05a8d3bd4855f638cad1",
+            "image": "fa12beafe73d05a8d3bd4855f638cad1_8b4ec63410ff0dab44c769a994704c99.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6f5b2b4ac3e753f425fa9fb4a521d08d",
+            "image": "6f5b2b4ac3e753f425fa9fb4a521d08d_d9cccca5e3fad376f72cd2abeda14b28.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6d4cd11574ad3598cca9b228bcfcc024",
+            "image": "6d4cd11574ad3598cca9b228bcfcc024_8aaea8ad26744fa23f786699ae38d66e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "188998c43ceb69d4cf4da4eba2c53b74",
+            "image": "188998c43ceb69d4cf4da4eba2c53b74_679896aeba47f0815ffccc877a87571b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c82df7b09c2da5f21e83347bf221609e",
+            "image": "c82df7b09c2da5f21e83347bf221609e_3527d9a479e2c242013ed32e1c93819f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7c587ec273072789a4f075ce81c9b2df",
+            "image": "7c587ec273072789a4f075ce81c9b2df_b8117c7c380f5c26f74b4d6a97af8c02.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5a2b5febd11b2fdd2c7f4fd1d0f92104",
+            "image": "5a2b5febd11b2fdd2c7f4fd1d0f92104_5babc8f7e8ede530d3f9229cc1d1548e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9eeeab842aa691c38cc7f3cd9dac1eac",
+            "image": "9eeeab842aa691c38cc7f3cd9dac1eac_dbba9c023743b9719b31fa0ffb303414.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8ca2d99d2e5d26575b941f2fc02212e2",
+            "image": "8ca2d99d2e5d26575b941f2fc02212e2_797db63f4b3f835684ac457ad3b99d26.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a7794293e92e0ef8094491f210fde7a3",
+            "image": "a7794293e92e0ef8094491f210fde7a3_618d0ae4ca9acda1b49168e11b60b81b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b30853ef201886549a997d0517c6485d",
+            "image": "b30853ef201886549a997d0517c6485d_8faee24eb628597887a03b9a7df35e62.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b7357809d8e2bb3ad964b4c2c53e6c7e",
+            "image": "b7357809d8e2bb3ad964b4c2c53e6c7e_65e1f9e75dea336ac2aa14cac684077c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5babce4b963ba18124477ce11d284ac6",
+            "image": "5babce4b963ba18124477ce11d284ac6_b0251c254808b8d6de51d69952fb35d0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6a015ff718625303ff6dbb763f0e7367",
+            "image": "6a015ff718625303ff6dbb763f0e7367_63c82e14fd966a8dc7fa9ae0d3d2dec2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "66a1867c10dc043ac2d6fdb76bef9115",
+            "image": "66a1867c10dc043ac2d6fdb76bef9115_deed2f0fda8f17fde773fe8087f5c5ae.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dfe7aeee414bf1a5113817d4486d49dd",
+            "image": "dfe7aeee414bf1a5113817d4486d49dd_9db91914a0f36362a8b64c8c29e0539f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f5bdab9e46e221f7454631a148f7cc10",
+            "image": "f5bdab9e46e221f7454631a148f7cc10_9d13ea00836c1d5ffdf627cce426f4a1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "38468e3575b1fd75e8319385c8295d06",
+            "image": "38468e3575b1fd75e8319385c8295d06_a20164d8c615b4d4148cef186b6493dd.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1560345de7d8277b170ca3842eae6c97",
+            "image": "1560345de7d8277b170ca3842eae6c97_225863035d1c03f3c1cd49f409870fde.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2b439535813e682037b43be6d4b25732",
+            "image": "2b439535813e682037b43be6d4b25732_ca29f9b290c2613c2d0ae9ccfc8fe722.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "695d09e0fdad29a27dff29500d352008",
+            "image": "695d09e0fdad29a27dff29500d352008_84e552d2e538d3413048be2e2094a509.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "3752f93ac7960ebafb0ca142e162daa8",
+            "image": "3752f93ac7960ebafb0ca142e162daa8_c9cce071e90e2451aa02d5b88dadb211.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fc49393e8f2dddc07df0113104a20afe",
+            "image": "fc49393e8f2dddc07df0113104a20afe_6c94dd929badc33fdef12910b9fb40a5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "605fdc453a4af1933695ff682fc46cea",
+            "image": "605fdc453a4af1933695ff682fc46cea_5fc451ccea65adb2ba624fe0d3c456f1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "996f1876ba61a22dbe494eaaddab5f68",
+            "image": "996f1876ba61a22dbe494eaaddab5f68_2ef3b7beac25dd7db4a75e18e9e59d59.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9de349c714e4966e63de95c809456490",
+            "image": "9de349c714e4966e63de95c809456490_4dd6cb1de296226fc275648026873dfe.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "35eb15c7c9522cfb54e75dcbb73f1e55",
+            "image": "35eb15c7c9522cfb54e75dcbb73f1e55_cc68ea142fc1f2a4a4fb0d436b900d32.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8c2aca576f75222aefb98d06ae4c0f4d",
+            "image": "8c2aca576f75222aefb98d06ae4c0f4d_2b76a18e45c8e62db919403c6c526ec4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "26f9cf5d9a3d563c88a816f7a1abedaa",
+            "image": "26f9cf5d9a3d563c88a816f7a1abedaa_7814ef105bbc93199c8e2577a3205990.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "217dbf17912040805b4121ed9453c3b9",
+            "image": "217dbf17912040805b4121ed9453c3b9_1f4905d08a4a71d7791c775fcde2014b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "38f20882319b54634295e1605b911b67",
+            "image": "38f20882319b54634295e1605b911b67_7dcb13cc5cab72cf37aec649c52a6da2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "14a63118d94643a3d65b32039a20b351",
+            "image": "14a63118d94643a3d65b32039a20b351_00857417d07096982013956033da1f75.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ea75b79a86ae33661802cc9f2ee5d938",
+            "image": "ea75b79a86ae33661802cc9f2ee5d938_d5fbbd30a1d4a089716622b4303b1b58.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7264c672187822499817a15b5bb3ddb3",
+            "image": "7264c672187822499817a15b5bb3ddb3_85942db8feddc69a71df112fabaeda92.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "752493f24f84d27d401d070709d176ab",
+            "image": "752493f24f84d27d401d070709d176ab_0543622022e1d1c54a8971fd87bcf597.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7ade5d821ca411dd6cb6916746beff81",
+            "image": "7ade5d821ca411dd6cb6916746beff81_c0a27fb1a4d991803d1a27604a2d28d2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8dd986e8174fc84c2a984e66a416ff9f",
+            "image": "8dd986e8174fc84c2a984e66a416ff9f_6c89a90416411eecf56e5ea1fff2a1e2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4199129f94749397e0d71d2bd5a01d19",
+            "image": "4199129f94749397e0d71d2bd5a01d19_7f702504f424839b37f42cd4f884c0b4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dcbaf6c022593c891af5757af590c4e1",
+            "image": "dcbaf6c022593c891af5757af590c4e1_d0405bd0028894cc2a18b0ab94d132a4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5dd27c4229cf4d785e3a67952c141e6a",
+            "image": "5dd27c4229cf4d785e3a67952c141e6a_c2ec09aa673b9b830d2c2b781b1effa1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0d8fc33c55f2f6af87ee3bd16614e208",
+            "image": "0d8fc33c55f2f6af87ee3bd16614e208_c1b626dbe028a9872412d7646892e446.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1ec03e288e2398a6590fbd4f2586d3a4",
+            "image": "1ec03e288e2398a6590fbd4f2586d3a4_d269259f287fe5574ef1d01343a16772.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "755379b0d02c28213030f43b9a3ed89f",
+            "image": "755379b0d02c28213030f43b9a3ed89f_62f91a3a9f5e772fdc225d58d3d1ee4d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "88a8677b6c5d1d4a1bdc5ab8e996e574",
+            "image": "88a8677b6c5d1d4a1bdc5ab8e996e574_d69d78e62fcc97f5c1d245eca0aedd95.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0f0551f4edb5494b0d8765c23fe421ae",
+            "image": "0f0551f4edb5494b0d8765c23fe421ae_ba36492a8c1e245af08614e4c6a02ff7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e49d8e95ce75cfec372ac63495490225",
+            "image": "e49d8e95ce75cfec372ac63495490225_83a5fa12e65beb4e9bc94d7bcd407e02.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "540ab71b28752c3e279be9bad638df79",
+            "image": "540ab71b28752c3e279be9bad638df79_0adb22b2b24d61c511acbe028648532e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "217dbf17912040805b4121ed9453c3b9",
+            "image": "217dbf17912040805b4121ed9453c3b9_e27ed8c89c7da67e40a76b91c6eee419.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a788185673c0b783dde8546a0e569ea2",
+            "image": "a788185673c0b783dde8546a0e569ea2_0c0a37038410aaece1126a9bbaf9e01c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "003700f3c960e0b9bca2b8437c3dbf05",
+            "image": "003700f3c960e0b9bca2b8437c3dbf05_552a67df6d68b8f9498db7cadd23b0e0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "37c08fd1d60e1ee8eb4bec7a27b44e26",
+            "image": "37c08fd1d60e1ee8eb4bec7a27b44e26_834e9a35cdc92f2c45e31e80f9cc8ce0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "79a545d87c997d0ac51be0b90c6a6ca0",
+            "image": "79a545d87c997d0ac51be0b90c6a6ca0_4c6de4e3e2259f0bb4e7f3a7e5243d3f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c0ea43e5ccc3cfefde1cb6d76bd82b3e",
+            "image": "c0ea43e5ccc3cfefde1cb6d76bd82b3e_dec4540f406b4e556983b4f76504ee30.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c731169675259101e314d73d9e982444",
+            "image": "c731169675259101e314d73d9e982444_a8472717fea3274901241416ac02349e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e3e69bd7ebbb40f1dba882be5bd40a92",
+            "image": "e3e69bd7ebbb40f1dba882be5bd40a92_00b2567654cfadcda25f5bcbe44f4974.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5988446083ab88daccc8fc5c6c679474",
+            "image": "5988446083ab88daccc8fc5c6c679474_6539805fceb039119fb638034ffb5bd1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "008b8e61390fcb4c0873258c15b0a53a",
+            "image": "008b8e61390fcb4c0873258c15b0a53a_e13c80239d7714e3d964b5f3e37bcff6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "26f9cf5d9a3d563c88a816f7a1abedaa",
+            "image": "26f9cf5d9a3d563c88a816f7a1abedaa_4178ffa36ffe9808649b62752d17e94d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "048a16c6b91c7da2f940c0e4881afc5a",
+            "image": "048a16c6b91c7da2f940c0e4881afc5a_a80240130ace6d7456e9f8eb0014a399.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "4e6f6c5e70433a176643f635747a328d",
+            "image": "4e6f6c5e70433a176643f635747a328d_100f9f1f5392774416f1a1e66a5a4c71.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a1cee8cac027b6c3078a564ad2673332",
+            "image": "a1cee8cac027b6c3078a564ad2673332_91c595ab22a73f5a0ae616cdf9e0d1c2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "163e112d5af21e69707b9214ee2ebda0",
+            "image": "163e112d5af21e69707b9214ee2ebda0_b7e5b09b4fbeeb5833912b02af831cbf.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "553e66edd391adc5edaa05431566081c",
+            "image": "553e66edd391adc5edaa05431566081c_c35f24cb03e08a159dd1428541558992.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e9be27a62325bea2255d3327274567cc",
+            "image": "e9be27a62325bea2255d3327274567cc_20e22b55458ddc1002871f0b10bc0c91.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "188998c43ceb69d4cf4da4eba2c53b74",
+            "image": "188998c43ceb69d4cf4da4eba2c53b74_dc60a7e10efddef70dd265cb3b82c74b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "df0c7befd215a91c8d6ed17e8b2e0291",
+            "image": "df0c7befd215a91c8d6ed17e8b2e0291_679dba4a2ac87280d20929fd91304137.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c110b0dc542236a0d347c917be7346e8",
+            "image": "c110b0dc542236a0d347c917be7346e8_dc28ce2bd0ec7095de40879b892adbc1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6638548737fd55d89e7b16104d68fe37",
+            "image": "6638548737fd55d89e7b16104d68fe37_9b14cbaefc126fe15fa68e229cc4fb95.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "556a4f260d4e3b576005ae93d01f6eb8",
+            "image": "556a4f260d4e3b576005ae93d01f6eb8_67190a4e7edcef162645acee9e14db4c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "07a0dbae70b94afb01313eeeeaaef9ac",
+            "image": "07a0dbae70b94afb01313eeeeaaef9ac_21a78229489f5b35b0b037f678a5cac4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1a6061b532f36ce0bb0f85f34eca8736",
+            "image": "1a6061b532f36ce0bb0f85f34eca8736_d26bedc854165131cff6a237e3633304.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "debf00ccf511522d42d59169f1b0b129",
+            "image": "debf00ccf511522d42d59169f1b0b129_98e6da3711c6b2d746e22d94c57aa03b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c3487424fee1bdd4515b72dc3fd69813",
+            "image": "c3487424fee1bdd4515b72dc3fd69813_318264c881bf12f2c1efe5f93920cc37.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e1c37efbc88589e5c926ea8b846d8f02",
+            "image": "e1c37efbc88589e5c926ea8b846d8f02_bf60ac8648245b828bd3b74b69b6041f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7c31f8b42276e56a2ba7006ae2d63604",
+            "image": "7c31f8b42276e56a2ba7006ae2d63604_c99575f6b786336b2c51991f2e84ec91.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bc49201d8fe55e4c3df5c2d75a51b6ee",
+            "image": "bc49201d8fe55e4c3df5c2d75a51b6ee_434d11c4a4ad519fd57ed3f8a5398418.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f6d656f6be7a7501430d580670a5a32c",
+            "image": "f6d656f6be7a7501430d580670a5a32c_1112859848238381a41431bfaf644dfc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e306d39a128d0ca813e9384c65211df8",
+            "image": "e306d39a128d0ca813e9384c65211df8_183012e148ae0b5f40b133cfc17e9dd7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "21fddc967eb5a31695a60d4bb075df7a",
+            "image": "21fddc967eb5a31695a60d4bb075df7a_ac546428a3bcaacc13ae92161932cc3d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "44547b977313c66f106c07f99e492ee2",
+            "image": "44547b977313c66f106c07f99e492ee2_08a64894ac411114c25dd709e2bcc471.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "215b14f6ff626394a625de6158e928c0",
+            "image": "215b14f6ff626394a625de6158e928c0_cb14b3265d736649686882aa860bcef0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "57674c2def92287668ed5bc51092fbef",
+            "image": "57674c2def92287668ed5bc51092fbef_dc4694b543793f89c7003f4d52adbbcb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "540ab71b28752c3e279be9bad638df79",
+            "image": "540ab71b28752c3e279be9bad638df79_f2d214b69a7661d43e755f8921706206.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9bf5e07c124d149dc072232c005e033d",
+            "image": "9bf5e07c124d149dc072232c005e033d_f97cd5b8d0049cbceda56350c01a66d5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ae37fb2d036346c76d320502069b50af",
+            "image": "ae37fb2d036346c76d320502069b50af_43098ec7294e2f6d88b0e87f93d2e518.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8c60ac267e7ac61dbab806f2da63cb28",
+            "image": "8c60ac267e7ac61dbab806f2da63cb28_f0587c6876722e4b6aeb4d6a57ef7f3e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "90fc7681b15eef8cf8d929beef7857c1",
+            "image": "90fc7681b15eef8cf8d929beef7857c1_f3b27203d929866f5cc22551b55f08e8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6d4cd11574ad3598cca9b228bcfcc024",
+            "image": "6d4cd11574ad3598cca9b228bcfcc024_f1b0fbd4eebff392ed4b9886034c29ca.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "55a12c640ccebc100e67e21476b57285",
+            "image": "55a12c640ccebc100e67e21476b57285_b6db414be07dc1fb3cbf82a9e3a4966a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ec4a630e53f03ba960d7ba4c6680ecac",
+            "image": "ec4a630e53f03ba960d7ba4c6680ecac_a0360303198e7a4b60566c2d2193e7b8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "43a5db0fd868e525cf75aaf5d53a1863",
+            "image": "43a5db0fd868e525cf75aaf5d53a1863_944ae44a56fe698b87f5b435c32b3769.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "83903d29be96d7561f9f43ad330fe00f",
+            "image": "83903d29be96d7561f9f43ad330fe00f_ac18556b46a96755c0ed909b971136f5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "30c2d52b99d7996f84415514626f95ec",
+            "image": "30c2d52b99d7996f84415514626f95ec_c982aaf3ae4f9ba1fe469b705e978c06.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ca8c77e041e13ebb91c89a8e0962b291",
+            "image": "ca8c77e041e13ebb91c89a8e0962b291_59125c595f43034c9f6bb75b5ec6bf9f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b9c15e629cf02f501acbc194420d749c",
+            "image": "b9c15e629cf02f501acbc194420d749c_a3415116030171359f15e0c14f9e75b1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4b96489938b00561d05e826818177d93",
+            "image": "4b96489938b00561d05e826818177d93_caf683924fb250187774f61b1615b620.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b88845b28e4402e9d99b4512a92e4ad0",
+            "image": "b88845b28e4402e9d99b4512a92e4ad0_81577f2de92d0e5fbf4c40556320024c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6dc96a9bda7fa876473679a90f33079d",
+            "image": "6dc96a9bda7fa876473679a90f33079d_3d6766d0893e835d0ed4dcbce74335ae.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "80e55d2f5e9772a1a07b5913fbf28a0b",
+            "image": "80e55d2f5e9772a1a07b5913fbf28a0b_8dfa857c0afc9d8be8ce9f28b52e3225.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fda9ea98f65af22d698f4c0110d46e10",
+            "image": "fda9ea98f65af22d698f4c0110d46e10_b9f3c7402b190c39344e31c20797851c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "3c82c686c9482c6c4c8a0940f815a3d3",
+            "image": "3c82c686c9482c6c4c8a0940f815a3d3_b72971acec10b39f4582a1f908224dba.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1bced818b729bb45a262a587db251674",
+            "image": "1bced818b729bb45a262a587db251674_528fa96731ba3a3c3a2a59a73caa50ee.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7a7f2b151786da9eadf8e98e04fdbac7",
+            "image": "7a7f2b151786da9eadf8e98e04fdbac7_b48df6b5cc6f2a613d0a36889242b02a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c731169675259101e314d73d9e982444",
+            "image": "c731169675259101e314d73d9e982444_5e13057da76d03f16a4a2e9e26a7dd66.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "fe23c1647f7617ef219a0a0e07c9eec5",
+            "image": "fe23c1647f7617ef219a0a0e07c9eec5_cb02caed6492a9619e93a3bd265a9c7f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f43b243ea95b66dfee3fecc66fcc2a8d",
+            "image": "f43b243ea95b66dfee3fecc66fcc2a8d_22ac010031dd10806ecef6445af4ad39.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c3c0a901ca8edd8f87f4a0ecc3d2cca6",
+            "image": "c3c0a901ca8edd8f87f4a0ecc3d2cca6_3d086d99dfafbb52a8785c25426a82d5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d20e854e243eb765409347b523b5af8f",
+            "image": "d20e854e243eb765409347b523b5af8f_a3b4d863ffc8b5a97a278cf7b13f3212.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d3248d8a3e782458ecd435ccbb69acb2",
+            "image": "d3248d8a3e782458ecd435ccbb69acb2_615cc9f9d3a1ed860e71280d2fb4d575.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "32517d6bd246e5ec692c0b2935b2891a",
+            "image": "32517d6bd246e5ec692c0b2935b2891a_c63c442ceb6362f6c207e7e218378a39.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2a2f555cba036cece1aef7be3debaf13",
+            "image": "2a2f555cba036cece1aef7be3debaf13_d001f381cd0c30cfc122fa4721d7d75f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8d488f7bfa2f1b08032abd2fea36b4f1",
+            "image": "8d488f7bfa2f1b08032abd2fea36b4f1_7544cdb93b56593403252ce11ec63493.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "145edd42aeb386f6d6d6388b4efbf20e",
+            "image": "145edd42aeb386f6d6d6388b4efbf20e_6f090987c2e7cc34b67629cf224f3afa.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ec4a630e53f03ba960d7ba4c6680ecac",
+            "image": "ec4a630e53f03ba960d7ba4c6680ecac_ae96712112446a8571a2528dedf277dc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c8310970e646f1fbf54aacb46bb88199",
+            "image": "c8310970e646f1fbf54aacb46bb88199_5f09cae949ff895bb33220998e6535df.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6dc96a9bda7fa876473679a90f33079d",
+            "image": "6dc96a9bda7fa876473679a90f33079d_08490d6ee0e276c8a4daaf106d9a01e0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a37cae880d59107068e7280fc36cae01",
+            "image": "a37cae880d59107068e7280fc36cae01_9bd4d7be187bded33030e6a24b28400a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "21fddc967eb5a31695a60d4bb075df7a",
+            "image": "21fddc967eb5a31695a60d4bb075df7a_1a1d13244aaafa6a12988c4e1d3efe5b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "85e4a367984944a39645fc9279811add",
+            "image": "85e4a367984944a39645fc9279811add_c0ce8c7618f9538cc0b9218105b1f265.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "988ab25980bffad7226b0a8d62a7f499",
+            "image": "988ab25980bffad7226b0a8d62a7f499_f2a755158e2f2f4af7d1f8b6257893f5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "53acbeb38c4fc2b306ceab3c4cef056e",
+            "image": "53acbeb38c4fc2b306ceab3c4cef056e_0819693a4a4600efe087472f45c6e891.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c8b98ec621e15b34e49608a1afb11b02",
+            "image": "c8b98ec621e15b34e49608a1afb11b02_b5e75ab4a453f924f386345f7575e260.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b70324862fe9e847b940dcfdc206db01",
+            "image": "b70324862fe9e847b940dcfdc206db01_3daa0aefc5d62e67724d83ac8a1d8214.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "11a16838fed9274fffe074333cd61264",
+            "image": "11a16838fed9274fffe074333cd61264_12fcf7d55f2b52086c8ecb5fc8006db3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "71fbe9b5c1c11fb81a4eff16dfc0de07",
+            "image": "71fbe9b5c1c11fb81a4eff16dfc0de07_979bbd89e132a975b3175ad53e0e9abb.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8abaf178e500859d0a532bf34a4ce595",
+            "image": "8abaf178e500859d0a532bf34a4ce595_be50a17b04aed1c7708217318ed8ba83.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bfcdabc58dcdcf4c8485f147e5e9f14b",
+            "image": "bfcdabc58dcdcf4c8485f147e5e9f14b_16551a21a5218f615ecca302ed0662c1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "58a2640209d9244ab1eca8f0686effd4",
+            "image": "58a2640209d9244ab1eca8f0686effd4_fde1086cce41c66b9efc68270f537837.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a0d579001b64498c8a573b2fcfd44227",
+            "image": "a0d579001b64498c8a573b2fcfd44227_144fe5594ba1c8d59708e8ca3b2e26bf.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "99288599d73af38b70043141516a2e49",
+            "image": "99288599d73af38b70043141516a2e49_6a338caee47f6df5d83a6f37aafd06ed.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2fc8d3cea2b51cc6c683d3f2ffe5174f",
+            "image": "2fc8d3cea2b51cc6c683d3f2ffe5174f_a28dbd003c2a1b305c64bd31d269ecc5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "821156a44251333e17f1cd7be85baa07",
+            "image": "821156a44251333e17f1cd7be85baa07_71b2ff6a691b544894ed3e5a731c4bec.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1a6eb4bb66e7e5a47d9191e0aa13930e",
+            "image": "1a6eb4bb66e7e5a47d9191e0aa13930e_68e4a2c85b46b78118fd2dac46a9afbb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "3c6a6210c7adf47cba39486cc160230a",
+            "image": "3c6a6210c7adf47cba39486cc160230a_05a587bef120fd75c5ff3084762b3a7f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "68c9aa129fc6b36692493accf6577dae",
+            "image": "68c9aa129fc6b36692493accf6577dae_4b1e47252823c8f580ac4b9e6c2429ce.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7264c672187822499817a15b5bb3ddb3",
+            "image": "7264c672187822499817a15b5bb3ddb3_8205786e592bdcab2587481ffa1b350b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7264c672187822499817a15b5bb3ddb3",
+            "image": "7264c672187822499817a15b5bb3ddb3_829cbbdd27eed0a50c728b7a5f2b0683.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "40f18f8ac89ab71b5ea7b37399b2485e",
+            "image": "40f18f8ac89ab71b5ea7b37399b2485e_8504e56624c4db7a4be8f367136b94e3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "35bf1126ecdffa8af49abd36db2de322",
+            "image": "35bf1126ecdffa8af49abd36db2de322_7e37ee2b545f00f8c54e7bcb60b0f515.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9d748a25b28d9dbe249f7b9c759258df",
+            "image": "9d748a25b28d9dbe249f7b9c759258df_10e3136f3e11277d87ce71d123f7ba68.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c6e05e9f27c1af96756ef5221391feab",
+            "image": "c6e05e9f27c1af96756ef5221391feab_65debf528f289d705998518d8d056f84.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "28b0da83ab46cc8371b501ab005c88b7",
+            "image": "28b0da83ab46cc8371b501ab005c88b7_5f3962bf6fb1a8fe1968efefe3c0c791.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1ac647e03da8399738d8a1b7419256e2",
+            "image": "1ac647e03da8399738d8a1b7419256e2_0f208129a078643ee1ce0f01b1973cb7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "709ecc90dad40571fd26e3270de97966",
+            "image": "709ecc90dad40571fd26e3270de97966_b6f1e05b3f5da14ffa7df86d7586cc17.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "637022ad03e694da1d8f69550e6d38f0",
+            "image": "637022ad03e694da1d8f69550e6d38f0_f019726318cc1f7ab98ae646583d8895.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6b1c4a9ef24d15a5bb55173142dd5475",
+            "image": "6b1c4a9ef24d15a5bb55173142dd5475_afa93965854c2094f476cc01f96435b0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1734a10c08f2565315493df00a2fd134",
+            "image": "1734a10c08f2565315493df00a2fd134_ba37afce57e568f7590586e6c9c23528.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3534e4c688e0323434fb98e799089756",
+            "image": "3534e4c688e0323434fb98e799089756_8fa08eb20952bc2718902b4a33bdf99a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bf537a1a81555ebd333690cbf503f219",
+            "image": "bf537a1a81555ebd333690cbf503f219_0771994d1d5cc5890fc7fbd6770e6234.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "63303252b1fb34780163ab8a47ba89f9",
+            "image": "63303252b1fb34780163ab8a47ba89f9_03e464754732750f5828aeb94af68b22.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a115ba0c527ab57af8da5913e1175bb4",
+            "image": "a115ba0c527ab57af8da5913e1175bb4_06dac744e706cb2f0a9c9bb4291e6ebc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "48975fff28d21f8a852624749fcc7411",
+            "image": "48975fff28d21f8a852624749fcc7411_ce334c03dad5d9784977301ab1a84965.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "36bca8fdc9ecf34db514e932c6739a57",
+            "image": "36bca8fdc9ecf34db514e932c6739a57_969026a60399d2a4b9b3d29785ff1fc8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ba17277e8fa722e9405d0d3d0c1ac174",
+            "image": "ba17277e8fa722e9405d0d3d0c1ac174_abd555b761941903b8587b701bec3a1f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "afa8d58b60cf82ce642d5c917fb6c8af",
+            "image": "afa8d58b60cf82ce642d5c917fb6c8af_729fae337639d825ca83e563c6efedc6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "20d557b3d375b4e7762b32550a99f6c7",
+            "image": "20d557b3d375b4e7762b32550a99f6c7_444aafc7f18fbcd01c4ae55f7bf4a843.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4a64fff107f5b6751010808bc54e0a39",
+            "image": "4a64fff107f5b6751010808bc54e0a39_7768bdc867d55f1ec2a595b732847e70.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bd1c05a1d710802ded8002d0010c1519",
+            "image": "bd1c05a1d710802ded8002d0010c1519_2e9f69d4cd559ba77e5bea6c617d60e2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0e950d8bd73cd86c25a287e2d341c7ed",
+            "image": "0e950d8bd73cd86c25a287e2d341c7ed_1e2d94424f5a9a847f1a7e8eae1ecdd7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ca675640cf4911e739accf86ff6acf97",
+            "image": "ca675640cf4911e739accf86ff6acf97_b5e0e140061277a2a8f70127ed182e76.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9d70df5a83f33ec2d4c1f9eed8151f6e",
+            "image": "9d70df5a83f33ec2d4c1f9eed8151f6e_0d6987fc066d2fad238b5c15f4e9bf8e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1560345de7d8277b170ca3842eae6c97",
+            "image": "1560345de7d8277b170ca3842eae6c97_e751e5a947089704457741eea74c2280.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "670e80649fd4f8d6a4cfeeac2e1b6e83",
+            "image": "670e80649fd4f8d6a4cfeeac2e1b6e83_2efae215d67dd0ac64bc98a92e4be461.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "752493f24f84d27d401d070709d176ab",
+            "image": "752493f24f84d27d401d070709d176ab_41040a367358df02680bc6ce2ab7475b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "28b0da83ab46cc8371b501ab005c88b7",
+            "image": "28b0da83ab46cc8371b501ab005c88b7_70f06b70e997e7aa42fe482e9c970dad.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dd6333df02b3131120f721d732b3e1ee",
+            "image": "dd6333df02b3131120f721d732b3e1ee_9e8efd5d79c5e66abee2aeb0b2360e9c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "abcfe29c06bed0b1270a19d2813b9a10",
+            "image": "abcfe29c06bed0b1270a19d2813b9a10_ae4055546b9d8de7c390e9a3fb5ecc69.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b9ed5537815cdd293287c0b5deb88613",
+            "image": "b9ed5537815cdd293287c0b5deb88613_1c8b8ebcaf9c5c01962ac0b391824234.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1860e56f068c2e2ccb2017de6e6f8eb8",
+            "image": "1860e56f068c2e2ccb2017de6e6f8eb8_63857e01d707240c042dd951cffb43de.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "36a9da43789531eccb345dd1eaa75ea4",
+            "image": "36a9da43789531eccb345dd1eaa75ea4_5438dfc5aba5518801a4dd6af2493468.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "64e059578f3b6f30fc9f14796b6190ff",
+            "image": "64e059578f3b6f30fc9f14796b6190ff_7d84507e4501537b7be3978aac6d8541.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8a1fc2dbdfedf989393590e9ff4a5c22",
+            "image": "8a1fc2dbdfedf989393590e9ff4a5c22_93e32b8e29a6ab2c5d2201ca53242efd.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "766bd15aef37708b0fdb29c90f9be903",
+            "image": "766bd15aef37708b0fdb29c90f9be903_78d6b6c3e063e6c0ba1a45bd8a48bd0f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "306403cfb1c05e7ea2085d5a5d41c15f",
+            "image": "306403cfb1c05e7ea2085d5a5d41c15f_ff81c51e04a1ae9df0e7a5785c54a23b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a522aeeb8f80828d220219c97c131ffc",
+            "image": "a522aeeb8f80828d220219c97c131ffc_e1ed001f77b037c99d5ddae15070d806.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0811a49701e47ea2eb3c5365954fbc34",
+            "image": "0811a49701e47ea2eb3c5365954fbc34_3cae5e8986cdd9cd69afc0159d473717.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "926d8c68a43968b46ceae6ec68396cd0",
+            "image": "926d8c68a43968b46ceae6ec68396cd0_a69aabaaa894c8c159e0c02f98b1e1ca.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "db3c5cf7336cc061ad5679d2209c2386",
+            "image": "db3c5cf7336cc061ad5679d2209c2386_f3b7da5f9ca3b14e89f6a66b7d1c2ef0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dd40c997a53fcc095a56bd9d777a2c98",
+            "image": "dd40c997a53fcc095a56bd9d777a2c98_de54a5bd3aed833a01752d4078967b88.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "86cda0ef439fa39fa386e82a31f497f4",
+            "image": "86cda0ef439fa39fa386e82a31f497f4_feacd9929bedd3174421b00bc6e62886.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d59a790889a1b68297e62c780026ca88",
+            "image": "d59a790889a1b68297e62c780026ca88_1b31043b6943e9c3b4b54883e0d9576e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e323339299a4d58a57ae1c536dbb253f",
+            "image": "e323339299a4d58a57ae1c536dbb253f_60062b50681cfd1009aff92a26475954.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f89349252116268e610fdd4ba0df0aa0",
+            "image": "f89349252116268e610fdd4ba0df0aa0_4274a76dcc9e28508eff58acc103dc73.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "214982cc36c1c7c8ae6debcefa8dc10a",
+            "image": "214982cc36c1c7c8ae6debcefa8dc10a_230e0069cf6710f68b38e0e4ec59a4e4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ef4fd53bb99a92819b1dff9327fd9bc9",
+            "image": "ef4fd53bb99a92819b1dff9327fd9bc9_d74ee136aaa3e18831a10feab80134c9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "892b764de0e7acb04c6b739b69927d2d",
+            "image": "892b764de0e7acb04c6b739b69927d2d_09ac042416aac8039d4bc33b493106cf.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "35bf1126ecdffa8af49abd36db2de322",
+            "image": "35bf1126ecdffa8af49abd36db2de322_8f8b8753a20d498f979730a9388ccdbd.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5e96b59e5dd5ef6bbe1261e69766c426",
+            "image": "5e96b59e5dd5ef6bbe1261e69766c426_65cc9e7db32c047a5b13ed81767ac9fb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1789109608162c419743cedd3b4800c3",
+            "image": "1789109608162c419743cedd3b4800c3_0dcc0ff77a819cb7501357756ad37362.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ef9bcee35f3e5d4bca8d5bb5c6f09450",
+            "image": "ef9bcee35f3e5d4bca8d5bb5c6f09450_e86ee7c6d128444a1cd1307b158a7e67.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "eff31eb110bc0a5d76f2db4c240dfd14",
+            "image": "eff31eb110bc0a5d76f2db4c240dfd14_38982ad7ded99fb8504b0afb52d3e111.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5ae1e62ab43d573b6f3243e7472e4008",
+            "image": "5ae1e62ab43d573b6f3243e7472e4008_99351e6314db9d63b9c9f4f9bfa477d1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3308acec043abc520659f69c9090ef09",
+            "image": "3308acec043abc520659f69c9090ef09_3911c580ef32c6bb34fffa5eb03cc1aa.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6db648c3e684230add2cb3189b3e7f82",
+            "image": "6db648c3e684230add2cb3189b3e7f82_dd64701a05729fd607264eb3a6872111.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f48aaf71048c7ac474e3ef995504b23c",
+            "image": "f48aaf71048c7ac474e3ef995504b23c_06b13a94ed2630fdfbac7b62abe9712f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "710828819992a362e76b04885e4d182c",
+            "image": "710828819992a362e76b04885e4d182c_c3aeae46e32fa15555a5ceb9744dd22f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f8ee167a08db61bba065976d89f2980c",
+            "image": "f8ee167a08db61bba065976d89f2980c_899c3f4bf001d535226c6f25cbbd8b3f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d8b4eeff74b6fd89486a5eebc623a247",
+            "image": "d8b4eeff74b6fd89486a5eebc623a247_9598961b591e3a44b0d53bfbebc751d7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8d1b4d0db38edfd797c01e5f05cfb27b",
+            "image": "8d1b4d0db38edfd797c01e5f05cfb27b_1ada1e4050081f533bf9f33606f4468a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c110b0dc542236a0d347c917be7346e8",
+            "image": "c110b0dc542236a0d347c917be7346e8_51ebbb568ef8593532f2ea33ab8e261e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "dd98abaf0ef843feae62a29c31caee45",
+            "image": "dd98abaf0ef843feae62a29c31caee45_57b04a1958443efd27484f9e2d0b7615.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c71ee7cb415e62403883b9a56c525167",
+            "image": "c71ee7cb415e62403883b9a56c525167_b4c4cabf3081be940f77ebab48e9b71c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "55292825bf2fd66fb367b18c091c2415",
+            "image": "55292825bf2fd66fb367b18c091c2415_6c27e1331b4f46e645d03e4e17698299.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a53d611f7387a0d7828ac28b53ad8f8d",
+            "image": "a53d611f7387a0d7828ac28b53ad8f8d_53f1d075936c67fa89d9b273937015f8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7b97956c34608dc42d43c96a800eb55f",
+            "image": "7b97956c34608dc42d43c96a800eb55f_21f6ff86237974dfe61a77e84b77c5c0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "50f8b3202cdcf829f0d110fc0b2217e8",
+            "image": "50f8b3202cdcf829f0d110fc0b2217e8_c8d6274766a4cb5607b16b97b534ef8f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9ec3039bf215173edf48a8b4f23ad56a",
+            "image": "9ec3039bf215173edf48a8b4f23ad56a_2b46a6fc2c076cfc187b385f6a6f40e6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a1cee8cac027b6c3078a564ad2673332",
+            "image": "a1cee8cac027b6c3078a564ad2673332_3d89638d839e41c1b51939a11fc3af42.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "38a8f054f2c99b73dae0f0098b258696",
+            "image": "38a8f054f2c99b73dae0f0098b258696_a89f0d4580da0829413c071e13d1bf0d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3f57f3b78bf75aa1acec61744e23b3ba",
+            "image": "3f57f3b78bf75aa1acec61744e23b3ba_1373404e7845ecbd3a8535294c2a3f76.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6709e1295b2616391fdde63bf4443517",
+            "image": "6709e1295b2616391fdde63bf4443517_7edb977a638c7c0384fd4b3d7a3bd7df.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a187b425b23c4264a79785c062fce873",
+            "image": "a187b425b23c4264a79785c062fce873_9076323f4b661b4b57a9229b869c62c7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8f4cbcda4233497b56034740b8991c72",
+            "image": "8f4cbcda4233497b56034740b8991c72_994bcb6822dbe07d2aabcd29011c0412.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "cd5fb2175d83941f613b0858413b7f3a",
+            "image": "cd5fb2175d83941f613b0858413b7f3a_e694c7993174a2d834d8d3464970c038.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ad56d2da51c7429013a8b11fe32789d1",
+            "image": "ad56d2da51c7429013a8b11fe32789d1_cd5d9e2fb44d702a70949ca36d42353e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c7d2c1b81ca7fd149b1590a6e29394a9",
+            "image": "c7d2c1b81ca7fd149b1590a6e29394a9_9ea9d05c4f2b57688f04257d9b9b6ab5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "abc502fbadaea92e9df87adb66a94198",
+            "image": "abc502fbadaea92e9df87adb66a94198_ec3362fd8676819511cd35653f8b9047.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1ca11fcbf4354e8fe8b7a229b34724cd",
+            "image": "1ca11fcbf4354e8fe8b7a229b34724cd_02cb48f8d183982d36ce3d126ba132bc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d18911d1f04b2f9762543185ff00007a",
+            "image": "d18911d1f04b2f9762543185ff00007a_57bee86c915d89c3e9afe7f325771e36.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5f24232018157c9b7bc59bcd2d54b931",
+            "image": "5f24232018157c9b7bc59bcd2d54b931_bd54268bf383e807cea6f04c58027918.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "61efd0076df88c0c73c5fc35d80250c6",
+            "image": "61efd0076df88c0c73c5fc35d80250c6_7dc59cca4a08036d69af07b79e098d3d.npy",
+            "label": 0
+        }
+    ],
+	"test": [
+        {
+            "patient_id": "d18ff5211c7f474b5bb6e35c0e24ccd8",
+            "image": "d18ff5211c7f474b5bb6e35c0e24ccd8_9cf1b84dd3c497347156616058d8b11e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "530dd0f770bbca75b3f92c93653f6ea1",
+            "image": "530dd0f770bbca75b3f92c93653f6ea1_6875060614bfef26313d860fd7f8ca91.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "98698cc2830d12fb1abe73c92df4fd8e",
+            "image": "98698cc2830d12fb1abe73c92df4fd8e_2472bdc1390642da835c413ff3e7ad34.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1ef505057667f1a9ade4e2b9ec1f569b",
+            "image": "1ef505057667f1a9ade4e2b9ec1f569b_a84f9d28fb3135f093c6fedb5ad0261f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3d342bcea04ea881e47f9de7238f91ea",
+            "image": "3d342bcea04ea881e47f9de7238f91ea_ab972de519306ea9c1ce7629e8145cdf.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7a91f44a268096a59dd76504786de912",
+            "image": "7a91f44a268096a59dd76504786de912_35462486bb2c54bd39972dfc7b02d7ff.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "678c0ea7dfd41c3e5b45219171d69d75",
+            "image": "678c0ea7dfd41c3e5b45219171d69d75_cd3d3431f3331d5e2070be7610f22434.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9ca0112757065957cb751b4b8a0be110",
+            "image": "9ca0112757065957cb751b4b8a0be110_051525b959eefb14e973acc7ab8fcfe0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6ed84c14e14653b80195954d7997d166",
+            "image": "6ed84c14e14653b80195954d7997d166_4975837665cd4dfb2977a6f19aec8f5b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8c2c1cefe3ba30602b7249ad9ab5df07",
+            "image": "8c2c1cefe3ba30602b7249ad9ab5df07_0abdf3f3255cb44a2a15908a811fe6e3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5ea2b047d048f5a68bf3f74744c9f3fe",
+            "image": "5ea2b047d048f5a68bf3f74744c9f3fe_1a18873c4d62c0190a0c189f75977ce9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9494a6a100096956cd72899f59602e62",
+            "image": "9494a6a100096956cd72899f59602e62_688ece496be02afd7ee4ed6e3d5ab036.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6a6258ef868a99df53d7c1a79d64f5bb",
+            "image": "6a6258ef868a99df53d7c1a79d64f5bb_01599597388f3185563decc34945f6b3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5c9d7863e0c50cdb8e8f7bf5cf1c91b3",
+            "image": "5c9d7863e0c50cdb8e8f7bf5cf1c91b3_453d94c08533802fc19d3ea67347e01a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f637a8ea804bac3941603ae34dae7fb7",
+            "image": "f637a8ea804bac3941603ae34dae7fb7_ba332860939f713a17c462b23cbac41c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ad7bb165008d94c2d281542e9c048434",
+            "image": "ad7bb165008d94c2d281542e9c048434_d377b041b2083d0f4992ee3013f7abc6.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5515f8d853eb1cf2d1cc9acde0da321f",
+            "image": "5515f8d853eb1cf2d1cc9acde0da321f_18926c83c3c40aad9b8316ed86be17e2.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "00bed569a272c750cf03b561886a1489",
+            "image": "00bed569a272c750cf03b561886a1489_301b80e57a43396e83531adc55d7a915.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bba470c7ae302b5e4bfd2ed1a4515661",
+            "image": "bba470c7ae302b5e4bfd2ed1a4515661_27f066be252acf8b8be0e058e30b3a1a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "525c1355f5c6f7225c35f4d80b5e501b",
+            "image": "525c1355f5c6f7225c35f4d80b5e501b_50ba5d4b60345b0cff6fc77c2d2bb4bd.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "eda2dcc6c185ed23876e9a7e1d23eef0",
+            "image": "eda2dcc6c185ed23876e9a7e1d23eef0_726fe436c72772a6d59446292edd33e3.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a667a343ea183c7962f39acde97cf06d",
+            "image": "a667a343ea183c7962f39acde97cf06d_164ebeb7229eed711a9e91b572a902ff.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "50a8bfda39adc93f22a174153632b823",
+            "image": "50a8bfda39adc93f22a174153632b823_0a6f0eac805822cd00f3c25ba99569e8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a667a343ea183c7962f39acde97cf06d",
+            "image": "a667a343ea183c7962f39acde97cf06d_4d96d394fe4b20778014bdde96b5d34e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e78963739a4ab1c4ea5188024281e38e",
+            "image": "e78963739a4ab1c4ea5188024281e38e_d6ca4a3cc20a05c88b4685a52c36441d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "61f89a0baefd8edfa50c240d6439b7d5",
+            "image": "61f89a0baefd8edfa50c240d6439b7d5_5e25359359311565e44e3db75ceb341e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "63b872fe16a03cba95b17aa582d6df85",
+            "image": "63b872fe16a03cba95b17aa582d6df85_60fafaf810c5967c7f3bc03ebca7591d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1289de4c6d2a9439311af675dd610158",
+            "image": "1289de4c6d2a9439311af675dd610158_29409efa3402b9d8f044f04308b5d2d7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b08f5e4b7b1af6b271876098e9e1684c",
+            "image": "b08f5e4b7b1af6b271876098e9e1684c_d64d4f718817e44401c70034cfdb4fda.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "cd6f446d930c0e96662fb1548cc6658c",
+            "image": "cd6f446d930c0e96662fb1548cc6658c_9b3b64839ddd33b03998db74394674d4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a48233b71cc3b0a613c2ef8011da337a",
+            "image": "a48233b71cc3b0a613c2ef8011da337a_235637f1956014ee0fdc1ad5853ff9cb.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2c4cc5495e3fa8f1b4eeab6798714449",
+            "image": "2c4cc5495e3fa8f1b4eeab6798714449_f7b6c452218153d612c4c28f14971296.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "dabe91ba1df76cc06a21c8e594c2a966",
+            "image": "dabe91ba1df76cc06a21c8e594c2a966_185d72636122b93911abdbe015985e40.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "719407d318c8aeddd2d7a72801ad8770",
+            "image": "719407d318c8aeddd2d7a72801ad8770_d9424eabb9d03c65cb7075c9b49b19a6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ba5c23ed30e5119707fbce433d3caed1",
+            "image": "ba5c23ed30e5119707fbce433d3caed1_80262b11e5fcd25116328a44e29164de.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "da3aeea6956795e35b7b0cd05ffc0251",
+            "image": "da3aeea6956795e35b7b0cd05ffc0251_77a90dc2c55c98af55c296fe181b756c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7856bc031948b956f0137fb68e58f8fb",
+            "image": "7856bc031948b956f0137fb68e58f8fb_fca3c41337cbf018deb14c8927a9faf3.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f9990aea4ea38c02e0606a2edf9bbced",
+            "image": "f9990aea4ea38c02e0606a2edf9bbced_cd3f65e401f72d414d3954a677d20c3f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6093e33a0d4ed47753c91a4b7e12ba6f",
+            "image": "6093e33a0d4ed47753c91a4b7e12ba6f_2b94976b5a31f5a0f4b59c1350181f2e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0e7981072f41e298184c3546d38157af",
+            "image": "0e7981072f41e298184c3546d38157af_938c92a0ef8ad654bbd88a0384785945.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "450f7f9b2aa32754b076f0f53f0d8efc",
+            "image": "450f7f9b2aa32754b076f0f53f0d8efc_5d13674e2ed04208bf232e2eeb468f7a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "10200894bf6f74b2ae92a0cecd37c60c",
+            "image": "10200894bf6f74b2ae92a0cecd37c60c_581b0e4d471a5c0adc6888cb038fa722.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e315902ce49832b4714312a985617af2",
+            "image": "e315902ce49832b4714312a985617af2_a763d5dfd875b5575918bd8e97c651f6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c14eedb0f8cbb157d335e35844360567",
+            "image": "c14eedb0f8cbb157d335e35844360567_d78648752dbf4173119530bb6866129a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "736680ada4d51ca3d582a2453a3060ed",
+            "image": "736680ada4d51ca3d582a2453a3060ed_f46debddb2e1063d8f86efa8bad41766.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "72d177eae7c6b34a411341368f32ca5a",
+            "image": "72d177eae7c6b34a411341368f32ca5a_03234e390d3f2c9c07889e1687eafbb8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ef56ed33aa6eb0b72bf6217ee9bca9d8",
+            "image": "ef56ed33aa6eb0b72bf6217ee9bca9d8_f67bfdceeab98d23ba23795306be08d5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8f5bfebe4dc00a437550d2e00dd6577e",
+            "image": "8f5bfebe4dc00a437550d2e00dd6577e_4634d1b6a424dd312e69a0d661975137.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9c8e8f688e99a35f6bb0a78cd4ae8d7e",
+            "image": "9c8e8f688e99a35f6bb0a78cd4ae8d7e_5cf927a823056aaf204e6225cabe3b9f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1cd256c6c6305f54ab8ab30095f39604",
+            "image": "1cd256c6c6305f54ab8ab30095f39604_74dd813d3bb066760a2ca6f80540d119.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "358d1f2d56ba386c213ad7738324d208",
+            "image": "358d1f2d56ba386c213ad7738324d208_189d9e901531f2d7a5962f994cc832c8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "66235fe8968ef266cf15b08cfaa4a40e",
+            "image": "66235fe8968ef266cf15b08cfaa4a40e_4672c439719dbb46a78d19912f0473ac.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f9990aea4ea38c02e0606a2edf9bbced",
+            "image": "f9990aea4ea38c02e0606a2edf9bbced_79109e3f4882534cc64d7cad55dfa76f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d72c4e278b4ef5092598c7a42eb6f3bc",
+            "image": "d72c4e278b4ef5092598c7a42eb6f3bc_7f2293705aeb744664d1186082ff1976.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "268bbbd1932753cedf8846fe716c669b",
+            "image": "268bbbd1932753cedf8846fe716c669b_a6dd7304c675c6696afdcc41c58a95fd.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "99e880e8d860ed86d42caa8728582335",
+            "image": "99e880e8d860ed86d42caa8728582335_d16e0674bc7cf9332590075d9aa2553a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c7360c6740dcbe8491216ada6ae8b2a0",
+            "image": "c7360c6740dcbe8491216ada6ae8b2a0_a3214c506a005b639b4d720de9cea847.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a8e03a693359ffa3071f758eecadcd16",
+            "image": "a8e03a693359ffa3071f758eecadcd16_a6bb433105ba47d9cdc9f368a8c261a9.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9e4a6d8da350d9e44a0f5545c5dc4d2b",
+            "image": "9e4a6d8da350d9e44a0f5545c5dc4d2b_f7c152b35931e88ad54660d79ebe59d8.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "08ba91bb945c4dbc738b3f0a2e5798e6",
+            "image": "08ba91bb945c4dbc738b3f0a2e5798e6_59efa30f975f06c7d17042c190fd7c42.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9bab34fb6637f3921df32b4a215385ed",
+            "image": "9bab34fb6637f3921df32b4a215385ed_93a3ef1f3879f5589af3e7a23547d426.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f14d07d95195ebe690da98ef6381da8a",
+            "image": "f14d07d95195ebe690da98ef6381da8a_ea0beb190ef77fa15abd7a4754a965f0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a384c133416b47e3a4eb4df1f519748a",
+            "image": "a384c133416b47e3a4eb4df1f519748a_e2914e693746bea51abebd1ebcb66195.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ef30e6edc1c762e4c5e145e0c75d450d",
+            "image": "ef30e6edc1c762e4c5e145e0c75d450d_ca5791a775ca00bab778128eac67de6c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "48575a27b7c992427041a82fa750d3fa",
+            "image": "48575a27b7c992427041a82fa750d3fa_4e3a578fe535ea4f5258d3f7f4419db8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9047f2eb0cda80c277bd169d6d240810",
+            "image": "9047f2eb0cda80c277bd169d6d240810_0bac94530476031873566b909b8f1161.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "628a6d10970a6b5c7032da06ba371b6c",
+            "image": "628a6d10970a6b5c7032da06ba371b6c_1a640b603b5e70a42161bfbf42eb21d1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "876245c2c298cff1c87021575dd8b208",
+            "image": "876245c2c298cff1c87021575dd8b208_408953dc7a1db4ca9deac57e3b85fc17.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ecb3bd6d2dff56d932f6a34956cd67bb",
+            "image": "ecb3bd6d2dff56d932f6a34956cd67bb_323693d3525f8ca6ef7b058d493b5eae.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6a77274d2391c35e0e4fcd8dbba32088",
+            "image": "6a77274d2391c35e0e4fcd8dbba32088_86d16a47cfcb661ae42790626f4df712.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9e1fe86fa97ebabcf4839be2a18316c7",
+            "image": "9e1fe86fa97ebabcf4839be2a18316c7_e40445716605f3181e324b117329a789.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a0d3bd1a4d7a469ed1037bc512f65fba",
+            "image": "a0d3bd1a4d7a469ed1037bc512f65fba_905e8ef5d14726708f2cb1093b9999cc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c02e533d22d59bfca2459cf709559142",
+            "image": "c02e533d22d59bfca2459cf709559142_132055782f129b6e0db28dfc4c73027b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "95cd59c69b542572baa1b2842b9c617d",
+            "image": "95cd59c69b542572baa1b2842b9c617d_0939019fd916e0748e07d9546cd8bdf5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "e76479cad9660161de636c26eb13bb48",
+            "image": "e76479cad9660161de636c26eb13bb48_75ad8cf7d28967880ba3f45dc8f23b2f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "48b4959354901a380b7564eaec3453e5",
+            "image": "48b4959354901a380b7564eaec3453e5_2e5574e23f785e65fd4096c6c510f2fb.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "10200894bf6f74b2ae92a0cecd37c60c",
+            "image": "10200894bf6f74b2ae92a0cecd37c60c_29896919b15b2dd978a36b2f68a5ad93.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "bbeab2738ef4d6ffcc0e1598f99c911b",
+            "image": "bbeab2738ef4d6ffcc0e1598f99c911b_cbea227770ea873a2a427d852b87ba93.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8e467df187e9aa4bf69c9967fe2a500f",
+            "image": "8e467df187e9aa4bf69c9967fe2a500f_a0694adf9540b4f755dfdbcf3b1eb725.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b73fd49bd14119a55d952897305d8bc8",
+            "image": "b73fd49bd14119a55d952897305d8bc8_258d33d5955e5b48e88823fe52537c75.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0d1729d8b441019fc5307a691dbf8eb0",
+            "image": "0d1729d8b441019fc5307a691dbf8eb0_77d3985d3c47e09ce74d8b57725038d7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "af53566aab6bb78c95c00b62f7fce0bb",
+            "image": "af53566aab6bb78c95c00b62f7fce0bb_7f86d0d2bf13151d5716688c17b4c85e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2f8886fb77787006bf631a1a23d139e3",
+            "image": "2f8886fb77787006bf631a1a23d139e3_4ae5c6945d13b75eac78a13b6f5035e7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "dd40afcc87ec2505b4a8973819fb5cdb",
+            "image": "dd40afcc87ec2505b4a8973819fb5cdb_0e3b26c133c5fd3dc66dc42d7a6b52e4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f16980e8b518373d4748c94ad31207ce",
+            "image": "f16980e8b518373d4748c94ad31207ce_510552a160e46b33a48b8c523568827b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a8e03a693359ffa3071f758eecadcd16",
+            "image": "a8e03a693359ffa3071f758eecadcd16_da30be3e50b5820186b55d2533ca46fb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f276d5553ae66f97e0da5b393f9dbee8",
+            "image": "f276d5553ae66f97e0da5b393f9dbee8_e79fda6a93c7ad2a0392ec85a48cde81.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "69fce1bee9d2056fa4f35c693a38e28a",
+            "image": "69fce1bee9d2056fa4f35c693a38e28a_895919f94d2054826bc04c14f45f080c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0a3018e7ad1d1d7d2e142c2ca7c518fa",
+            "image": "0a3018e7ad1d1d7d2e142c2ca7c518fa_4f78dc1158558f3f6753e055c1c318a4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9e4a6d8da350d9e44a0f5545c5dc4d2b",
+            "image": "9e4a6d8da350d9e44a0f5545c5dc4d2b_a2164f7b54f72e172cebb098299bf7ba.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ad39689f1bea2e0aee2574488f06d231",
+            "image": "ad39689f1bea2e0aee2574488f06d231_fb16653152c4808c9e759888d15e42c4.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c800df6e5ea9cd5a183ee765983b4a07",
+            "image": "c800df6e5ea9cd5a183ee765983b4a07_44d35d157f5796ebc04b5fb51c3c1f12.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "0baef459a10e51c65302ddb63012c147",
+            "image": "0baef459a10e51c65302ddb63012c147_c53418f3bc12b3173db174c86ca11355.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7ac2e76df23a557f4167d95a4ada066f",
+            "image": "7ac2e76df23a557f4167d95a4ada066f_2c0b969aeeffb35f9f58ce529ed54dec.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "55432d803774825408dadf24883cb347",
+            "image": "55432d803774825408dadf24883cb347_7de4fa3d36048e2bbdaf181155d728c2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "ebc78d5848d2bdb6d99949bb8245c310",
+            "image": "ebc78d5848d2bdb6d99949bb8245c310_9df6d17696f3f3897aaa3f47c20d3288.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "76c9da038078c93d58565d20706258cc",
+            "image": "76c9da038078c93d58565d20706258cc_530eceeb7639d0b27a80da57fd1ca6a5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3929d99b98a4c6f81d62813528e3c55b",
+            "image": "3929d99b98a4c6f81d62813528e3c55b_c188b543736a2b32ace4c1227c2fa128.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "04d59c956abf0bc15c0fd6dec47374b5",
+            "image": "04d59c956abf0bc15c0fd6dec47374b5_d7cb5567650d8f115e92f5e48ca433f9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e09a0c30022e2b8e1fdbe35b98fe7890",
+            "image": "e09a0c30022e2b8e1fdbe35b98fe7890_22d47b110704efce8157d07953fc2335.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "0df2eb3e0c688b852524b408dba13287",
+            "image": "0df2eb3e0c688b852524b408dba13287_99ce1123523e4f705be52dde1055829b.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "10638b3c095fa1661ac5a68e22fc1ff1",
+            "image": "10638b3c095fa1661ac5a68e22fc1ff1_8558f2ecaab0686e0ee5ada3e4031e38.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9ca0112757065957cb751b4b8a0be110",
+            "image": "9ca0112757065957cb751b4b8a0be110_39b4736d81cf35512313a70cc8375269.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "34e61525cdf4e3590afabd214164547a",
+            "image": "34e61525cdf4e3590afabd214164547a_9f871b81c65586dfb0f28f8c2431e4ad.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "20a0367e9d07c9d5b8cd11f51c4d4784",
+            "image": "20a0367e9d07c9d5b8cd11f51c4d4784_99f5d42f781a68bf912189a86e6503d9.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2df91aab9edbcf4db7faf8da1079685a",
+            "image": "2df91aab9edbcf4db7faf8da1079685a_adceda15be6b2af50774ec5e223ef25b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "18249f2f393ec3a4e59d4f3e9e7c6d1d",
+            "image": "18249f2f393ec3a4e59d4f3e9e7c6d1d_3dbee88aec167974f09336a14dee87da.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "ea8a09a16763d310b4065fe94c6c04cd",
+            "image": "ea8a09a16763d310b4065fe94c6c04cd_a600e572007da87ecd5615bad28a8a2e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "56e54f64f6aca6f887cc52cc240dea6a",
+            "image": "56e54f64f6aca6f887cc52cc240dea6a_7e4cb36605cfe77511eddcdb78312a42.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6f461358d3788da2148e345cb01c78c7",
+            "image": "6f461358d3788da2148e345cb01c78c7_5303d45e31ed5f069964b4c47a0f1b55.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "87e7f33343cb5499c1a2f6a6b8917c3e",
+            "image": "87e7f33343cb5499c1a2f6a6b8917c3e_8700e01cdda5c7ff24296855b251d61e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f6f28f20df610b84e652c8ac8d64d99c",
+            "image": "f6f28f20df610b84e652c8ac8d64d99c_cadb654c855b9f948a193219a21712f3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "540914fd605bd47b0972b62942b998c5",
+            "image": "540914fd605bd47b0972b62942b998c5_e148b0f09f628a91717699662d05c52f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9a87788b839ce29934ddd8691407f695",
+            "image": "9a87788b839ce29934ddd8691407f695_41556f11a04b3b80889c2c930fc35d0d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a24c60dbf87002d591c57f192ceb28ea",
+            "image": "a24c60dbf87002d591c57f192ceb28ea_45c995d25653b0441fde0dbb9b329a25.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "94bf7bf284a6ab1eadb498bde7bda741",
+            "image": "94bf7bf284a6ab1eadb498bde7bda741_bdd807672f4efedab5c5cb3f0e65e7b5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c2b4a13bdad3ca6d2bfbe507412f75ad",
+            "image": "c2b4a13bdad3ca6d2bfbe507412f75ad_5f50dc85d7f9c704492ec7db9a368de5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "719407d318c8aeddd2d7a72801ad8770",
+            "image": "719407d318c8aeddd2d7a72801ad8770_7a104d6589701c732ddf0c0a22ed68d2.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "af24d324d92c93eb19691dcf04d457fc",
+            "image": "af24d324d92c93eb19691dcf04d457fc_d7987de27546d4ebc8a3e645e2113703.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "27da2a953a5b5d4f4b87b65dbc2ebe91",
+            "image": "27da2a953a5b5d4f4b87b65dbc2ebe91_e7ed852e596846ff61f0cea69d9f2ae6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5214f4386efcea56014510f1068da2a0",
+            "image": "5214f4386efcea56014510f1068da2a0_e37792d195d7dc26d0163ee9a8295b1a.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1586b51e41ee609593d5404b87cf360c",
+            "image": "1586b51e41ee609593d5404b87cf360c_a5a6a54fced7ec489dfcf38cc0fd22f9.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a4d6262b5d2949c533a8768b554dd547",
+            "image": "a4d6262b5d2949c533a8768b554dd547_13dc178bab9f3790c65110643f5c0c67.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "27da2a953a5b5d4f4b87b65dbc2ebe91",
+            "image": "27da2a953a5b5d4f4b87b65dbc2ebe91_5e16b129e337c2191bd0207390259575.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "69fce1bee9d2056fa4f35c693a38e28a",
+            "image": "69fce1bee9d2056fa4f35c693a38e28a_df1a94aad76bd2e7beadcf00dfc715bb.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "737b0cb7ebcce96bb85cf4926764deec",
+            "image": "737b0cb7ebcce96bb85cf4926764deec_232f33051c77bd6ce2d185aafe9471a3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d176abcedcf1d0230b0da51946e5fbfa",
+            "image": "d176abcedcf1d0230b0da51946e5fbfa_14bfc3d1b688d957d817958dff4d4f21.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "dd2d436eb89bb44c145df7f82e3b49fd",
+            "image": "dd2d436eb89bb44c145df7f82e3b49fd_4fb8ef64bf2a76ada26cb47ea2a00223.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fbdc572b430c0b423d0a88e8684233b0",
+            "image": "fbdc572b430c0b423d0a88e8684233b0_f2504628e2a4c5e04bb39655b4776f57.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "03e6e9a7430649373bd8e65102326bc5",
+            "image": "03e6e9a7430649373bd8e65102326bc5_19bab27f39e0bbf03479d640a97f4333.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "8bd5c0419fe5af4adb4bce96ca86b2c8",
+            "image": "8bd5c0419fe5af4adb4bce96ca86b2c8_e2ccff54395fa1abfad4e2cc80372492.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b123bcd385130b5d089f3fc9a7d24a11",
+            "image": "b123bcd385130b5d089f3fc9a7d24a11_54b2fd916363b3e07667e3f1d65f085f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "317986c9303c4a6b9e6d015d67baf4bf",
+            "image": "317986c9303c4a6b9e6d015d67baf4bf_bd6fb11df9e0ab89d8a9b176a271a8e4.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "3d342bcea04ea881e47f9de7238f91ea",
+            "image": "3d342bcea04ea881e47f9de7238f91ea_0b982200144c13b7302365e7f01c490d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7d6360b9a64937e539082e5c3eed4ea4",
+            "image": "7d6360b9a64937e539082e5c3eed4ea4_084e9be8c3708cf3d9664d82f679aaf1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1caf7a7178dbc3fb9649b93ba42115a7",
+            "image": "1caf7a7178dbc3fb9649b93ba42115a7_7dc416da53ec8c2abecf3646e0846ace.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "375665072d53ac6ed4e14aa85868166e",
+            "image": "375665072d53ac6ed4e14aa85868166e_22b98e62a14e74b01967bd3492e9197f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "2078a9aa298d78bc710441899883bb86",
+            "image": "2078a9aa298d78bc710441899883bb86_d590f7d1cd57ab842a5bef5241cac7b7.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f5c548e47e4ac764243e9b068b2d6e5e",
+            "image": "f5c548e47e4ac764243e9b068b2d6e5e_6904df2bf7180487ad11bf6da7890b5b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "4d7251459f544291749639dd9265b804",
+            "image": "4d7251459f544291749639dd9265b804_06073969e7453f71ac8108c6081dc9b8.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1ba2c84f59721618a813de779c880fd7",
+            "image": "1ba2c84f59721618a813de779c880fd7_6873d1aaecb91ad53eb43ac38a1fa258.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9b894f023fc7d0de382f3bed383983f0",
+            "image": "9b894f023fc7d0de382f3bed383983f0_caaea8270feed9e68f0e972073b78fbe.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2000886d64b57070bd0ba6d6a0e298fc",
+            "image": "2000886d64b57070bd0ba6d6a0e298fc_99afa546c964312caccb304f5e8f7a15.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "b16ec92bad7c4353d631db466186af9b",
+            "image": "b16ec92bad7c4353d631db466186af9b_b360498b63e20954420d4586af8bad5e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "aafeb37d07132ba4d84b8836daa8f56f",
+            "image": "aafeb37d07132ba4d84b8836daa8f56f_d02f7fcc6f0b63b2e5f548c5d595aaba.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "aafeb37d07132ba4d84b8836daa8f56f",
+            "image": "aafeb37d07132ba4d84b8836daa8f56f_4bedc4697d4a92230ba840a09c82d590.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "60210f608134c74cf7ca7a36956335d0",
+            "image": "60210f608134c74cf7ca7a36956335d0_20dfb3774ef8e9ee1fa642dfab995292.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "13f135b23fbca421d92c45a7e18c4593",
+            "image": "13f135b23fbca421d92c45a7e18c4593_d5cba9addf76e1ab491d4c4d71e80477.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5dd731c34fb57b5f936d818ad2bf2e74",
+            "image": "5dd731c34fb57b5f936d818ad2bf2e74_fbd3502fa2c44265523d50e7cd0e2768.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d8d0bc6e58b11efa2f86a9c0986b038e",
+            "image": "d8d0bc6e58b11efa2f86a9c0986b038e_96eb9c4bdf059f2f8da825bfc0a3ba69.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2f67cb763d38b2a87cc75fd2870e33a2",
+            "image": "2f67cb763d38b2a87cc75fd2870e33a2_861baa67e2c88b6f0a5a18250a9dcbab.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "f9b3e67ee4b1722bccb0c622c21826b8",
+            "image": "f9b3e67ee4b1722bccb0c622c21826b8_79cd08716576d630c7ceec1b42c077ec.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6c4e86701d8d1ba62b3b42931c91bf6e",
+            "image": "6c4e86701d8d1ba62b3b42931c91bf6e_fe575ad7fee825ea428a0a254018184a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b246600ed2faf4746f82af6ad170809b",
+            "image": "b246600ed2faf4746f82af6ad170809b_ae52de83c9c1c50c5b2204ab8dbbeac1.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "99454d49c902d4b7f8ee0550e61b6fd8",
+            "image": "99454d49c902d4b7f8ee0550e61b6fd8_246aeb83ba0e30090b1f7f897e01ee9a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a2fe4b41a16de08f0fb1f1868bf30b77",
+            "image": "a2fe4b41a16de08f0fb1f1868bf30b77_6e2240960c514ef913e32137f110a5dd.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e78963739a4ab1c4ea5188024281e38e",
+            "image": "e78963739a4ab1c4ea5188024281e38e_3de5eea0ccb210c8c138a5b4c896f710.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5bf7f3c05f93f02085789af720be64d6",
+            "image": "5bf7f3c05f93f02085789af720be64d6_a41a04883364dff4df3b28905809d335.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "8e467df187e9aa4bf69c9967fe2a500f",
+            "image": "8e467df187e9aa4bf69c9967fe2a500f_5a172903c1060312fd48a5e37a945d50.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "3b350da299f8b1de6d0a17bc62bcf131",
+            "image": "3b350da299f8b1de6d0a17bc62bcf131_edade9beec63e107c61991d46742a42a.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "906d8bf2c3351dcbb1816518a0f6bf3c",
+            "image": "906d8bf2c3351dcbb1816518a0f6bf3c_629fe812716c24a852eca6a916cc112d.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "175a70fed8dcf5dd0625d4ae7115eeb5",
+            "image": "175a70fed8dcf5dd0625d4ae7115eeb5_c98665f6eab4bdbb9e301043ab69b957.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6f2cd8de00e3b72b4ce264e17f3b86dd",
+            "image": "6f2cd8de00e3b72b4ce264e17f3b86dd_5c22b92f3b86189a8b1dde91aa7edc5f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "d06d1dcd3e83ce206ba413103f996319",
+            "image": "d06d1dcd3e83ce206ba413103f996319_f50d531553d2958b575c4f5bb7141b17.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d79a9264a20a3a1b6abbcc235aa5e150",
+            "image": "d79a9264a20a3a1b6abbcc235aa5e150_e01cab62f18468ede6bc87dc03078afc.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "a0da8d047c71765cdf217a8a52606741",
+            "image": "a0da8d047c71765cdf217a8a52606741_e61d36901ebb6b37ac41f6ca84e5c81b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6a6258ef868a99df53d7c1a79d64f5bb",
+            "image": "6a6258ef868a99df53d7c1a79d64f5bb_46c99229cd29d99ec8ab2ccfa164133f.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "57353041de453e62e1c589ae0450bc76",
+            "image": "57353041de453e62e1c589ae0450bc76_686c9c4b3bd36755a0ba9fa3af3fcc64.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "07691c50482dca6f87bc091778bd3344",
+            "image": "07691c50482dca6f87bc091778bd3344_0b29fadfa1861bdc7ce7448f9486fcee.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "63b872fe16a03cba95b17aa582d6df85",
+            "image": "63b872fe16a03cba95b17aa582d6df85_592fc7ae253f7e6d8f070f06c5d3bed0.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "de585e55834681c650d1f34ff21c2139",
+            "image": "de585e55834681c650d1f34ff21c2139_6ffb4582bf7434518000863d13bf8915.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "2000886d64b57070bd0ba6d6a0e298fc",
+            "image": "2000886d64b57070bd0ba6d6a0e298fc_5a81b119ee2a6bd1cc042fef59e0f207.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d8d0bc6e58b11efa2f86a9c0986b038e",
+            "image": "d8d0bc6e58b11efa2f86a9c0986b038e_53c092e62d94e3193734c7bdf81a6b49.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c800df6e5ea9cd5a183ee765983b4a07",
+            "image": "c800df6e5ea9cd5a183ee765983b4a07_33755feadab4a6b5db51edc060585921.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1289de4c6d2a9439311af675dd610158",
+            "image": "1289de4c6d2a9439311af675dd610158_d7e4f2a7ee93c5fc4d5b79989ce45210.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d43ecce90d69d1d5165d2760bdb01888",
+            "image": "d43ecce90d69d1d5165d2760bdb01888_5073e0b0f695acd495a806dbe0dfff2c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "bc3793e2fab6bcce292b7c59f145d779",
+            "image": "bc3793e2fab6bcce292b7c59f145d779_53fa52833d7a670711a9e63124f8d917.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1fe77db1e47d9133c2bc799fc2e3c4ba",
+            "image": "1fe77db1e47d9133c2bc799fc2e3c4ba_f7d9acd8e1f576d801c24f90ad5a99d3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "26a84f74585261dd17fb97bd9927a66c",
+            "image": "26a84f74585261dd17fb97bd9927a66c_9330f08b02db571dcfd55ddffeb66189.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5a8e2896d167fea6afbbf7fe7ea074fe",
+            "image": "5a8e2896d167fea6afbbf7fe7ea074fe_849e23406596ba8f98a8816be116be97.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "9494a6a100096956cd72899f59602e62",
+            "image": "9494a6a100096956cd72899f59602e62_9515868b0e0de7195161d62e0f580dcc.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5239f9678e91a2d48384b53f5c93beaf",
+            "image": "5239f9678e91a2d48384b53f5c93beaf_f51d41b40cbc2621ab7dc9e6ac7dbee7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "c7360c6740dcbe8491216ada6ae8b2a0",
+            "image": "c7360c6740dcbe8491216ada6ae8b2a0_dce7898554efd8b922dd5425d828db8d.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "923591d7cfb4661f1ff4483646998277",
+            "image": "923591d7cfb4661f1ff4483646998277_7031274b72497d2c7ab2f59efdc4083e.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "6f2cd8de00e3b72b4ce264e17f3b86dd",
+            "image": "6f2cd8de00e3b72b4ce264e17f3b86dd_02009a42ed7962b0d9e3e4f93e91d847.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "5db9ac9324ec6e77d5e5c4a3158323d7",
+            "image": "5db9ac9324ec6e77d5e5c4a3158323d7_37ea2a11029068572a77e6e530187bdf.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "9c8e8f688e99a35f6bb0a78cd4ae8d7e",
+            "image": "9c8e8f688e99a35f6bb0a78cd4ae8d7e_9f65a2368a5df60f1910d687067ced3b.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "d06d1dcd3e83ce206ba413103f996319",
+            "image": "d06d1dcd3e83ce206ba413103f996319_9edf7793eb2d8981f2635dcb59f7568c.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "30c3a965cd79168a8b85899be4d0bdab",
+            "image": "30c3a965cd79168a8b85899be4d0bdab_e788be650ac8e1f81beda55451f217e3.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "f5c548e47e4ac764243e9b068b2d6e5e",
+            "image": "f5c548e47e4ac764243e9b068b2d6e5e_1959ca267c7a8953a880b69c75168d13.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1b3343535dcba4a24de4147637195ac6",
+            "image": "1b3343535dcba4a24de4147637195ac6_b88db0ad6c35a28fb32b25fac57ce6b0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "7c953a2551795a92466b8db4aea28c21",
+            "image": "7c953a2551795a92466b8db4aea28c21_24128a16dac3b1d4297d0acd022b545c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "b2723324863e5050529dea6c9de4911a",
+            "image": "b2723324863e5050529dea6c9de4911a_94ab182292751918abd299bffea176f0.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "12b0db966e11c6476cf9134f254fb1b1",
+            "image": "12b0db966e11c6476cf9134f254fb1b1_632648b87efcae974030e8e9062dcaa5.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "7b17b1d061b038ceee40c3811341b2fc",
+            "image": "7b17b1d061b038ceee40c3811341b2fc_fc756aa345c85a94ce5e9d9066cd7247.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6951074b87f69ac9f76ee95aa813d89d",
+            "image": "6951074b87f69ac9f76ee95aa813d89d_f99da9cbe5fe23ea582eb94cdd917ca6.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "08ff6ccb8d89375cae5032f2ed646293",
+            "image": "08ff6ccb8d89375cae5032f2ed646293_7b1c9fd1bc403790393c7fa411afeaeb.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "08ba91bb945c4dbc738b3f0a2e5798e6",
+            "image": "08ba91bb945c4dbc738b3f0a2e5798e6_07f468d6fff5b3e3b512e4b95cf0cdda.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a0227d2dd753944b3ed688136ad07707",
+            "image": "a0227d2dd753944b3ed688136ad07707_ed07915496720db37580f3f9b2e7402c.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "e2c85f8e53ec0e41ad8ce106ef2ffca6",
+            "image": "e2c85f8e53ec0e41ad8ce106ef2ffca6_77b01e288f7bdd4055f9b33f139618a5.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "07b2966671cd768f41e0e9e86d57c5af",
+            "image": "07b2966671cd768f41e0e9e86d57c5af_4109290b0d3e25758091b68fa8d8262f.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "61f89a0baefd8edfa50c240d6439b7d5",
+            "image": "61f89a0baefd8edfa50c240d6439b7d5_703b37d21eca25ae7ca8060178eefb24.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1ba2c84f59721618a813de779c880fd7",
+            "image": "1ba2c84f59721618a813de779c880fd7_9885ede01e60756028ae87eea39d4cc1.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "67b24cf44eb413ce5eb3621e6348542c",
+            "image": "67b24cf44eb413ce5eb3621e6348542c_f5e6862c31cce8ae10ea203ba5746772.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "044a47867bfce8cffd2dcc9209067640",
+            "image": "044a47867bfce8cffd2dcc9209067640_a0988f1f3ccf58063504b59eebd42ae7.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "fd3658ecd1329cd16355f321d51574a2",
+            "image": "fd3658ecd1329cd16355f321d51574a2_66d278d472f1864bcfe2ed020ab4cc43.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "30ad46b0520344cd84be15253b8abec6",
+            "image": "30ad46b0520344cd84be15253b8abec6_7d828ecc31330cfaedd7c052712656a6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "5c9d7863e0c50cdb8e8f7bf5cf1c91b3",
+            "image": "5c9d7863e0c50cdb8e8f7bf5cf1c91b3_11d1c20d269f487d47fa5fc80c6f7722.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "87e7f33343cb5499c1a2f6a6b8917c3e",
+            "image": "87e7f33343cb5499c1a2f6a6b8917c3e_24bb5e3583786b4fd75dedfef8b86431.npy",
+            "label": 0
+        },
+        {
+            "patient_id": "1f5085175c4c88255660cac19310d1ec",
+            "image": "1f5085175c4c88255660cac19310d1ec_e8ecea5b336770a426df5b8ae88a543e.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "6461af61eeba4ca9183bf7e0b388e451",
+            "image": "6461af61eeba4ca9183bf7e0b388e451_ca05b9106baff5384aecc1ea3ae70ff6.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "c8be72337ea969d935bfe8e0a20e376e",
+            "image": "c8be72337ea969d935bfe8e0a20e376e_0d58856b402c571d3fa0fc19d26267ca.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "1caf7a7178dbc3fb9649b93ba42115a7",
+            "image": "1caf7a7178dbc3fb9649b93ba42115a7_80d1c8b91477afa2378cbfc7f1266dac.npy",
+            "label": 1
+        },
+        {
+            "patient_id": "a739f537d66fb48c49eca89a0991088f",
+            "image": "a739f537d66fb48c49eca89a0991088f_a93f1732181e8dc316aaa1dcb2625d37.npy",
+            "label": 1
+        }
+    ]
+}

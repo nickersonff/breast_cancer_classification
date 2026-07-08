@@ -567,35 +567,35 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     
     print(f'ARQUIVO: {debug_datalist}')
     """
-    CENÁRIO DE TESTES PARA OS PARÂMETROS FIXOS E SEM NENHUM OUTRO PRE-PROCESSAMENTO
+    DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224
     """
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-224/'
-    print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTROS - 224 ****')
+    print(f'**** Pipeline: DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224 ****')
     preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, fine=fineT)
 
     """
-    CENÁRIO DE TESTES PARA NORMALIZAÇÃO MIN-MAX
+    MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-NA_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-NA_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - SEM FILTROS - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA NORMALIZAÇÃO Z-SCORE
+    Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-z-score_FILTER-NA_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-z-score_FILTER-NA_SIZE-1024/'
-    print(f'**** Pipeline: Z-SCORE - SEM FILTROS - 1024 ****')
+    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - CLAHE
+    MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - CLAHE - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -603,7 +603,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - GAUSSIAN - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -611,7 +611,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - BILATERAL - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -619,7 +619,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - WIENER - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -627,7 +627,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - MEDIAN - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -635,7 +635,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - CLAHE+BILATERAL - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -643,7 +643,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - CLAHE+GAUSSIAN - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -651,7 +651,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - CLAHE+WIENER - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
@@ -659,35 +659,35 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-1024/'
-    print(f'**** Pipeline: MIN-MAX - CLAHE+MEDIAN - 1024 ****')
+    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA TAMANHOS - 384x384
+    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384
     """
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-384/'
-    print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 384 ****')
+    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=384, datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA TAMANHOS - 512x512
+    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512
     """
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-512/'
-    print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 512 ****')
+    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=512, datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA TAMANHOS - 1024x1024
+    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024
     """
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-1024/'
-    print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 1024 ****')
+    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=1024, datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA TAMANHOS - 2048x2048
+    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048
     """
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-2048/'
-    print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 2048 ****')
+    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048 ****')
     preprocessMixedDB(out_path=debug_dataset_root, size=2048, datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=2, cnn=cnn, fine=fineT)
 

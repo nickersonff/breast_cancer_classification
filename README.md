@@ -27,19 +27,17 @@ The main functions for configuring test scenarios are: pipelines and preprocessi
 
 ### 2.1 Run tests by passing arguments through the command line.
 
-python3 ./code/pt/learners/local_mammo_learner.py '/home/nfferreira/data/dataset_site-1_DDSM.json' './data/preprocess/'
-```pipelines(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])```
+python3 ./code/pt/learners/local_mammo_learner.py 'pipelines' 'resnet'
 
-* debug_datalist: path to the dataset JSON file.
-* debug_dataset_root: output folder for image processing.
+* argument[1]: the type of test ('pipelines', 'preprocess').
+* argument[2]: CNN model ('resnet', 'vgg', 'efficientnet', 'resnet152', 'densenet').
 
-preprocessing(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
 
-* debug_datalist: path to the dataset JSON file.
-* debug_dataset_root: output folder for image processing.
+### 2.2 Running Tests.
 
-### 2.2 Running Tests on Multiple Datasets.
+    Update the dataset paths in the main block of local_mammo_learner.py to match your local environment.
 
-    lista = ['/home/nfferreira/data/dataset_site-1_VINDR_DDSM.json', '/home/nfferreira/data/dataset_site-1_DDSM.json', '/home/nfferreira/data/dataset_site-1_VINDR_ALLMAN.json']
-    for i in lista:
-        preprocessing(debug_datalist=i, debug_dataset_root=argumentos[2])
+    datalist = ['/home/nfferreira/data/dataset_site-1_VINDR_DDSM.json', '/home/nfferreira/data/dataset_site-1_DDSM.json', '/home/nfferreira/data/dataset_site-1_VINDR_ALLMAN.json']
+    for i in datalist:
+        pipelines(debug_datalist=i, cnn=argumentos[2])
+

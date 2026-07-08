@@ -704,7 +704,6 @@ def path_exists(caminho_da_pasta=""):
 
 
 def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json", 
-              debug_dataset_root = "/home/nfferreira/data/preprocessed-2",
               cnn='resnet'):
 
     dic = {"/home/nfferreira/data/dataset_site-1.json": "DDSM",
@@ -752,7 +751,9 @@ def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json",
 if __name__ == "__main__":
     
     argumentos = sys.argv
-    lista = ["/home/nfferreira/data/dataset_site-1.json",
+
+    # Modify the datalist paths according to your local environment
+    datalist = ["/home/nfferreira/data/dataset_site-1.json",
            "/home/nfferreira/data/dataset_site-1-Planmed.json",
            "/home/nfferreira/data/dataset_site-1-IMS.json",
            "/home/nfferreira/data/dataset_site-1-SIEMENS.json",
@@ -761,13 +762,13 @@ if __name__ == "__main__":
            ]
     
     cnn = argumentos[2]
+
     if argumentos[1]=='preprocess':
-        print(f'Inicio pre-processamentos {cnn} para folds')
         for i in range(0,10):
             dataset = f'/home/nfferreira/data/dataset_site-{i}_DDSM_KFOLD.json'
             preprocessing(debug_datalist=dataset, cnn=cnn)
+
     elif argumentos[1]=='pipelines':
-        print(f'Inicio pipelines {cnn}')
-        for i in lista:
+        for i in datalist:
             pipelines(debug_datalist=i, cnn=cnn)
     

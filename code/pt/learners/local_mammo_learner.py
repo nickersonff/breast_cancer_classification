@@ -599,7 +599,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - GAUSSIAN
+    MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-1024/'
@@ -607,7 +607,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - BILATERAL
+    MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-1024/'
@@ -615,7 +615,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - WIENER
+    MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-1024/'
@@ -623,7 +623,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - MEDIAN
+    MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-1024/'
@@ -631,7 +631,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - CLAHE+BILATERAL
+    MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-1024/'
@@ -639,7 +639,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - CLAHE+GAUSSIAN
+    MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-1024/'
@@ -647,7 +647,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - CLAHE+WIENER
+    MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-1024/'
@@ -655,7 +655,7 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist)
     runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
-    CENÁRIO DE TESTES PARA FILTROS - CLAHE+MEDIAN
+    MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024
     """
     #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-224/'
     debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-1024/'

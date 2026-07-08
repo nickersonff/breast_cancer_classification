@@ -16,6 +16,8 @@ import torch
 import torch.optim as optim
 import torch.nn as nn
 import torchvision.models as models
+from torchvision.models import VGG16_BN_Weights
+import monai.utils as mutil
 from monai.data import CacheDataset, DataLoader
 from monai.networks.nets import TorchVisionFCModel
 from monai.transforms import (
@@ -34,6 +36,7 @@ from monai.transforms import (
     RandFlipd,
     RandGaussianNoised,
     RandScaleIntensityd,
+    CastToTyped
 )
 from sklearn.metrics import cohen_kappa_score, f1_score, matthews_corrcoef, roc_auc_score, confusion_matrix, roc_curve, ConfusionMatrixDisplay
 from sklearn.metrics import RocCurveDisplay
@@ -41,8 +44,7 @@ from torch.utils.tensorboard import SummaryWriter
 import wandb
 from types import SimpleNamespace
 import matplotlib.pyplot as plt
-from imblearn.over_sampling import SMOTE
-from utils.preprocess_json import preprocess, preprocessMixedDB
+from utils.preprocess_json import preprocessMixedDB
 import random
 
 def load_datalist(filename, data_list_key="train", base_dir=""):
@@ -65,6 +67,7 @@ class MammoLearner():
         batch_size: int = 64,
         val_freq: int = 1,
         val_frac: float = 0.1,
+        architecture: str = "resnet",
     ):
        
         super().__init__()
@@ -85,6 +88,8 @@ class MammoLearner():
         self.epoch_global = 0
         self.roc_values = []
         self.acc_values = []
+        self.arch = architecture
+
 
         if not isinstance(self.val_freq, int):
             raise ValueError(
@@ -105,15 +110,37 @@ class MammoLearner():
         self.sched = None
         self.run = None
         
+    # to use wandb
+    def init_wandb(self):
+
+        wandb.login()
+        config = SimpleNamespace(
+            batch_size=self.batch_size,
+            learning_rate=self.lr,
+            epochs=self.aggregation_epochs,
+            num_workers=4,
+            model_name='resnest18',
+            num_classes=2,
+            in_chans=1,
+            device = "cuda:0" if torch.cuda.is_available() else "cpu",
+            link_model=True            
+        )
+
+        self.run = wandb.init(project="wandb_mammo",
+                     job_type="train", 
+                     sync_tensorboard=True,
+                     config=config 
+                     )
+
     def save_model(self, name="local_model.pt"):
         # save model
         model_weights = self.model.state_dict()
         save_dict = {"model_weights": model_weights,
                      "epoch": self.epoch_global}
        
-        torch.save(save_dict, f'/home/nfferreira/data/model/{name}') # change the path
+        torch.save(save_dict, f'/home/nfferreira/data/model/{name}') # change path
 
-    def initialize(self, fine_tunning=False):
+    def initialize(self):
         
         self.writer = SummaryWriter()
 
@@ -124,6 +151,7 @@ class MammoLearner():
             },
         }
         self.writer.add_custom_scalars(layout)
+        
         
         self.transform_train = Compose(
             [
@@ -146,7 +174,7 @@ class MammoLearner():
                 RandGaussianNoised(keys=["image"], std=0.01, prob=0.15),
                 # make channels-first
                 Transposed(keys=["image"], indices=[2, 0, 1]),
-                HistogramNormalized(keys=["image"]),
+                CastToTyped(keys=["image"], dtype=torch.float32),
                 EnsureTyped(keys=["image", "label"]),
             ]
         )
@@ -156,7 +184,7 @@ class MammoLearner():
                 LoadImaged(keys=["image"]),
                 # make channels-first
                 Transposed(keys=["image"], indices=[2, 0, 1]),
-                HistogramNormalized(keys=["image"]),
+                CastToTyped(keys=["image"], dtype=torch.float32),
                 EnsureTyped(keys=["image", "label"]),
             ]
         )
@@ -202,35 +230,72 @@ class MammoLearner():
         print( f"Training set: {len(train_datalist)} entries")
         
         self.num_classes = len(np.unique(y))
-        self.model = models.resnet18(pretrained=True)
-        num_features = self.model.fc.in_features
-        self.model.fc = nn.Sequential(
-            nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-            nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-            nn.Dropout(0.5),               # Dropout layer with 50% probability
-            nn.Linear(256, 2)              # Final prediction fc layer
-        )
-        num_classes = 2  
-        
-        if fine_tunning:
-            #################### BLOCO PARA O FINE-TUNING
-            # carregar os pesos de um modelo treinado
-            model_data = torch.load("/home/nfferreira/data/model/final_model.pt") # change path
-            self.model.load_state_dict(model_data['model_weights'])
 
-            # To freeze the residual layers
-            for param in self.model.parameters():
-                param.requires_grad = False
-                
-            camadas = [self.model.layer4, self.model.fc]
-            for c in camadas:
-                for param in c.parameters():
-                    param.requires_grad = True
+        if self.arch == 'resnet':
+            # RESNET18
             
+            self.model = models.resnet18(pretrained=True)
+            num_features = self.model.fc.in_features
+            self.model.fc = nn.Sequential(
+                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
+                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
+                nn.Dropout(0.5),               # Dropout layer with 50% probability
+                nn.Linear(256, self.num_classes)              # Final prediction fc layer
+            )
+            
+        elif self.arch == 'vgg':
+            # VGG16
+            
+            self.model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
+            num_features = self.model.classifier[6].in_features
+            nova_camada_final = nn.Sequential(
+                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
+                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
+                nn.Dropout(0.5),               # Dropout layer with 50% probability
+                nn.Linear(256, self.num_classes)              # Final prediction fc layer
+            )
+            self.model.classifier[6] = nova_camada_final
+
+        elif self.arch == 'efficientnet':
+            # EfficientNet B3
+            
+            self.model = models.efficientnet_b3(pretrained=True)
+            num_features = self.model.classifier[1].in_features
+            nova_camada_final = nn.Sequential(
+                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
+                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
+                nn.Dropout(0.5),               # Dropout layer with 50% probability
+                nn.Linear(256, self.num_classes)              # Final prediction fc layer
+            )
+            self.model.classifier[1] = nova_camada_final
+        elif self.arch == 'resnet152':
+            # RESNET152
+            
+            self.model = models.resnet152(pretrained=True)
+            num_features = self.model.fc.in_features
+            self.model.fc = nn.Sequential(
+                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
+                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
+                nn.Dropout(0.5),               # Dropout layer with 50% probability
+                nn.Linear(256, self.num_classes)              # Final prediction fc layer
+            )
+        elif self.arch == 'densenet':
+            self.model = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
+            num_features = self.model.classifier.in_features
+
+            self.model.classifier = nn.Sequential(
+                    nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
+                    nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
+                    nn.Dropout(0.5),               # Dropout layer with 50% probability
+                    nn.Linear(256, self.num_classes)              # Final prediction fc layer
+            )
 
         self.model = self.model.to(self.device)
-        self.optimizer = optim.SGD(self.model.parameters(), lr=self.lr, momentum=0.9)
+        if self.optimizer == None:
+            self.optimizer = optim.SGD(self.model.parameters(), lr=self.lr, momentum=0.9)
+
         self.criterion = torch.nn.CrossEntropyLoss()
+
         self.criterion = self.criterion.to(self.device)
 
         # Set up one-cycle learning rate scheduler
@@ -279,7 +344,10 @@ class MammoLearner():
                     batch_data["image"].to(self.device),
                     batch_data["label"].to(self.device),
                 )
-            
+                
+                # Gradient Clipping for VGG-16
+                if self.arch == 'vgg':
+                    nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
                 # zero the parameter gradients
                 self.optimizer.zero_grad()
 
@@ -295,16 +363,13 @@ class MammoLearner():
                 lrs.append(self.get_lr(self.optimizer))
                 self.sched.step()
                 avg_loss += loss.item()
+
                 
                 _, _pred_label = torch.max(outputs.data, 1)
                 _labels = batch_data["label"].to(self.device)
                 total += inputs.data.size()[0]
                 correct += (_pred_label == _labels.data).sum().item()
 
-                # Escrever os pesos do modelo no TensorBoard
-                for name, param in self.model.named_parameters():
-                    self.writer.add_histogram(name, param.clone().cpu().data.numpy(), epoch)
-
             self.writer.add_scalar(
                 "lr", self.get_lr(self.optimizer), self.epoch_global)
 
@@ -327,65 +392,19 @@ class MammoLearner():
             self.writer.add_scalar("val_acc", acc, self.epoch_global)
             self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
 
-            
-    def fine_tunning(self, train_loader):
-        
-        # treina a base do modelo com as camadas congeladas por 20 epochs
-        for epoch in range(self.aggregation_epochs):
-            print(f'Treino na camada Mid-Level: {epoch+1}/{self.aggregation_epochs}')
-            self.model.train()
-            avg_loss = 0.0
-            correct, total = 0,0
-            for i, batch_data in enumerate(train_loader):
-                inputs, labels = (
-                    batch_data["image"].to(self.device),
-                    batch_data["label"].to(self.device),
+            if self.run != None:
+                wandb.log(
+                    {
+                        "epoch": self.epoch_global,
+                        "train_acc": (correct/float(total)),
+                        "train_loss": (avg_loss / len(train_loader)),
+                        "val_acc": acc,
+                        "val_kappa": kappa
+                    }
                 )
-
-                # zero the parameter gradients
-                self.optimizer.zero_grad()
-
-                # forward + backward + optimize
-                outputs = self.model(inputs)
-                loss = self.criterion(outputs, labels)
-
-                loss.backward()
-                self.optimizer.step()
-                self.sched.step()
-                avg_loss += loss.item()
-
-                _, _pred_label = torch.max(outputs.data, 1)
-                _labels = batch_data["label"].to(self.device)
-                total += inputs.data.size()[0]
-                correct += (_pred_label == _labels.data).sum().item()
-
-                # Escrever os pesos do modelo no TensorBoard
-                for name, param in self.model.named_parameters():
-                    self.writer.add_histogram(name, param.clone().cpu().data.numpy(), epoch)
-
-            self.writer.add_scalar(
-                "lr", self.get_lr(self.optimizer), self.epoch_global)
-
-            self.writer.add_scalar(
-                "train_loss", avg_loss / len(train_loader), self.epoch_global)
             
-            self.writer.add_scalar(
-                "train_acc", correct/float(total), self.epoch_global)
+    
 
-            acc, kappa, roc = self.local_valid(
-                self.valid_loader
-            )
-
-            if len(self.acc_values) == 0:
-                self.save_model()
-            elif acc >= max(self.acc_values):
-                self.save_model()
-            self.roc_values.append(roc)
-            self.acc_values.append(acc)
-            self.writer.add_scalar("val_acc", acc, self.epoch_global)
-            self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
-            
-            
     def local_valid(
         self,
         valid_loader,
@@ -407,8 +426,8 @@ class MammoLearner():
                     batch_data["image"].to(self.device),
                     batch_data["label"].to(self.device),
                 )
+                
                 outputs = self.model(inputs)
-                #att, raw, outputs = self.model(inputs)
                 
                 # Find the Loss
                 validation_loss = self.criterion(outputs, lbls)
@@ -419,7 +438,7 @@ class MammoLearner():
                 probs = outputs_soft.detach().cpu().numpy()
                 
                 # make json serializable
-                for _img_file, _probs, lbl in zip(batch_data["image_meta_dict"]["filename_or_obj"], probs, batch_data["label"]):
+                for _img_file, _probs, lbl in zip(batch_data["image"].meta["filename_or_obj"], probs, batch_data["label"]):
                     p = [float(p) for p in _probs]
                     return_probs.append(
                         {
@@ -429,7 +448,7 @@ class MammoLearner():
                         } 
                     )
                     l_probs.append(p[1]) # probs da classe positiva
-
+                
                 if not return_probs_only:
                     _, _pred_label = torch.max(outputs_soft.data, 1)
                     _labels = batch_data["label"].to(self.device)
@@ -470,8 +489,9 @@ class MammoLearner():
                 if is_final:
                     
                     if self.num_classes == 2:
-                        # gera a curva roc
+                        # ROC curve
                         fig = plt.figure(figsize=(8, 6))
+                        
                         fpr, tpr, thresholds = roc_curve(labels, l_probs)
                         plt.plot(fpr, tpr, label='AUC = {:.4f}'.format(roc_auc))
                         plt.xlim([0, 1])
@@ -480,19 +500,35 @@ class MammoLearner():
                         plt.ylabel('True Positive Rate')
                         plt.title('ROC Curve')
                         plt.legend()
+                        
+                        if self.run != None:
+                            self.run.log(
+                                {
+                                    "ROC CURVE IMAGE": wandb.Image(fig, caption='ROC CURVE')
+                                }
+                            )
                         print(f'ROC VALUES: {self.roc_values}')
                         print(f'ACC VALUES: {self.acc_values}')
                         
                     
-                    # gera a matriz de confusão
+                    # CONFUSION MATRIX
                     cm_norm = []
                     cm_norm = matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis]
+
                     disp = ConfusionMatrixDisplay(confusion_matrix=cm_norm, display_labels=range(self.num_classes))
                     disp.plot()    
+                    
+                    if self.run != None: 
+                        self.run.log(
+                                {
+                                    "CONFUSION MATRIX IMAGE": wandb.Image(disp.figure_, caption='CONFUSION MATRIX')
+                                }
+                            )
 
                 return acc, kappa, roc_auc    
 
-def run_test_case(dataset_root, datalist_prefix, batch=64):
+
+def runTest(dataset_root, datalist_prefix, batch=64, cnn='resnet', fine=False):
     print("Testing MammoLearner...")
     learner = MammoLearner(
         dataset_root=dataset_root,
@@ -500,150 +536,183 @@ def run_test_case(dataset_root, datalist_prefix, batch=64):
         aggregation_epochs=60,
         val_frac=0,
         lr=1e-3,
-        batch_size=batch
+        batch_size=batch,
+        architecture=cnn,
     )
     print("test initialize...")
-    fine = False
-    learner.initialize(fine_tunning=fine)
-    if fine:
-        print("test fine-tunning...")
-        learner.fine_tunning(
-            train_loader=learner.train_loader
-        )
-    else:
-        print("test train...")
-        learner.train(
-            train_loader=learner.train_loader
-        )
+    learner.initialize()
 
-    learner.save_model('final_model.pt')
+    print("test train...")
+    learner.train(
+        train_loader=learner.train_loader
+    )
+    
+    learner.save_model('final-model.pt')
 
     print("test valid...")
     acc, kappa, roc = learner.local_valid(
         valid_loader=learner.valid_loader, is_final=True
     )
     
-    
     print("debug acc", acc)
     print("debug kappa", kappa)
     print("debug ROC AUC", roc)
-    
+        
     if learner.run != None:
         learner.run.finish()
 
 def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json', 
-                      debug_dataset_root = "/home/nfferreira/data/preprocessed"):
-    #NPAD
-    dicom_root = "/home/nfferreira/DDSM/CBIS-DDSM"
-    print(f'Dataset file: {debug_datalist}')
+                      debug_dataset_root = "/home/nfferreira/data/preprocessed",
+                      cnn='resnet', fineT=False):
+    
+    print(f'ARQUIVO: {debug_datalist}')
     """
     CENÁRIO DE TESTES PARA OS PARÂMETROS FIXOS E SEM NENHUM OUTRO PRE-PROCESSAMENTO
     """
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-224/'
     print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTROS - 224 ****')
     preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist)
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    runTest(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, fine=fineT)
 
     """
     CENÁRIO DE TESTES PARA NORMALIZAÇÃO MIN-MAX
     """
-    print(f'**** Pipeline: MIN-MAX - SEM FILTROS - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-NA_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-NA_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - SEM FILTROS - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA NORMALIZAÇÃO Z-SCORE
     """
-    print(f'**** Pipeline: Z-SCORE - SEM FILTROS - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="z-score")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-z-score_FILTER-NA_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-z-score_FILTER-NA_SIZE-1024/'
+    print(f'**** Pipeline: Z-SCORE - SEM FILTROS - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - CLAHE
     """
-    print(f'**** Pipeline: MIN-MAX - CLAHE - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max", filter="CLAHE")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - CLAHE - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - GAUSSIAN
     """
-    print(f'**** Pipeline: MIN-MAX - GAUSSIAN - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="GAUSSIAN")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-GAUSSIAN_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - GAUSSIAN - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - BILATERAL
     """
-    print(f'**** Pipeline: MIN-MAX - BILATERAL - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="BILATERAL")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-BILATERAL_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - BILATERAL - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - WIENER
     """
-    print(f'**** Pipeline: MIN-MAX - WIENER - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="WIENER")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-WIENER_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - WIENER - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - MEDIAN
     """
-    print(f'**** Pipeline: MIN-MAX - MEDIAN - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="MEDIAN")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-MEDIAN_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - MEDIAN - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - CLAHE+BILATERAL
     """
-    print(f'**** Pipeline: MIN-MAX - CLAHE+BILATERAL - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="CLAHE+BILATERAL")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+BILATERAL_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - CLAHE+BILATERAL - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - CLAHE+GAUSSIAN
     """
-    print(f'**** Pipeline: MIN-MAX - CLAHE+GAUSSIAN - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="CLAHE+GAUSSIAN")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+GAUSSIAN_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - CLAHE+GAUSSIAN - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - CLAHE+WIENER
     """
-    print(f'**** Pipeline: MIN-MAX - CLAHE+WIENER - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, norm="min-max",filter="CLAHE+WIENER", 
-                     datalist=debug_datalist)
-    run_test_case(debug_dataset_root, debug_datalist, batch=16) 
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+WIENER_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - CLAHE+WIENER - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA FILTROS - CLAHE+MEDIAN
     """
-    print(f'**** Pipeline: MIN-MAX - CLAHE+MEDIAN - 224 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, norm="min-max",filter="CLAHE+MEDIAN")
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    #debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-224/'
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-min-max_FILTER-CLAHE+MEDIAN_SIZE-1024/'
+    print(f'**** Pipeline: MIN-MAX - CLAHE+MEDIAN - 1024 ****')
+    preprocessMixedDB(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA TAMANHOS - 384x384
     """
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-384/'
     print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 384 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, size=384)
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    preprocessMixedDB(out_path=debug_dataset_root, size=384, datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA TAMANHOS - 512x512
     """
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-512/'
     print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 512 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, size=512)
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    preprocessMixedDB(out_path=debug_dataset_root, size=512, datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA TAMANHOS - 1024x1024
     """
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-1024/'
     print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 1024 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, size=1024)
-    run_test_case(debug_dataset_root, debug_datalist, batch=16)
+    preprocessMixedDB(out_path=debug_dataset_root, size=1024, datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=8, cnn=cnn, fine=fineT)
     """
     CENÁRIO DE TESTES PARA TAMANHOS - 2048x2048
     """
+    debug_dataset_root = f'/home/nfferreira/data/preprocessed/DDSM2_NORM-NA_FILTER-NA_SIZE-2048/'
     print(f'**** Pipeline: SEM NORMALIZAÇÃO - SEM FILTRO - 2048 ****')
-    preprocessMixedDB(out_path=debug_dataset_root, datalist=debug_datalist, size=2048)
-    run_test_case(debug_dataset_root, debug_datalist, batch=2)
-    """
-    CENÁRIO DE TESTES COM OS MELHORES RESULTADOS DOS TESTES ANTERIORES (OPP)
-    """
-    #print(f'**** Pipeline BEST: MIN-MAX - CLAHE+GAUSSIAN - 2048 ****')
-    #preprocessMixedDB(out_path=debug_dataset_root, norm="min-max",filter="CLAHE+GAUSSIAN", size=2048, 
-    #                  datalist=debug_datalist)
-    #run_test_case(debug_dataset_root, debug_datalist, batch=2)
+    preprocessMixedDB(out_path=debug_dataset_root, size=2048, datalist=debug_datalist)
+    runTest(debug_dataset_root, debug_datalist, batch=2, cnn=cnn, fine=fineT)
+
+
+def path_exists(caminho_da_pasta=""):
+
+    if os.path.exists(caminho_da_pasta) and os.path.isdir(caminho_da_pasta):
+        if os.listdir(caminho_da_pasta):
+            return True
+        else:
+            return False
+    else:
+        return False
+
 
 def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json", 
-              debug_dataset_root = "/home/nfferreira/data/preprocessed-2"):
+              debug_dataset_root = "/home/nfferreira/data/preprocessed-2",
+              cnn='resnet'):
+
+    dic = {"/home/nfferreira/data/dataset_site-1.json": "DDSM",
+           "/home/nfferreira/data/dataset_site-1-Planmed.json": "PLANMED",
+           "/home/nfferreira/data/dataset_site-1-IMS.json": "IMS",
+           "/home/nfferreira/data/dataset_site-1-SIEMENS.json": "SIEMENS",
+           "/home/nfferreira/data/dataset_site-1_VINDR_DDSM-reduzido.json": "VINDR-DDSM",
+           "/home/nfferreira/data/dataset_site-1-VINDR_ALLMAN.json": "VINDR"}
 
     normalizacao = ['min-max', 'z-score']
     filtros = ['CLAHE', 'BILATERAL', 'WIENER', 'GAUSSIAN', 
@@ -651,34 +720,54 @@ def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json",
     'CLAHE+WIENER', 'CLAHE+GAUSSIAN', 'CLAHE+MEDIAN']
     tamanhos = [224, 384, 512, 1024, 2048]
     pipe = []
-    exc = []  # se já rodou essas configs
 
     random.seed(42)
-
-    while len(pipe) < 25:
+    qt_exec = 25
+    
+    while len(pipe) < qt_exec:
         t = (random.sample(range(len(normalizacao)), k=1)[0],
             random.sample(range(len(filtros)), k=1)[0],
             random.sample(range(len(tamanhos)), k=1)[0] )
-        if (t not in pipe) and (t not in exc):
+        if (t not in pipe):
             pipe.append(t)
 
     for i in pipe:
-        print(f'**** Pipeline: {normalizacao[i[0]]} - {filtros[i[1]]} - {tamanhos[i[2]]} ****')
-        preprocessMixedDB(out_path=debug_dataset_root, norm=normalizacao[i[0]], filter=filtros[i[1]], 
-                   size=tamanhos[i[2]], datalist=debug_datalist)
+        outpath = f'/home/nfferreira/data2/preprocessed/{dic[debug_datalist]}_NORM-{normalizacao[i[0]]}_FILTER-{filtros[i[1]]}_SIZE-{tamanhos[i[2]]}/'
+        print(outpath)
+        if not path_exists(outpath):
+            print(f'**** Pipeline: {normalizacao[i[0]]} - {filtros[i[1]]} - {tamanhos[i[2]]} ****')
+            #os.mkdir(outpath)
+            preprocessMixedDB(out_path=outpath, norm=normalizacao[i[0]], filter=filtros[i[1]], 
+                    size=tamanhos[i[2]], datalist=debug_datalist)
+        
+        
         if tamanhos[i[2]] == 2048:
-            run_test_case(debug_dataset_root, debug_datalist, batch=2)
-        else:
-            run_test_case(debug_dataset_root, debug_datalist, batch=16)
+            runTest(outpath, debug_datalist, batch=4, cnn=cnn)
+        elif tamanhos[i[2]] == 1024:
+            runTest(outpath, debug_datalist, batch=16, cnn=cnn)
+        else: 
+            runTest(outpath, debug_datalist, batch=32, cnn=cnn)
+
 
 if __name__ == "__main__":
-    #EXECUTA TODOS OS EXPERIMENTOS SOBRE OS PRE-PROCESSAMENTOS - NORMALIZAÇÃO, FILTROS E TAMANHOS  
-    argumentos = sys.argv
-    #pipelines(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
-    preprocessing(debug_datalist=argumentos[1], debug_dataset_root=argumentos[2])
     
-    #lista = ['/home/nfferreira/data/dataset_site-1_VINDR_DDSM-reduzido.json']
-    #for i in lista:
-        #dataset = f'/home/nfferreira/data/dataset_site-{i}_DDSM_KFOLD.json'
-    #    preprocessing(debug_datalist=i, debug_dataset_root=argumentos[2])
+    argumentos = sys.argv
+    lista = ["/home/nfferreira/data/dataset_site-1.json",
+           "/home/nfferreira/data/dataset_site-1-Planmed.json",
+           "/home/nfferreira/data/dataset_site-1-IMS.json",
+           "/home/nfferreira/data/dataset_site-1-SIEMENS.json",
+           "/home/nfferreira/data/dataset_site-1_VINDR_DDSM-reduzido.json",
+           "/home/nfferreira/data/dataset_site-1-VINDR_ALLMAN.json"
+           ]
+    
+    cnn = argumentos[2]
+    if argumentos[1]=='preprocess':
+        print(f'Inicio pre-processamentos {cnn} para folds')
+        for i in range(0,10):
+            dataset = f'/home/nfferreira/data/dataset_site-{i}_DDSM_KFOLD.json'
+            preprocessing(debug_datalist=dataset, cnn=cnn)
+    elif argumentos[1]=='pipelines':
+        print(f'Inicio pipelines {cnn}')
+        for i in lista:
+            pipelines(debug_datalist=i, cnn=cnn)
     

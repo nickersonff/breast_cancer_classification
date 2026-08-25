@@ -1,23 +1,40 @@
 
 import glob
-import numpy as np
-import pandas as pd
 import os
 import json
-from utils.preprocess_dicom import dicom_preprocess
+from src.pt.preprocessing.preprocess_dicom import dicom_preprocess
+from typing import Dict
 
+def load_datalist(filename, data_list_key="train", base_dir=""):
+    with open(filename, "r") as f:
+        data = json.load(f)
 
+    data_list = data[data_list_key]
+    for d in data_list:
+        d["image"] = os.path.join(base_dir, d["image"])
 
-def excluirRegistros(diretorio):
+    return data_list
+
+def path_exists(caminho_da_pasta=""):
+
+    if os.path.exists(caminho_da_pasta) and os.path.isdir(caminho_da_pasta):
+        if os.listdir(caminho_da_pasta):
+            return True
+        else:
+            return False
+    else:
+        return False
+
+def clean_path(diretorio):
     path = diretorio
     if os.path.exists(path) and os.path.isdir(path):
         dir = os.listdir(path)
         for file in dir:
             os.remove(os.path.join(path, file))
 
-def preprocessMixedDB(out_path, norm="", filter="", size=224, datalist=''):
+def preprocess_db(out_path, norm="", filter="", size=224, datalist='', config: Dict = None):
 
-    excluirRegistros(out_path)
+    #clean_path(out_path) # if want delete all files inside the path
     
     with open(datalist) as file:
         c = json.load(file)
@@ -34,23 +51,22 @@ def preprocessMixedDB(out_path, norm="", filter="", size=224, datalist=''):
         image_file_path.extend([l['image'] for l in c['train']])
         image_file_path.extend([l['image'] for l in c['test']])
     
-    print(f'Número de imagens encontradas: {len(image_file_path)}')
+    print(f'Images found: {len(image_file_path)}')
 
     list_img = []
     for i in image_file_path:
         if ehLiga:
-            dicom_root = "/home/nfferreira/LIGA/dicom" #change dicom path
+            dicom_root = config['io_dirs'].get('dicom_root_LIGA') 
             dir_name = i['image'].replace('.npy', '')
-            #img_file = glob.glob(i['dicom'], recursive=True)
             img_file = [i['dicom']]
             save_prefix = os.path.join(out_path, dir_name)
         elif i.startswith('Calc') or i.startswith('Mass'):
-            dicom_root = "/home/nfferreira/DDSM/CBIS-DDSM" #change dicom path
+            dicom_root =  config['io_dirs'].get('dicom_root_DDSM')
             dir_name = i.replace('.npy', '')
             img_file = glob.glob(os.path.join(dicom_root, dir_name, "**", "*.dcm"), recursive=True)
             save_prefix = os.path.join(out_path, dir_name)
         else:
-            dicom_root = "/home/nfferreira/VinDr/images" #change dicom path
+            dicom_root =  config['io_dirs'].get('dicom_root_VINDR')
             id = i.split("_")[0]
             img = i.split("_")[1].replace('.npy', '')
             img_file = glob.glob(os.path.join(dicom_root, id, img + "*.dicom"), recursive=True)
@@ -64,4 +80,4 @@ def preprocessMixedDB(out_path, norm="", filter="", size=224, datalist=''):
         else:
             _success = False
     
-    print(f'Número de imagens transformadas: {len(list_img)}')
+    print(f'Images transformed: {len(list_img)}')

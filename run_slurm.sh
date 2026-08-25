@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --output=out_local_train.txt
 
-export PYTHONPATH="${PYTHONPATH}:${PWD}/code:${PWD}/code/pt"
+export PYTHONPATH="${PYTHONPATH}:${PWD}/src:${PWD}/src/pt"
 
-python3 ./code/pt/learners/local_mammo_learner.py 'pipelines' 'resnet'
+python3 ./main.py
 

@@ -15,7 +15,7 @@ import numpy as np
 import pydicom
 #import skimage.io
 #import skimage.exposure
-from utils.img_utils import *
+from src.pt.utils.img_utils import *
 from scipy import stats
 from scipy.signal import wiener
 from sklearn import preprocessing

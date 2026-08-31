@@ -12,7 +12,6 @@ backcall==0.2.0
 beautifulsoup4==4.12.3
 black==22.1.0
 bleach==4.1.0
-Bottleneck @ file:///croot/bottleneck_1707864210935/work
 brotlipy==0.7.0
 cachetools==3.1.1
 certifi==2021.5.30
@@ -108,7 +107,7 @@ mccabe==0.6.1
 mdit-py-plugins==0.2.8
 mistune==0.8.4
 mkl-fft==1.3.1
-mkl-random @ file:///tmp/build/80754af9/mkl_random_1626186064646/work
+mkl-random==1.3.0
 mkl-service==2.4.0
 mlflow==1.23.1
 monai==0.8.1
@@ -124,15 +123,14 @@ ninja==1.10.2.3
 nltk==3.6.4
 notebook==6.4.1
 numba==0.52.0
-numexpr @ file:///croot/numexpr_1668713893690/work
-numpy @ file:///croot/numpy_and_numpy_base_1668593735768/work
+numpy==2.2.5
 nvflare==2.0.16
 nvidia-pyindex==1.0.9
 oauthlib==3.1.1
 opencv-python==4.11.0.86
 opencv-python-headless==4.9.0.80
 openslide-python==1.1.2
-packaging @ file:///croot/packaging_1710807400464/work
+packaging==25.0
 pandas==1.4.1
 pandocfilters==1.5.0
 parameterized==0.8.1
@@ -171,7 +169,7 @@ PySocks==1.7.1
 pytest==6.2.5
 pytest-cov==3.0.0
 pytest-pythonpath==0.7.3
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+python-dateutil==2.8.2
 python-dotenv==0.19.1
 python-hostlist==1.21
 python-nvd3==0.15.0
@@ -179,7 +177,7 @@ python-slugify==5.0.2
 pytorch-gradcam==0.2.1
 pytorch-ignite==0.4.8
 pytype==2022.2.8
-pytz @ file:///croot/pytz_1695131579487/work
+pytz==2025.2
 PyWavelets==1.2.0
 PyYAML==5.4.1
 pyzmq==22.3.0
@@ -198,7 +196,7 @@ seaborn==0.13.2
 Send2Trash==1.8.0
 sentry-sdk==2.1.1
 setproctitle==1.3.3
-six @ file:///tmp/build/80754af9/six_1644875935023/work
+six==1.17.0
 smmap==5.0.0
 snowballstemmer==2.1.0
 SoundFile==0.10.3.post1
@@ -239,7 +237,7 @@ ttach==0.0.3
 types-pkg-resources==0.1.3
 typing-inspect==0.7.1
 typing_extensions==4.10.0
-tzdata @ file:///croot/python-tzdata_1690578112552/work
+tzdata==2025.2
 uritemplate==4.1.1
 urllib3==2.2.1
 uvicorn==0.15.0

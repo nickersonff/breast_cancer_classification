@@ -3,8 +3,45 @@ name = "breast-cancer-classification"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = []
+authors = [
+    { name = "FelipeAlves14", email = "favasconcelos09@gmail.com" }
+]
+requires-python = ">=3.10,<3.11"
+
+dependencies = [
+    "black==25.1.0",
+    "flake8==7.3.0",
+    "grad-cam==1.5.5",
+    "imageio==2.37.0",
+    "imbalanced-learn==0.14.2",
+    "ipykernel==6.30.1",
+    "ipython==8.37.0",
+    "isort==6.0.1",
+    "jupyterlab==4.4.7",
+    "monai==1.3.2",
+    "mypy==1.17.1",
+    "nibabel==5.4.2",
+    "notebook==7.4.5",
+    "numpy==2.2.5",
+    "opencv-python-headless==4.11.0.86",
+    "pillow==11.3.0",
+    "pydicom==3.0.1",
+    "pylint==3.3.8",
+    "pytest==8.4.1",
+    "pytest-cov==6.2.1",
+    "pytorch-gradcam==0.2.1",
+    "pytorch-ignite==0.5.2",
+    "scikit-image==0.25.2",
+    "scikit-learn==1.7.1",
+    "scipy==1.15.3",
+    "Sphinx==7.4.7",
+    "sphinx-autodoc-typehints==2.2.3",
+    "sphinx-rtd-theme==2.0.0",
+    "torch==2.2.2",
+    "torchvision==0.17.2",
+    "transformers==4.55.4",
+    "ttach==0.0.3",
+]
 
 [project.scripts]
 breast-cancer-classification = "breast_cancer_classification:main"

@@ -197,26 +197,19 @@ name = "breast-cancer-classification"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "black" },
-    { name = "flake8" },
     { name = "grad-cam" },
     { name = "imageio" },
     { name = "imbalanced-learn" },
     { name = "ipykernel" },
     { name = "ipython" },
-    { name = "isort" },
     { name = "jupyterlab" },
     { name = "monai" },
-    { name = "mypy" },
     { name = "nibabel" },
     { name = "notebook" },
     { name = "numpy" },
     { name = "opencv-python-headless" },
     { name = "pillow" },
     { name = "pydicom" },
-    { name = "pylint" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
     { name = "pytorch-gradcam" },
     { name = "pytorch-ignite" },
     { name = "scikit-image" },
@@ -231,28 +224,39 @@ dependencies = [
     { name = "ttach" },
 ]
 
+[package.optional-dependencies]
+dev = [
+    { name = "black" },
+    { name = "flake8" },
+    { name = "isort" },
+    { name = "mypy" },
+    { name = "pylint" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+]
+
 [package.metadata]
 requires-dist = [
-    { name = "black", specifier = "==25.1.0" },
-    { name = "flake8", specifier = "==7.3.0" },
+    { name = "black", marker = "extra == 'dev'", specifier = "==25.1.0" },
+    { name = "flake8", marker = "extra == 'dev'", specifier = "==7.3.0" },
     { name = "grad-cam", specifier = "==1.5.5" },
     { name = "imageio", specifier = "==2.37.0" },
     { name = "imbalanced-learn", specifier = "==0.14.2" },
     { name = "ipykernel", specifier = "==6.30.1" },
     { name = "ipython", specifier = "==8.37.0" },
-    { name = "isort", specifier = "==6.0.1" },
+    { name = "isort", marker = "extra == 'dev'", specifier = "==6.0.1" },
     { name = "jupyterlab", specifier = "==4.4.7" },
     { name = "monai", specifier = "==1.3.2" },
-    { name = "mypy", specifier = "==1.17.1" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = "==1.17.1" },
     { name = "nibabel", specifier = "==5.4.2" },
     { name = "notebook", specifier = "==7.4.5" },
     { name = "numpy", specifier = "==2.2.5" },
     { name = "opencv-python-headless", specifier = "==4.11.0.86" },
     { name = "pillow", specifier = "==11.3.0" },
     { name = "pydicom", specifier = "==3.0.1" },
-    { name = "pylint", specifier = "==3.3.8" },
-    { name = "pytest", specifier = "==8.4.1" },
-    { name = "pytest-cov", specifier = "==6.2.1" },
+    { name = "pylint", marker = "extra == 'dev'", specifier = "==3.3.8" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = "==8.4.1" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==6.2.1" },
     { name = "pytorch-gradcam", specifier = "==0.2.1" },
     { name = "pytorch-ignite", specifier = "==0.5.2" },
     { name = "scikit-image", specifier = "==0.25.2" },
@@ -266,6 +270,7 @@ requires-dist = [
     { name = "transformers", specifier = "==4.55.4" },
     { name = "ttach", specifier = "==0.0.3" },
 ]
+provides-extras = ["dev"]
 
 [[package]]
 name = "certifi"

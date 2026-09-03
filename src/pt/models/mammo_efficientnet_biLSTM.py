@@ -6,6 +6,9 @@ class MammoEfficientNetBiLSTM(nn.Module):
     """
     Extrator CNN (EfficientNet-b0 pré-treinada) conectado a uma BiLSTM
     para classificação binária ou multi-classe de mamografias.
+
+    fonte: https://www.nature.com/articles/s41598-025-95311-4.pdf
+
     """
     def __init__(
         self,

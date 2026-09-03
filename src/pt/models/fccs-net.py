@@ -3,6 +3,10 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 
+"""
+    fonte: https://www.sciencedirect.com/science/article/abs/pii/S1746809424003161
+"""
+
 # Define the CBAM module
 class CBAM(nn.Module):
     def __init__(self, in_channels):

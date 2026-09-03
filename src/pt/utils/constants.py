@@ -1,7 +1,7 @@
-import os
 from pathlib import Path
 
-class Constants():
+
+class Constants:
     # This class contains constants used throughout the project.
     @staticmethod
     def get_absolute_project_path():

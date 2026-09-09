@@ -19,7 +19,7 @@ from sklearn import preprocessing
 
 # import skimage.io
 # import skimage.exposure
-from src.pt.utils.img_utils import clahe
+from pt.utils.img_utils import clahe
 
 
 def dicom_preprocess(dicom_file, save_prefix, norm="", filter="", size=224, man=""):

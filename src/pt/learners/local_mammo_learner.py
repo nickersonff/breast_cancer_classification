@@ -10,28 +10,23 @@
 # limitations under the License.
 import logging
 import os
+from typing import Any
 
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.optim as optim
-import torchvision.models as models
-from monai.data import CacheDataset, DataLoader
-from monai.transforms import (
-    CastToTyped,
-    Compose,
-    EnsureTyped,
-    LoadImaged,
-    RandFlipd,
+from monai.data.dataloader import DataLoader
+from monai.data.dataset import CacheDataset
+from monai.transforms.compose import Compose
+from monai.transforms.intensity.dictionary import (
     RandGaussianNoised,
     RandGaussianSmoothd,
-    RandRotated,
     RandScaleIntensityd,
     RandShiftIntensityd,
-    RandZoomd,
-    Transposed,
 )
+from monai.transforms.io.dictionary import LoadImaged
+from monai.transforms.spatial.dictionary import RandFlipd, RandRotated, RandZoomd
+from monai.transforms.utility.dictionary import CastToTyped, EnsureTyped, Transposed
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
     cohen_kappa_score,
@@ -41,33 +36,35 @@ from sklearn.metrics import (
     roc_auc_score,
     roc_curve,
 )
-from torch.utils.tensorboard import SummaryWriter
-from torchvision.models import VGG16_BN_Weights
+from torch import nn, optim
+from torch.utils.tensorboard.writer import SummaryWriter
+from torchvision import models
+from torchvision.models import ResNet18_Weights, VGG16_BN_Weights
 
-from src.pt.preprocessing.preprocess_json import load_datalist
+from pt.preprocessing.preprocess_json import load_datalist
 
 
 class MammoLearner:
     def __init__(
         self,
-        dataset_root: str = None,
-        datalist_prefix: str = None,
+        dataset_root: str,
+        datalist_prefix: str,
+        conf: dict[str, Any],
         aggregation_epochs: int = 1,
         lr: float = 1e-4,
         batch_size: int = 64,
         architecture: str = "resnet",
-        conf: dict = None,
     ):
 
         super().__init__()
         # trainer init happens at the very beginning, only the basic info regarding the trainer is set here
         # the actual run has not started at this point
-        self.dataset_root = dataset_root
-        self.datalist_prefix = datalist_prefix
-        self.aggregation_epochs = aggregation_epochs
-        self.lr = lr
-        self.batch_size = batch_size
-        self.best_metric = 0.0
+        self.dataset_root: str = dataset_root
+        self.datalist_prefix: str = datalist_prefix
+        self.aggregation_epochs: int = aggregation_epochs
+        self.lr: float = lr
+        self.batch_size: int = batch_size
+        self.best_metric: float = 0.0
         self.run = None
         self.num_classes = 0
         # Epoch counter
@@ -79,7 +76,7 @@ class MammoLearner:
         # The following objects will be build in `initialize()`
         self.writer = None
         self.device = None
-        self.model = None
+        self.model: models.ResNet | models.VGG | models.EfficientNet | models.DenseNet
         self.optimizer = None
         self.criterion = None
         self.transform_train = None
@@ -93,7 +90,7 @@ class MammoLearner:
         self.log = logging.getLogger(__name__)
         self.config = conf
 
-    def save_model(self, name="local_model.pt"):
+    def save_model(self, name: str = "local_model.pt"):
         # save model
         model_weights = self.model.state_dict()
         save_dict = {"model_weights": model_weights, "epoch": self.epoch_global}
@@ -198,7 +195,7 @@ class MammoLearner:
         if self.arch == "resnet":
             # RESNET18
 
-            self.model = models.resnet18(pretrained=True)
+            self.model = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
             num_features = self.model.fc.in_features
             self.model.fc = nn.Sequential(
                 nn.Linear(
@@ -459,7 +456,6 @@ class MammoLearner:
                 print("###################")
 
                 if is_final:
-
                     if self.num_classes == 2:
                         # ROC curve
                         fig = plt.figure(figsize=(8, 6))

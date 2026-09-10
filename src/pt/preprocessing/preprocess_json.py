@@ -90,6 +90,7 @@ def preprocess_db(
             save_prefix = os.path.join(out_path, id + "_" + img)
 
         if not img_file:
+            print(f"[!] No source file found for {save_prefix} under {dicom_root}; skipping")
             continue
 
         _success, _dc_tags = dicom_preprocess(

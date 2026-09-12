@@ -76,7 +76,7 @@ class MammoLearner:
         # The following objects will be build in `initialize()`
         self.writer = None
         self.device = None
-        self.model: models.ResNet | models.VGG | models.EfficientNet | models.DenseNet
+        self.model: models.ResNet | models.VGG | models.EfficientNet | models.DenseNet | None = None
         self.optimizer = None
         self.criterion = None
         self.transform_train = None

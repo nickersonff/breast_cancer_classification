@@ -45,6 +45,9 @@ def load_config(config_rel_path: str = "config/config.yaml") -> dict[str, Any]:
     except yaml.YAMLError as e:
         print(f"[!] Error loading config at {config_abs_path}: {e!s}")
         sys.exit(1)
+    except OSError as e:
+        print(f"[!] OS error while accessing config at {config_abs_path}: {e!s}")
+        sys.exit(1)
 
 
 def main():

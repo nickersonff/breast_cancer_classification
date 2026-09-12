@@ -1,22 +1,26 @@
-import glob
-import json
-import os
+from glob import glob
+from json import load
+from os import listdir, remove
+from os.path import exists, isdir, isfile, join
+from typing import Any, cast
 
 from pt.preprocessing.preprocess_dicom import dicom_preprocess
 
 
-def load_datalist(filename, data_list_key="train", base_dir=""):
+def load_datalist(
+    filename: str, data_list_key: str = "train", base_dir: str = ""
+) -> list[dict[str, str | int]]:
     with open(filename, "r") as f:
-        data = json.load(f)
+        data: dict[str, list[dict[str, str | int]]] = load(f)
 
-    data_list = []
-    missing_count = 0
+    data_list: list[dict[str, str | int]] = []
+    missing_count: int = 0
     for item in data[data_list_key]:
-        image_path = os.path.join(base_dir, item["image"])
-        if not os.path.isfile(image_path):
+        image_path: str = join(base_dir, str(item["image"]))
+        if not isfile(image_path):
             missing_count += 1
             continue
-        item = item.copy()
+        item: dict[str, str | int] = item.copy()
         item["image"] = image_path
         data_list.append(item)
 
@@ -28,87 +32,82 @@ def load_datalist(filename, data_list_key="train", base_dir=""):
     return data_list
 
 
-def path_exists(caminho_da_pasta=""):
-
-    if os.path.exists(caminho_da_pasta) and os.path.isdir(caminho_da_pasta):
-        if os.listdir(caminho_da_pasta):
-            return True
-        else:
-            return False
-    else:
-        return False
+def path_exists(path: str = "") -> bool:
+    return exists(path) and isdir(path) and bool(listdir(path))
 
 
-def clean_path(diretorio):
-    path = diretorio
-    if os.path.exists(path) and os.path.isdir(path):
-        dir = os.listdir(path)
-        for file in dir:
-            os.remove(os.path.join(path, file))
+def clean_path(path: str):
+    if exists(path) and isdir(path):
+        path_dir: list[str] = listdir(path)
+        for file in path_dir:
+            remove(join(path, file))
 
 
 def preprocess_db(
-    out_path, norm="", filter="", size=224, datalist="", config: dict = None
+    out_path: str,
+    config: dict[str, Any],
+    norm: str = "",
+    filter: str = "",
+    size: int = 224,
+    datalist: str = "",
 ):
 
     # clean_path(out_path) # if want delete all files inside the path
 
     with open(datalist) as file:
-        c = json.load(file)
+        c = load(file)
 
-    ehLiga = False
+    is_liga: bool = False
+    image_file_path: list[str | dict[str, str]] = []
 
     if datalist.__contains__("LIGA"):
-        image_file_path = []
         image_file_path.extend(
             [{"image": l["image"], "dicom": l["dicom"]} for l in c["train"]]
         )
         image_file_path.extend(
             [{"image": l["image"], "dicom": l["dicom"]} for l in c["test"]]
         )
-        ehLiga = True
+        is_liga = True
     else:
-        image_file_path = []
         image_file_path.extend([l["image"] for l in c["train"]])
         image_file_path.extend([l["image"] for l in c["test"]])
 
     print(f"Images found: {len(image_file_path)}")
 
-    list_img = []
+    list_img: list[str] = []
     for i in image_file_path:
-        if ehLiga:
-            dicom_root = config["io_dirs"].get("dicom_root_LIGA")
-            dir_name = i["image"].replace(".npy", "")
-            img_file = [i["dicom"]]
-            save_prefix = os.path.join(out_path, dir_name)
-        elif i.startswith("Calc") or i.startswith("Mass"):
-            dicom_root = config["io_dirs"].get("dicom_root_DDSM")
-            dir_name = i.replace(".npy", "")
-            img_file = glob.glob(
-                os.path.join(dicom_root, dir_name, "**", "*.dcm"), recursive=True
+        i = cast(str, i)
+        if is_liga:
+            i = cast(dict[str, str], i)
+            dicom_root: str = config["io_dirs"].get("dicom_root_LIGA")
+            dir_name: str = i["image"].replace(".npy", "")
+            img_file: list[str] = [i["dicom"]]
+            save_prefix: str = join(out_path, dir_name)
+        elif i.startswith(("Calc", "Mass")):
+            dicom_root: str = config["io_dirs"].get("dicom_root_DDSM")
+            dir_name: str = i.replace(".npy", "")
+            img_file: list[str] = glob(
+                join(dicom_root, dir_name, "**", "*.dcm"), recursive=True
             )
-            save_prefix = os.path.join(out_path, dir_name)
+            save_prefix: str = join(out_path, dir_name)
         else:
-            dicom_root = config["io_dirs"].get("dicom_root_VINDR")
-            id = i.split("_")[0]
-            img = i.split("_")[1].replace(".npy", "")
-            img_file = glob.glob(
-                os.path.join(dicom_root, id, img + "*.dicom"), recursive=True
+            dicom_root: str = config["io_dirs"].get("dicom_root_VINDR")
+            image_id: str = i.split("_")[0]
+            img: str = i.split("_")[1].replace(".npy", "")
+            img_file: list[str] = glob(
+                join(dicom_root, image_id, img + "*.dicom"), recursive=True
             )
-            save_prefix = os.path.join(out_path, id + "_" + img)
+            save_prefix: str = join(out_path, image_id + "_" + img)
 
         if not img_file:
-            print(f"[!] No source file found for {save_prefix} under {dicom_root}; skipping")
+            print(
+                f"[!] No source file found for {save_prefix} under {dicom_root}; skipping"
+            )
             continue
 
-        _success, _dc_tags = dicom_preprocess(
-            img_file[0], save_prefix, norm=norm, filter=filter, size=size
-        )
+        dicom_preprocess(img_file[0], save_prefix, norm=norm, filter=filter, size=size)
 
-        if os.path.isfile(save_prefix + ".npy"):
-            _success = True
+        if isfile(save_prefix + ".npy"):
             list_img.append(save_prefix)
-        else:
-            _success = False
 
     print(f"Images transformed: {len(list_img)}")

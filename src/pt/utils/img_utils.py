@@ -1,15 +1,11 @@
-import cv2
-import numpy as np
+from cv2 import createCLAHE
+from cv2.typing import MatLike
+from numpy import array, uint8
 
 
-def clahe(img, clip=2.0, size=32):
-    # contrast enhancement
-    if size == None:
-        clahe = cv2.createCLAHE(clipLimit=clip)
-    else:
-        clahe = cv2.createCLAHE(
-            clipLimit=clip, tileGridSize=(size, size)
-        )  # depois deixar esse
+def clahe(img: MatLike, clip: float = 2.0, size: int = 32) -> MatLike:
 
-    cl = clahe.apply(np.array(img).astype(np.uint8))
+    clahe = createCLAHE(clipLimit=clip, tileGridSize=(size, size))
+
+    cl: MatLike = clahe.apply(array(img).astype(uint8))
     return cl

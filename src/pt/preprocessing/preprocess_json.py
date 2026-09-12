@@ -2,16 +2,28 @@ import glob
 import json
 import os
 
-from src.pt.preprocessing.preprocess_dicom import dicom_preprocess
+from pt.preprocessing.preprocess_dicom import dicom_preprocess
 
 
 def load_datalist(filename, data_list_key="train", base_dir=""):
     with open(filename, "r") as f:
         data = json.load(f)
 
-    data_list = data[data_list_key]
-    for d in data_list:
-        d["image"] = os.path.join(base_dir, d["image"])
+    data_list = []
+    missing_count = 0
+    for item in data[data_list_key]:
+        image_path = os.path.join(base_dir, item["image"])
+        if not os.path.isfile(image_path):
+            missing_count += 1
+            continue
+        item = item.copy()
+        item["image"] = image_path
+        data_list.append(item)
+
+    if missing_count:
+        print(
+            f"[!] Skipped {missing_count} missing image(s) while loading {filename} ({data_list_key})"
+        )
 
     return data_list
 
@@ -84,6 +96,10 @@ def preprocess_db(
                 os.path.join(dicom_root, id, img + "*.dicom"), recursive=True
             )
             save_prefix = os.path.join(out_path, id + "_" + img)
+
+        if not img_file:
+            print(f"[!] No source file found for {save_prefix} under {dicom_root}; skipping")
+            continue
 
         _success, _dc_tags = dicom_preprocess(
             img_file[0], save_prefix, norm=norm, filter=filter, size=size

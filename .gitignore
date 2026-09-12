@@ -1,3 +1,9 @@
-.venv/
+.**/
 __pycache__/
-.pytest_cache/
+logs/
+preprocessed/
+runs/
+model/
+
+# DATASETS - Felipe
+vindr-mammo/

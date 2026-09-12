@@ -9,7 +9,6 @@ hyperparameters:
   architecture: "resnet"
   num_pipelines: 25
   task: "pipelines" # Options: "preprocess", "pipelines"
-  
 
 # ==============================================================================
 # DATALOADERS PARAMETERS

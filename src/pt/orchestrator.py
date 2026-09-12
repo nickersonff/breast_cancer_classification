@@ -1,5 +1,5 @@
-import os
-import random
+from os.path import join
+from random import sample, seed
 from typing import Any
 
 from pt.learners.local_mammo_learner import MammoLearner
@@ -33,7 +33,7 @@ def run_train(
     print("test train...")
     learner.train(train_loader=learner.train_loader)
 
-    learner.save_model("final-model.pt")
+    learner.save_model("final-model.safetensors")
 
     print("test valid...")
     acc, kappa, roc = learner.local_valid(
@@ -51,7 +51,7 @@ def preprocessing(
 ) -> None:
 
     cnn: str = config["hyperparameters"].get("architecture")
-    debug_dataset_root: str = os.path.join(
+    debug_dataset_root: str = join(
         PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix")
     )
 
@@ -283,20 +283,20 @@ def pipelines(
     sizes: list[int] = [224, 384, 512, 1024, 2048]
     pipe: list[tuple[int, int, int]] = []
 
-    random.seed(42)
+    seed(42)
     qt_exec: int = config["hyperparameters"].get("num_pipelines", 25)
 
     while len(pipe) < qt_exec:
         t = (
-            random.SystemRandom().sample(range(len(norm)), 1)[0],
-            random.SystemRandom().sample(range(len(filters)), 1)[0],
-            random.SystemRandom().sample(range(len(sizes)), 1)[0],
+            sample(range(len(norm)), 1)[0],
+            sample(range(len(filters)), 1)[0],
+            sample(range(len(sizes)), 1)[0],
         )
         if t not in pipe:
             pipe.append(t)
 
     for i in pipe:
-        outpath: str = os.path.join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix"))
+        outpath: str = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix"))
 
         print(f"**** Pipeline: {norm[i[0]]} - {filters[i[1]]} - {sizes[i[2]]} ****")
         preprocess_db(

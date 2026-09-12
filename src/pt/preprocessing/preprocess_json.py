@@ -10,12 +10,20 @@ def load_datalist(filename, data_list_key="train", base_dir=""):
         data = json.load(f)
 
     data_list = []
+    missing_count = 0
     for item in data[data_list_key]:
         image_path = os.path.join(base_dir, item["image"])
-        if os.path.isfile(image_path):
-            item = item.copy()
-            item["image"] = image_path
-            data_list.append(item)
+        if not os.path.isfile(image_path):
+            missing_count += 1
+            continue
+        item = item.copy()
+        item["image"] = image_path
+        data_list.append(item)
+
+    if missing_count:
+        print(
+            f"[!] Skipped {missing_count} missing image(s) while loading {filename} ({data_list_key})"
+        )
 
     return data_list
 

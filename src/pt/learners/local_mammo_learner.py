@@ -396,6 +396,12 @@ class MammoLearner:
                 val_avg_loss += validation_loss.item()
                 outputs_soft: Tensor = softmax(outputs, dim=1)
                 probs = outputs_soft.detach().cpu().numpy()
+                _, _pred_label = max_torch(outputs_soft.data, 1)
+                _labels = batch_data["label"].to(self.device)
+                total += inputs.data.size()[0]
+                correct += (_pred_label == _labels.data).sum().item()
+                labels.extend(_labels.detach().cpu().numpy())
+                pred_labels.extend(_pred_label.detach().cpu().numpy())
 
                 # make json serializable
                 for _img_file, _probs, lbl in zip(
@@ -412,13 +418,6 @@ class MammoLearner:
                         }
                     )
                     l_probs.append(p[1])  # probs da classe positiva
-
-                    _, _pred_label = max_torch(outputs_soft.data, 1)
-                    _labels = batch_data["label"].to(self.device)
-                    total += inputs.data.size()[0]
-                    correct += (_pred_label == _labels.data).sum().item()
-                    labels.extend(_labels.detach().cpu().numpy())
-                    pred_labels.extend(_pred_label.detach().cpu().numpy())
 
             self.writer.add_scalar(
                 "val_loss", (val_avg_loss / len(valid_loader)), self.epoch_global

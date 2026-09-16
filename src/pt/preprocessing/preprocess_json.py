@@ -32,6 +32,26 @@ def load_datalist(
     return data_list
 
 
+def resolve_datalist(
+    data: list[dict[str, str | int]], base_dir: str = ""
+) -> list[dict[str, str | int]]:
+    """Resolve image paths for records already selected by a validation split."""
+    resolved: list[dict[str, str | int]] = []
+    missing_count: int = 0
+    for item in data:
+        image_path: str = join(base_dir, str(item["image"]))
+        if not isfile(image_path):
+            missing_count += 1
+            continue
+        resolved_item = item.copy()
+        resolved_item["image"] = image_path
+        resolved.append(resolved_item)
+
+    if missing_count:
+        print(f"[!] Skipped {missing_count} missing image(s) from selected split")
+    return resolved
+
+
 def path_exists(path: str = "") -> bool:
     return exists(path) and isdir(path) and bool(listdir(path))
 

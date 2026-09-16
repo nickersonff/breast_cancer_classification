@@ -38,7 +38,14 @@ dependencies = [
     "ttach==0.0.3",
 ]
 
-[project.optional-dependencies]
+[project.scripts]
+breast-cancer-classification = "breast_cancer_classification:main"
+
+[build-system]
+requires = ["uv_build>=0.12.8,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
 dev = [
     "black==25.1.0",
     "isort==6.0.1",
@@ -47,10 +54,3 @@ dev = [
     "pytest==8.4.1",
     "pytest-cov==6.2.1",
 ]
-
-[project.scripts]
-breast-cancer-classification = "breast_cancer_classification:main"
-
-[build-system]
-requires = ["uv_build>=0.12.8,<0.13.0"]
-build-backend = "uv_build"

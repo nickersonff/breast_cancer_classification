@@ -45,8 +45,13 @@ def dicom_preprocess(
             fabricante = True
 
         if filter != "":
-            curr_img = (curr_img - min(curr_img)) / (max(curr_img) - min(curr_img))
-            curr_img *= 255
+            image_min = curr_img.min()
+            image_range = curr_img.max() - image_min
+            if image_range == 0:
+                curr_img.fill(0)
+            else:
+                curr_img = (curr_img - image_min) / image_range
+                curr_img *= 255
         if fabricante:
             curr_img = apply_filters(curr_img, filter, type_image)
 

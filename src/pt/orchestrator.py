@@ -19,6 +19,7 @@ def _run_single_train(
     dataset_root: str,
     datalist_prefix: str,
     config: dict[str, Any],
+    fold: int | None = None,
     batch: int = 64,
     cnn: str = "resnet",
     train_datalist: list[dict[str, str | int]] | None = None,
@@ -48,7 +49,7 @@ def _run_single_train(
 
     print("test valid...")
     acc, kappa, roc = learner.local_valid(
-        valid_loader=learner.valid_loader, is_final=True
+        valid_loader=learner.valid_loader, is_final=True, fold=fold
     )
 
     print("debug acc", acc)
@@ -85,24 +86,28 @@ def run_kfold(
         shuffle=settings["shuffle"],
         random_state=settings["random_state"],
     ):
-        run_name = f"{settings['run_prefix']}_fold_{fold_index + 1:02d}"
+        fold: int = fold_index + 1
+        run_name: str = f"{settings['run_prefix']}_fold_{fold:02d}"
         print(
-            f"**** KFold {fold_index + 1}/{settings['n_splits']} "
+            f"**** KFold {fold}/{settings['n_splits']} "
             f"(train={len(train_records)}, validation={len(valid_records)}) ****"
         )
-        learner_metrics = _run_single_train(
-            dataset_root,
-            datalist_prefix,
-            config,
-            batch=batch,
-            cnn=cnn,
-            train_datalist=train_records,
-            valid_datalist=valid_records,
-            run_name=run_name,
+        learner_metrics: tuple[float | None, float | None, float | None] = (
+            _run_single_train(
+                dataset_root,
+                datalist_prefix,
+                config,
+                batch=batch,
+                cnn=cnn,
+                fold=fold,
+                train_datalist=train_records,
+                valid_datalist=valid_records,
+                run_name=run_name,
+            )
         )
         fold_metrics.append(
             {
-                "fold": fold_index + 1,
+                "fold": fold,
                 "train_size": len(train_records),
                 "validation_size": len(valid_records),
                 "accuracy": learner_metrics[0],

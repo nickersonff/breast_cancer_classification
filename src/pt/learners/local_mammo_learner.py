@@ -390,6 +390,7 @@ class MammoLearner:
     def local_valid(
         self,
         valid_loader: DataLoader | None,
+        fold: int | None = None, 
         is_final: bool = False,
     ) -> tuple[float | None, float | None, float | None]:
         if not valid_loader:
@@ -466,16 +467,16 @@ class MammoLearner:
             if is_final:
                 if self.num_classes == 2:
                     # ROC curve
-
+                    fold_in_title: str = f" for fold {fold}" if fold is not None else ""
                     fpr, tpr, _ = roc_curve(labels, l_probs)
                     plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
                     xlim([0, 1])
                     ylim([0, 1])
                     xlabel("False Positive Rate")
                     ylabel("True Positive Rate")
-                    title("ROC Curve")
+                    title(f"ROC Curve{fold_in_title}")
                     legend()
-                    show()
+                    show(block=False)
                     print(f"ROC VALUES: {self.roc_values}")
                     print(f"ACC VALUES: {self.acc_values}")
 

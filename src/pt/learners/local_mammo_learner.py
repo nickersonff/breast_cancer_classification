@@ -390,8 +390,8 @@ class MammoLearner:
     def local_valid(
         self,
         valid_loader: DataLoader | None,
-        fold: int | None = None, 
         is_final: bool = False,
+        fold: int | None = None, 
     ) -> tuple[float | None, float | None, float | None]:
         if not valid_loader:
             return (None, None, None)

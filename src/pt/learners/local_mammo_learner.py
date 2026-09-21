@@ -476,7 +476,7 @@ class MammoLearner:
                     ylabel("True Positive Rate")
                     title(f"ROC Curve{fold_in_title}")
                     legend()
-                    show(block=False)
+                    show()
                     print(f"ROC VALUES: {self.roc_values}")
                     print(f"ACC VALUES: {self.acc_values}")
 

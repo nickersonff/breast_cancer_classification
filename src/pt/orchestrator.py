@@ -1,4 +1,4 @@
-from json import dump, load
+from json import dump
 from os import makedirs
 from os.path import basename, join
 from random import sample, seed
@@ -8,6 +8,7 @@ from typing import Any
 from pt.learners.local_mammo_learner import MammoLearner
 from pt.preprocessing.preprocess_json import preprocess_db
 from pt.utils.constants import Constants
+from pt.utils.records import get_records
 from pt.validation.kfold import iter_kfold_splits, validation_config
 
 # Resolve the absolute path of the script's directory (Project Root)
@@ -70,14 +71,10 @@ def run_kfold(
     settings = validation_config(config)
     if run_prefix is not None:
         settings["run_prefix"] = run_prefix
-    with open(datalist_prefix, "r") as manifest_file:
-        manifest: dict[str, list[dict[str, str | int]]] = load(manifest_file)
 
-    records = manifest.get(settings["data_list_key"], [])
-    if not records:
-        raise ValueError(
-            f"No records found under manifest key '{settings['data_list_key']}'"
-        )
+    records: list[dict[str, str | int]] = get_records(
+        datalist_prefix, settings, dataset_root
+    )
 
     fold_metrics: list[dict[str, float | int | None]] = []
     for fold_index, train_records, valid_records in iter_kfold_splits(

@@ -27,8 +27,15 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
 ) -> None:
     manifest_path: Path = tmp_path / "manifest.json"
     records: list[dict[str, str | int]] = [
-        {"image": f"image-{index}.npy", "label": index % 2} for index in range(9)
+        {
+            "image": f"image-{index}.npy",
+            "label": index % 2,
+            "patient_id": f"patient-{index}",
+        }
+        for index in range(9)
     ]
+    for record in records:
+        (tmp_path / str(record["image"])).touch()
     manifest_path.write_text(json.dumps({"train": records, "test": []}))
     calls: list[dict[str, str | int | dict[str, dict[str, str | int]]]] = []
 

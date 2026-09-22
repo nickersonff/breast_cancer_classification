@@ -7,17 +7,22 @@ from pt.validation.kfold import iter_kfold_splits, validation_config
 
 def test_kfold_covers_each_record_once() -> None:
     records: list[dict[str, str | int]] = [
-        {"image": f"image-{index}.npy", "label": index % 2} for index in range(10)
+        {
+            "patient_id": f"patient-{index}",
+            "image": f"image-{index}.npy",
+            "label": index % 2,
+        }
+        for index in range(10)
     ]
 
-    splits = list(iter_kfold_splits(records, n_splits=5, random_state=42))
+    splits = list(iter_kfold_splits(records, n_splits=10))
     validation_images: list[str | int] = [
         item["image"]
         for _, _, validation_records in splits
         for item in validation_records
     ]
 
-    assert len(splits) == 5
+    assert len(splits) == 10
     assert sorted(validation_images) == sorted(item["image"] for item in records)
     for _, train_records, validation_records in splits:
         train_images: set[str | int] = {item["image"] for item in train_records}
@@ -36,8 +41,6 @@ def test_validation_settings_are_configurable() -> None:
             "validation": {
                 "enabled": True,
                 "n_splits": 3,
-                "shuffle": False,
-                "random_state": None,
                 "data_list_key": "train",
                 "run_prefix": "experiment",
             }
@@ -47,8 +50,6 @@ def test_validation_settings_are_configurable() -> None:
     assert settings == {
         "enabled": True,
         "n_splits": 3,
-        "shuffle": False,
-        "random_state": None,
         "data_list_key": "train",
         "run_prefix": "experiment",
     }

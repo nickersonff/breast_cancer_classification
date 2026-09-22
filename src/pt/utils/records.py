@@ -1,6 +1,6 @@
 from json import load
 from os.path import exists, join
-from typing import Any, cast
+from typing import Any
 
 
 def get_records(
@@ -16,17 +16,14 @@ def get_records(
 
     resolved_records: list[dict[str, str | int]] = []
     for record in records:
-        image_path = next(
-            (
-                record[key]
-                for key in ("image", "image_path", "path", "filepath", "file")
-                if key in record and isinstance(record[key], str)
-            ),
-            None,
+        image_path: str | None = (
+            record["image"]
+            if "image" in record and isinstance(record["image"], str)
+            else None
         )
+
         if image_path is None:
             continue
-        image_path = cast(str, image_path)
         resolved_path: str = (
             image_path if image_path.startswith("/") else join(dataset_root, image_path)
         )

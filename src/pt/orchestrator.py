@@ -80,8 +80,6 @@ def run_kfold(
     for fold_index, train_records, valid_records in iter_kfold_splits(
         records,
         n_splits=settings["n_splits"],
-        shuffle=settings["shuffle"],
-        random_state=settings["random_state"],
     ):
         fold: int = fold_index + 1
         run_name: str = f"{settings['run_prefix']}_fold_{fold:02d}"
@@ -133,8 +131,6 @@ def run_kfold(
             {
                 "strategy": "kfold",
                 "n_splits": settings["n_splits"],
-                "shuffle": settings["shuffle"],
-                "random_state": settings["random_state"],
                 "data_list_key": settings["data_list_key"],
                 "folds": fold_metrics,
                 "aggregate": aggregate,

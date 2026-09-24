@@ -10,7 +10,7 @@ from pt.preprocessing.preprocess_dicom import dicom_preprocess
 def load_datalist(
     filename: str, data_list_key: str = "train", base_dir: str = ""
 ) -> list[dict[str, str | int]]:
-    with open(filename, "r") as f:
+    with open(filename) as f:
         data: dict[str, list[dict[str, str | int]]] = load(f)
 
     data_list: list[dict[str, str | int]] = []
@@ -75,22 +75,22 @@ def preprocess_db(
     # clean_path(out_path) # if want delete all files inside the path
 
     with open(datalist) as file:
-        c = load(file)
+        data = load(file)
 
     is_liga: bool = False
     image_file_path: list[str | dict[str, str]] = []
 
     if datalist.__contains__("LIGA"):
         image_file_path.extend(
-            [{"image": l["image"], "dicom": l["dicom"]} for l in c["train"]]
+            [{"image": line["image"], "dicom": line["dicom"]} for line in data["train"]]
         )
         image_file_path.extend(
-            [{"image": l["image"], "dicom": l["dicom"]} for l in c["test"]]
+            [{"image": line["image"], "dicom": line["dicom"]} for line in data["test"]]
         )
         is_liga = True
     else:
-        image_file_path.extend([l["image"] for l in c["train"]])
-        image_file_path.extend([l["image"] for l in c["test"]])
+        image_file_path.extend([line["image"] for line in data["train"]])
+        image_file_path.extend([line["image"] for line in data["test"]])
 
     print(f"Images found: {len(image_file_path)}")
 

@@ -6,7 +6,7 @@ from typing import Any
 def get_records(
     data_prefix: str, settings: dict[str, Any], dataset_root: str
 ) -> list[dict[str, str | int]]:
-    with open(data_prefix, "r") as manifest_file:
+    with open(data_prefix) as manifest_file:
         manifest: dict[str, list[dict[str, str | int]]] = load(manifest_file)
     records = manifest.get(settings["data_list_key"], [])
     if not records:

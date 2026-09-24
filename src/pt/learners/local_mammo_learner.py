@@ -37,8 +37,7 @@ from sklearn.metrics import (
     roc_auc_score,
     roc_curve,
 )
-from torch import Tensor, device, float32, no_grad, softmax
-from torch import max as max_torch
+from torch import Tensor, device, float32, max as max_torch, no_grad, softmax
 from torch.cuda import is_available
 from torch.nn import CrossEntropyLoss, Dropout, Linear, ReLU, Sequential
 from torch.nn.utils import clip_grad_norm_

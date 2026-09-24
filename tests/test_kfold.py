@@ -12,7 +12,7 @@ def test_kfold_covers_each_record_once() -> None:
             "image": f"image-{index}.npy",
             "label": index % 2,
         }
-        for index in range(10)
+        for index in range(20)
     ]
 
     splits = list(iter_kfold_splits(records, n_splits=10))

@@ -391,7 +391,7 @@ class MammoLearner:
         self,
         valid_loader: DataLoader | None,
         is_final: bool = False,
-        fold: int | None = None, 
+        fold: int | None = None,
     ) -> tuple[float | None, float | None, float | None]:
         if not valid_loader:
             return (None, None, None)

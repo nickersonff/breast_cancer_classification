@@ -41,6 +41,8 @@ def test_validation_settings_are_configurable() -> None:
             "validation": {
                 "enabled": True,
                 "n_splits": 3,
+                "shuffle": True,
+                "random_state": 42,
                 "data_list_key": "train",
                 "run_prefix": "experiment",
             }
@@ -50,6 +52,8 @@ def test_validation_settings_are_configurable() -> None:
     assert settings == {
         "enabled": True,
         "n_splits": 3,
+        "shuffle": True,
+        "random_state": 42,
         "data_list_key": "train",
         "run_prefix": "experiment",
     }

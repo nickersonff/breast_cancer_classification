@@ -17,6 +17,8 @@ validation:
   enabled: true
   strategy: "kfold"
   n_splits: 10
+  shuffle: true
+  random_state: 42
   data_list_key: "train"
   run_prefix: "kfold"
 

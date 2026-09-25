@@ -1,4 +1,3 @@
-num_classes = 2
 from torch import Tensor, cat, mul
 from torch.nn import (
     AdaptiveAvgPool2d,
@@ -10,6 +9,8 @@ from torch.nn import (
     Sigmoid,
 )
 from torchvision.models import ResNet, resnet18
+
+num_classes = 2
 
 """
     fonte: https://www.sciencedirect.com/science/article/abs/pii/S1746809424003161

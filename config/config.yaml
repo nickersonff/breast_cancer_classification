@@ -10,6 +10,18 @@ hyperparameters:
   num_pipelines: 25
   task: "pipelines" # Options: "preprocess", "pipelines"
 
+# ============================================================================
+# VALIDATION
+# ============================================================================
+validation:
+  enabled: true
+  strategy: "kfold"
+  n_splits: 10
+  shuffle: true
+  random_state: 42
+  data_list_key: "train"
+  run_prefix: "kfold"
+
 # ==============================================================================
 # DATALOADERS PARAMETERS
 # ==============================================================================
@@ -52,3 +64,5 @@ io_dirs:
     - "data/datasets/ddsm-kfolds/dataset_site-8_DDSM_KFOLD.json"
     - "data/datasets/ddsm-kfolds/dataset_site-9_DDSM_KFOLD.json"
   preprocess_prefix: "data/preprocessed/"
+  runs_dir: "runs/"
+  results_dir: "logs/kfold/"

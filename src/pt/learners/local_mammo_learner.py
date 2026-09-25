@@ -9,6 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from logging import Logger, getLogger
+from os import makedirs
 from os.path import basename, isfile, join
 from typing import Any, cast
 
@@ -36,8 +37,7 @@ from sklearn.metrics import (
     roc_auc_score,
     roc_curve,
 )
-from torch import Tensor, device, float32, no_grad, softmax
-from torch import max as max_torch
+from torch import Tensor, device, float32, max as max_torch, no_grad, softmax
 from torch.cuda import is_available
 from torch.nn import CrossEntropyLoss, Dropout, Linear, ReLU, Sequential
 from torch.nn.utils import clip_grad_norm_
@@ -59,7 +59,7 @@ from torchvision.models import (
     vgg16_bn,
 )
 
-from pt.preprocessing.preprocess_json import load_datalist
+from pt.preprocessing.preprocess_json import load_datalist, resolve_datalist
 from pt.utils.custom_fc import CustomFC
 
 
@@ -73,6 +73,9 @@ class MammoLearner:
         lr: float = 1e-4,
         batch_size: int = 64,
         architecture: str = "resnet",
+        train_datalist: list[dict[str, str | int]] | None = None,
+        valid_datalist: list[dict[str, str | int]] | None = None,
+        run_name: str = "default",
     ):
 
         super().__init__()
@@ -91,6 +94,9 @@ class MammoLearner:
         self.roc_values: list[float] = []
         self.acc_values: list[float] = []
         self.arch: str = architecture
+        self.train_datalist = train_datalist
+        self.valid_datalist = valid_datalist
+        self.run_name = run_name
 
         # The following objects will be build in `initialize()`
         self.writer: SummaryWriter
@@ -109,7 +115,10 @@ class MammoLearner:
         self.config: dict[str, Any] = conf
 
     def save_model(self, name: str = "local_model.safetensors"):
-        model_path: str = join(self.config["io_dirs"].get("save_model_dir"), name)
+        model_dir: str = self.config["io_dirs"].get("save_model_dir")
+        run_dir: str = join(model_dir, self.run_name)
+        makedirs(run_dir, exist_ok=True)
+        model_path: str = join(run_dir, name)
         save_model(self.model, model_path)
 
     def build_transforms(self):
@@ -155,17 +164,24 @@ class MammoLearner:
         if not isfile(datalist_file):
             print(f"{datalist_file} does not exist!")
 
-        # Set dataset
-        train_datalist = load_datalist(
-            datalist_file,
-            data_list_key="train",  # do not change this key name
-            base_dir=self.dataset_root,
+        train_datalist = (
+            load_datalist(
+                datalist_file,
+                data_list_key="train",  # do not change this key name
+                base_dir=self.dataset_root,
+            )
+            if self.train_datalist is None
+            else resolve_datalist(self.train_datalist, self.dataset_root)
         )
 
-        val_datalist = load_datalist(
-            datalist_file,
-            data_list_key="test",
-            base_dir=self.dataset_root,
+        val_datalist = (
+            load_datalist(
+                datalist_file,
+                data_list_key="test",
+                base_dir=self.dataset_root,
+            )
+            if self.valid_datalist is None
+            else resolve_datalist(self.valid_datalist, self.dataset_root)
         )
 
         num_workers: int = self.config["dataloaders"].get("num_workers", 4)
@@ -259,7 +275,10 @@ class MammoLearner:
 
     def initialize(self):
 
-        self.writer = SummaryWriter()
+        log_dir = self.config["io_dirs"].get("runs_dir")
+        self.writer = SummaryWriter(
+            log_dir=join(log_dir, self.run_name) if log_dir else None
+        )
 
         layout: dict[str, dict[str, list[list[str] | str]]] = {
             "Analysis": {
@@ -371,6 +390,7 @@ class MammoLearner:
         self,
         valid_loader: DataLoader | None,
         is_final: bool = False,
+        fold: int | None = None,
     ) -> tuple[float | None, float | None, float | None]:
         if not valid_loader:
             return (None, None, None)
@@ -446,14 +466,14 @@ class MammoLearner:
             if is_final:
                 if self.num_classes == 2:
                     # ROC curve
-
+                    fold_in_title: str = f" for fold {fold}" if fold is not None else ""
                     fpr, tpr, _ = roc_curve(labels, l_probs)
                     plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
                     xlim([0, 1])
                     ylim([0, 1])
                     xlabel("False Positive Rate")
                     ylabel("True Positive Rate")
-                    title("ROC Curve")
+                    title(f"ROC Curve{fold_in_title}")
                     legend()
                     show()
                     print(f"ROC VALUES: {self.roc_values}")

@@ -38,19 +38,35 @@ dependencies = [
     "ttach==0.0.3",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "black==25.1.0",
-    "isort==6.0.1",
-    "mypy==1.17.1",
-    "pylint==3.3.8",
-    "pytest==8.4.1",
-    "pytest-cov==6.2.1",
-]
-
 [project.scripts]
 breast-cancer-classification = "breast_cancer_classification:main"
 
 [build-system]
 requires = ["uv_build>=0.12.8,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy==1.17.1",
+    "pylint==3.3.8",
+    "pytest==8.4.1",
+    "pytest-cov==6.2.1",
+    "ruff>=0.16.8",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E203", "E501"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-single-line = false
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false

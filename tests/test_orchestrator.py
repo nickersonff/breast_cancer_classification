@@ -61,6 +61,7 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
     )
 
     result_path: Path = tmp_path / "results" / "experiment_metrics.json"
+    plot_path: Path = tmp_path / "results" / "experiment_metrics_scatter.png"
     result: dict[str, dict[str, float]] = json.loads(result_path.read_text())
     assert len(calls) == 3
     assert all(call["train_size"] == 6 for call in calls)
@@ -78,6 +79,8 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
         "roc_auc_mean": 0.9,
         "roc_auc_std": 0.0,
     }
+    assert plot_path.exists()
+    assert plot_path.stat().st_size > 0
 
 
 def test_run_kfold_rejects_unknown_manifest_key(tmp_path: Path) -> None:

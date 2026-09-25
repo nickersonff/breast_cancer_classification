@@ -3,7 +3,18 @@ from os import makedirs
 from os.path import basename, join
 from random import sample, seed
 from statistics import mean, stdev
-from typing import Any
+from typing import Any, cast
+
+from matplotlib.pyplot import (
+    close,
+    figure,
+    legend,
+    plot,
+    savefig,
+    title,
+    xlabel,
+    ylabel,
+)
 
 from pt.learners.local_mammo_learner import MammoLearner
 from pt.preprocessing.preprocess_json import preprocess_db
@@ -14,6 +25,42 @@ from pt.validation.kfold import iter_kfold_splits, validation_config
 # Resolve the absolute path of the script's directory (Project Root)
 PROJECT_ROOT: str = Constants.get_absolute_project_path()
 _run_sequence: int = 0
+
+
+def _plot_fold_metrics(
+    fold_metrics: list[dict[str, float | int | None]], output_path: str
+) -> None:
+    metric_names = ("accuracy", "kappa", "roc_auc")
+    folds = [cast(int, metrics["fold"]) for metrics in fold_metrics]
+
+    figure(figsize=(9, 5))
+    for metric_name in metric_names:
+        values = [
+            cast(float, metrics[metric_name])
+            for metrics in fold_metrics
+            if metrics[metric_name] is not None
+        ]
+        metric_folds = [
+            cast(int, metrics["fold"])
+            for metrics in fold_metrics
+            if metrics[metric_name] is not None
+        ]
+        if values:
+            plot(metric_folds, values, marker="o", linestyle="", label=metric_name)
+            mean_value = mean(values)
+            plot(
+                folds,
+                [mean_value] * len(folds),
+                linestyle="--",
+                alpha=0.5,
+            )
+
+    xlabel("Fold")
+    ylabel("Score")
+    title("Classification metrics by fold")
+    legend()
+    savefig(output_path, bbox_inches="tight")
+    close()
 
 
 def _run_single_train(
@@ -142,6 +189,8 @@ def run_kfold(
             result_file,
             indent=2,
         )
+    plot_path = join(results_dir, f"{settings['run_prefix']}_metrics_scatter.png")
+    _plot_fold_metrics(fold_metrics, plot_path)
     print(f"KFold results written to {result_path}")
 
 

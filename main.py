@@ -2,10 +2,11 @@ import sys
 import os
 import yaml
 import logging
-from src.pt.orchestrator import preprocessing, pipelines
+from src.pt.orchestrator import architecture_pipeline, preprocessing, pipelines
 from datetime import datetime
 import time
 from src.pt.utils.constants import Constants
+from src.pt.utils.test_parser import tester
 
 # Resolve the absolute path of the script's directory (Project Root)
 PROJECT_ROOT = Constants.get_absolute_project_path()
@@ -75,6 +76,9 @@ def main():
             data = os.path.join(PROJECT_ROOT, i)
             pipelines(debug_datalist=data, config=config)
 
+    elif task=='architecture':
+        architecture_pipeline(config=config)
+
     # 3. Pipeline Summary
     end_total = time.perf_counter()
     logging.info("-" * 40)
@@ -84,3 +88,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

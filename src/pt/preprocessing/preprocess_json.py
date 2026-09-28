@@ -32,7 +32,7 @@ def clean_path(diretorio):
         for file in dir:
             os.remove(os.path.join(path, file))
 
-def preprocess_db(out_path, norm="", filter="", size=224, datalist='', config: Dict = None):
+def preprocess_json(out_path, norm="", filter="", size=224, datalist='', config: Dict = None):
 
     #clean_path(out_path) # if want delete all files inside the path
     
@@ -73,6 +73,36 @@ def preprocess_db(out_path, norm="", filter="", size=224, datalist='', config: D
             save_prefix = os.path.join(out_path, id + "_" + img)
 
         _success, _dc_tags = dicom_preprocess(img_file[0], save_prefix, norm=norm, filter=filter, size=size)
+    
+        if os.path.isfile(save_prefix + ".npy"):
+            _success = True
+            list_img.append(save_prefix)
+        else:
+            _success = False
+    
+    print(f'Images transformed: {len(list_img)}')
+
+
+def preprocess_db(out_path, norm="", filter="", size=224, datalist=None, config: Dict = None):
+
+    #clean_path(out_path) # if want delete all files inside the path
+    
+    list_img = []
+    for i in datalist:
+        if i['dataset'] == 'liga':
+            dir_name = i['npy'].replace('.npy', '')
+            img_file = i['dicom']
+            save_prefix = os.path.join(out_path, dir_name)
+        elif i['dataset'] == 'cbis-ddsm':
+            dir_name = i['npy'].replace('.npy', '')
+            img_file = i['dicom']
+            save_prefix = os.path.join(out_path, dir_name)
+        elif i['dataset'] == 'vindr':
+            dir_name = i['npy'].replace('.npy', '')
+            img_file = i['dicom']
+            save_prefix = os.path.join(out_path, dir_name)
+
+        _success, _dc_tags = dicom_preprocess(img_file, save_prefix, norm=norm, filter=filter, size=size)
     
         if os.path.isfile(save_prefix + ".npy"):
             _success = True

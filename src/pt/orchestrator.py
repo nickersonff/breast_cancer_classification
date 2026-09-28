@@ -1,6 +1,7 @@
 import random
+from src.pt.utils.parser import CBISDDSMParser, VinDrParser
 from src.pt.learners.local_mammo_learner import MammoLearner
-from src.pt.preprocessing.preprocess_json import preprocess_db, path_exists
+from src.pt.preprocessing.preprocess_json import preprocess_json, path_exists, preprocess_db
 import os
 from typing import Dict
 from src.pt.utils.constants import Constants
@@ -8,11 +9,23 @@ from src.pt.utils.constants import Constants
 # Resolve the absolute path of the script's directory (Project Root)
 PROJECT_ROOT = Constants.get_absolute_project_path()
 
-def run_train(dataset_root, datalist_prefix, batch=64, cnn='resnet', config: Dict = None):
+def init_datalist_parser(config):
+    datalist = []
+    db = config['dataset_config'].get('databases')
+    parsers = {
+                "vindr": VinDrParser,   
+                "cbis-ddsm": CBISDDSMParser
+            }        
+    for d in db:
+        if d['name'] not in parsers:
+            raise ValueError(f"Dataset '{d['name']}' não suportado. Escolha entre: {list(parsers.keys())}")
+        datalist.extend(parsers[d['name']](metadata_file=d['metadata_file']).parse())
+    return datalist
+
+def run_train(dataset_root, datalist, batch=64, cnn='resnet', config: Dict = None):
     print("Testing MammoLearner...")
     learner = MammoLearner(
-        dataset_root=dataset_root,
-        datalist_prefix=datalist_prefix,
+        datalist=datalist,
         aggregation_epochs=config['hyperparameters'].get('aggregation_epochs', 60),
         lr=config['hyperparameters'].get('lr', 0.001),
         batch_size=batch,
@@ -23,20 +36,9 @@ def run_train(dataset_root, datalist_prefix, batch=64, cnn='resnet', config: Dic
     learner.initialize()
 
     print("test train...")
-    learner.train(
-        train_loader=learner.train_loader
-    )
+    learner.train()
     
     learner.save_model('final-model.pt')
-
-    print("test valid...")
-    acc, kappa, roc = learner.local_valid(
-        valid_loader=learner.valid_loader, is_final=True
-    )
-    
-    print("debug acc", acc)
-    print("debug kappa", kappa)
-    print("debug ROC AUC", roc)
         
 def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json', 
                     config: Dict = None):
@@ -49,98 +51,98 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224
     """
     print(f'**** Pipeline: DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224 ****')
-    preprocess_db(out_path=debug_dataset_root, datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=64, cnn=cnn, config=config)
 
     """
     MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
     print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", filter="CLAHE", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024
     """
     print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384
     """
     print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384 ****')
-    preprocess_db(out_path=debug_dataset_root, size=384, datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=384, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512
     """
     print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512 ****')
-    preprocess_db(out_path=debug_dataset_root, size=512, datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=512, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024
     """
     print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024 ****')
-    preprocess_db(out_path=debug_dataset_root, size=1024, datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=1024, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048
     """
     print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048 ****')
-    preprocess_db(out_path=debug_dataset_root, size=2048, datalist=debug_datalist, config=config)
+    preprocess_json(out_path=debug_dataset_root, size=2048, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=4, cnn=cnn, config=config)
 
 def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json", 
@@ -167,7 +169,22 @@ def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json",
         outpath = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
         
         print(f'**** Pipeline: {norm[i[0]]} - {filters[i[1]]} - {sizes[i[2]]} ****')
-        preprocess_db(out_path=outpath, norm=norm[i[0]], filter=filters[i[1]], 
+        preprocess_json(out_path=outpath, norm=norm[i[0]], filter=filters[i[1]], 
                 size=sizes[i[2]], datalist=debug_datalist, config=config)
         
         run_train(outpath, debug_datalist, batch=config['hyperparameters'].get('batch_size', 32), cnn=cnn, config=config)
+
+def architecture_pipeline(config: Dict= None):
+    cnn = config['hyperparameters'].get('architecture')
+    debug_dataset_root = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
+
+    #PEGA A LISTA DE DATASETS PARA TESTAR
+    debug_datalist = init_datalist_parser(config=config)
+    """
+    Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
+    """
+    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
+    if config['hyperparameters'].get('preprocess', False):
+        preprocess_db(out_path=debug_dataset_root, size=1024, norm="z-score", filter="CLAHE", datalist=debug_datalist, config=config)
+    run_train(debug_dataset_root, debug_datalist, batch=config['hyperparameters'].get('batch_size', 16), cnn=cnn, config=config)
+    

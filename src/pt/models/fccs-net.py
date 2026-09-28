@@ -4,7 +4,7 @@ import torch.nn as nn
 import torchvision.models as models
 
 """
-    fonte: https://www.sciencedirect.com/science/article/abs/pii/S1746809424003161
+    fonte: https://www.sciencedirect.com/science/article/pii/S2666521226000980?via%3Dihub
 """
 
 # Define the CBAM module

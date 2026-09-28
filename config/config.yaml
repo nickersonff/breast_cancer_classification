@@ -2,13 +2,14 @@
 # PIPELINE EXECUTION TRIGGERS
 # ==============================================================================
 hyperparameters:
-  lr: 1e-4
+  lr: 0.0001
   aggregation_epochs: 60
-  batch_size: 64
+  batch_size: 32
   num_classes: 2
   architecture: "resnet"
   num_pipelines: 25
-  task: "pipelines" # Options: "preprocess", "pipelines"
+  preprocess: False
+  task: "architecture" # Options: "preprocess", "pipelines", "architecture"
   
 
 # ==============================================================================
@@ -23,9 +24,9 @@ dataloaders:
 # ==============================================================================
 io_dirs:
   save_model_dir: "/home/nfferreira/data/model/"
-  dicom_root_LIGA: "/home/nfferreira/LIGA/dicom"
-  dicom_root_DDSM: "/home/nfferreira/DDSM/CBIS-DDSM"
-  dicom_root_VINDR: "/home/nfferreira/VinDr/images"
+  dicom_root_LIGA: "/home/nfferreira/LIGA/dicom/"
+  dicom_root_DDSM: "/home/nfferreira/DDSM/CBIS-DDSM/"
+  dicom_root_VINDR: "/home/nfferreira/VinDr/images/"
   #dataset_dict:
   #  "/home/nfferreira/data/dataset_DDSM.json": "DDSM"
   #  "/home/nfferreira/data/dataset_Planmed.json": "PLANMED"
@@ -33,7 +34,6 @@ io_dirs:
   #  "/home/nfferreira/data/dataset_SIEMENS.json": "SIEMENS"
   #  "/home/nfferreira/data/dataset_VINDR_DDSM.json": "VINDR-DDSM"
   #  "/home/nfferreira/data/dataset_VINDR_ALL.json": "VINDR"
-
   dataset_list:
     - "data/datasets/dataset_DDSM.json"
     - "data/datasets/dataset_Planmed.json"
@@ -53,3 +53,13 @@ io_dirs:
     - "data/datasets/ddsm-kfolds/dataset_site-8_DDSM_KFOLD.json"
     - "data/datasets/ddsm-kfolds/dataset_site-9_DDSM_KFOLD.json"
   preprocess_prefix: "data/preprocessed/"
+
+
+dataset_config:
+  databases: # Options: "cbis-ddsm",  "vindr"
+    - {"name": "cbis-ddsm", "metadata_file": "data/metadata/cbis-ddsm/metadata_cbis_ddsm.csv"}
+    - {"name": "vindr", "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv"}
+  manufacturers: # Options: "planmed", "ims", "siemens"
+    - "siemens"
+    - "ims"
+  group_birads: True 

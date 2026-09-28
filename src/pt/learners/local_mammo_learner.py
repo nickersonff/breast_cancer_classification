@@ -12,35 +12,15 @@ from typing import Dict
 import logging
 import os
 import numpy as np
-import math
 from sklearn.model_selection import StratifiedGroupKFold
 import torch
 import torch.optim as optim
 import torch.nn as nn
-import torchvision.models as models
-from torchvision.models import VGG16_BN_Weights
-from monai.transforms import (
-    Compose,
-    EnsureTyped,
-    LoadImaged,
-    RandFlipd,
-    RandGaussianNoised,
-    RandGaussianSmoothd,
-    RandRotated,
-    RandScaleIntensityd,
-    RandShiftIntensityd,
-    RandZoomd,
-    Transposed,
-    RandFlipd,
-    RandGaussianNoised,
-    RandScaleIntensityd,
-    CastToTyped
-)
 from sklearn.metrics import cohen_kappa_score, f1_score, matthews_corrcoef, roc_auc_score, confusion_matrix, roc_curve, ConfusionMatrixDisplay
 from torch.utils.tensorboard import SummaryWriter
 import matplotlib.pyplot as plt
+from pt.models.model_factory import ModelFactory
 from src.pt.utils.dataset_torch import BreastDataset
-from src.pt.preprocessing.preprocess_json import load_datalist
 import torchvision.transforms.v2 as T
 from torch.utils.data import DataLoader
 from collections import Counter
@@ -133,64 +113,10 @@ class MammoLearner():
         )
 
     def build_model(self):
-        if self.arch == 'resnet':
-            # RESNET18
-            
-            self.model = models.resnet18(pretrained=True)
-            num_features = self.model.fc.in_features
-            self.model.fc = nn.Sequential(
-                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-                nn.Dropout(0.5),               # Dropout layer with 50% probability
-                nn.Linear(256, self.num_classes)              # Final prediction fc layer
-            )
-            
-        elif self.arch == 'vgg':
-            # VGG16
-            
-            self.model = models.vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
-            num_features = self.model.classifier[6].in_features
-            nova_camada_final = nn.Sequential(
-                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-                nn.Dropout(0.5),               # Dropout layer with 50% probability
-                nn.Linear(256, self.num_classes)              # Final prediction fc layer
-            )
-            self.model.classifier[6] = nova_camada_final
-
-        elif self.arch == 'efficientnet':
-            # EfficientNet B3
-            
-            self.model = models.efficientnet_b3(pretrained=True)
-            num_features = self.model.classifier[1].in_features
-            nova_camada_final = nn.Sequential(
-                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-                nn.Dropout(0.5),               # Dropout layer with 50% probability
-                nn.Linear(256, self.num_classes)              # Final prediction fc layer
-            )
-            self.model.classifier[1] = nova_camada_final
-        elif self.arch == 'resnet152':
-            # RESNET152
-            
-            self.model = models.resnet152(pretrained=True)
-            num_features = self.model.fc.in_features
-            self.model.fc = nn.Sequential(
-                nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-                nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-                nn.Dropout(0.5),               # Dropout layer with 50% probability
-                nn.Linear(256, self.num_classes)              # Final prediction fc layer
-            )
-        elif self.arch == 'densenet':
-            self.model = models.densenet121(weights=models.DenseNet121_Weights.DEFAULT)
-            num_features = self.model.classifier.in_features
-
-            self.model.classifier = nn.Sequential(
-                    nn.Linear(num_features, 256),  # Additional linear layer with 256 output features
-                    nn.ReLU(inplace=True),         # Activation function (you can choose other activation functions too)
-                    nn.Dropout(0.5),               # Dropout layer with 50% probability
-                    nn.Linear(256, self.num_classes)              # Final prediction fc layer
-            )
+        self.model = ModelFactory.create_model(
+            architecture=self.arch, 
+            num_classes=self.num_classes
+        )
 
     def build_optimizer(self):
         self.optimizer = optim.Adam(

@@ -24,6 +24,8 @@ from src.pt.utils.dataset_torch import BreastDataset
 import torchvision.transforms.v2 as T
 from torch.utils.data import DataLoader
 from collections import Counter
+from pt.metrics.metrics_mammo import MetricsTracker
+from imblearn.under_sampling import RandomUnderSampler
 
 class MammoLearner():
     def __init__(
@@ -171,8 +173,8 @@ class MammoLearner():
             # Cria as sub-listas de dicionários para este fold
             fold_train_data = [self.datalist[i] for i in train_idx]
             fold_val_data = [self.datalist[i] for i in val_idx]
-            train_npy_paths = [item['npy'] for item in fold_train_data]
-            train_labels = [item['label'] for item in fold_train_data]
+            #train_npy_paths = [item['npy'] for item in fold_train_data]
+            #train_labels = [item['label'] for item in fold_train_data]
             val_npy_paths = [item['npy'] for item in fold_val_data]
             val_labels = [item['label'] for item in fold_val_data]
 
@@ -182,18 +184,32 @@ class MammoLearner():
             print(f"Treino - Contagem de Rótulos: {dict(train_label_counts)}")
             print(f"Validação - Contagem de Rótulos: {dict(val_label_counts)}")
 
-            # Calcula pesos inversely proportional à frequência das classes
-            total_samples = len(train_labels)
-            n_classes = len(train_label_counts)
+            #aplica o undersample aqui
+            # Prepara arrays auxiliares para o imblearn identificar os labels
+            train_indices = np.arange(len(fold_train_data)).reshape(-1, 1)
+            train_labels_array = np.array([item['label'] for item in fold_train_data])
+            
+            # 2. APLICAÇÃO DO UNDERSAMPLING SOMENTE NO TREINO DO FOLD ATUAL
+            # O 'sampling_strategy='auto'' iguala a classe majoritária à minoritária
+            rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
+            resampled_indices, _ = rus.fit_resample(train_indices, train_labels_array)
+            
+            # 3. Filtra a lista de dicionários de treino usando os índices balanceados
+            balanced_train_data = [fold_train_data[i[0]] for i in resampled_indices]
+            
+            # Opcional: Você pode contar para conferir se balanceou
+            # from collections import Counter
+            print("Treino balanceado:", Counter([item['label'] for item in balanced_train_data]))
 
-            weights = [total_samples / (n_classes * train_label_counts[c]) for c in sorted(train_label_counts.keys())]
-            class_weights = torch.tensor(weights, dtype=torch.float32).to(self.device)
-            print(f"Pesos das classes: {class_weights}")
-            # Passa o peso para a loss que você já usa no seu learner
-            self.criterion = torch.nn.CrossEntropyLoss(weight=class_weights)
+            # 4. Extrai os caminhos e labels já balanceados para o Dataset do PyTorch
+            train_npy_paths = [item['npy'] for item in balanced_train_data]
+            train_labels = [item['label'] for item in balanced_train_data]
+            
+            # A validação continua 100% original e desbalanceada (refletindo o mundo real)
+            val_npy_paths = [item['npy'] for item in fold_val_data]
+            val_labels = [item['label'] for item in fold_val_data]
 
-            #self.criterion = torch.nn.CrossEntropyLoss()
-
+            self.criterion = torch.nn.CrossEntropyLoss()
 
             self.train_dataset = BreastDataset(train_npy_paths, train_labels, transform=self.transform_train)
             self.valid_dataset = BreastDataset(val_npy_paths, val_labels, transform=self.transform_valid)
@@ -242,10 +258,13 @@ class MammoLearner():
                     loss = self.criterion(outputs, labels)
                     
                     loss.backward()
-                    self.optimizer.step()
+
                     # Gradient Clipping for VGG-16
                     if self.arch == 'vgg':
                         nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+
+                    self.optimizer.step()
+                    
                     # Record & update learning rate                
                     lrs.append(self.get_lr(self.optimizer))
                     self.sched.step()
@@ -285,98 +304,39 @@ class MammoLearner():
         if not valid_loader:
             return None
         self.model.eval()
-        return_probs = []
-        all_labels = []
-        pred_labels = []
-        l_probs = []
+        
+        # Instancia o rastreador de métricas
+        tracker = MetricsTracker(num_classes=self.num_classes)
         val_avg_loss = 0.0
+
         with torch.no_grad():
-            correct, total = 0, 0
             for batch_idx, (images, labels) in enumerate(valid_loader):
-                inputs, lbls = (
-                    images.to(self.device),
-                    labels.to(self.device),
-                )
-                
+                inputs, lbls = images.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
                 
-                # Find the Loss
                 validation_loss = self.criterion(outputs, lbls)
-                # Calculate Loss
                 val_avg_loss += validation_loss.item()
+                
                 outputs_soft = torch.softmax(outputs, dim=1)
                 probs = outputs_soft.detach().cpu().numpy()
+                _, _pred_label = torch.max(outputs_soft.data, 1)
                 
-                # make json serializable
-                for _img_file, _probs, lbl in zip(images, probs, labels):
-                    p = [float(p) for p in _probs]
-                    return_probs.append(
-                        {
-                            "image": str(_img_file),
-                            "probs": p,
-                            "label": int(lbl.item() if hasattr(lbl, 'item') else lbl),
-                        } 
-                    )
-                    l_probs.append(p[1]) # probs da classe positiva
-                
-                if not return_probs_only:
-                    _, _pred_label = torch.max(outputs_soft.data, 1)
-                    _labels = labels.to(_pred_label.device)
-                    total += images.data.size()[0]
-                    correct += (_pred_label == _labels.data).sum().item()
-                    all_labels.extend(_labels.detach().cpu().numpy())
-                    pred_labels.extend(_pred_label.detach().cpu().numpy())
+                # Atualiza os dados no tracker
+                tracker.update(images, labels, probs, _pred_label)
 
-            self.writer.add_scalar(
-                    "val_loss", (val_avg_loss/len(valid_loader)), self.epoch_global)
-            
-            if return_probs_only:
-                return return_probs  # create a list of image names and probs
-            else:
-                acc = correct / float(total)
-                assert len(all_labels) == total
-                assert len(pred_labels) == total
-                matrix = confusion_matrix(all_labels, pred_labels)
-                print("### eval report ###")
-                if self.num_classes == 2:
-                    roc_auc = roc_auc_score(all_labels, l_probs)
-                    f1 = f1_score(all_labels, pred_labels)
-                    print(f'ROC Score: {roc_auc}')
-                    print(f'F1-Score: {f1}')
-                    
-                mcc = matthews_corrcoef(all_labels, pred_labels)
-                kappa = cohen_kappa_score(
-                    all_labels, pred_labels, weights="linear")
+        # Loga a loss média no TensorBoard
+        self.writer.add_scalar("val_loss", (val_avg_loss / len(valid_loader)), self.epoch_global)
 
-                print(f'ACC: {acc}')
-                print(f'MCC: {mcc}')
-                print(f'Cohen Kappa Score: {kappa}')
-                print(matrix)
-                print('###################')
+        if return_probs_only:
+            return tracker.return_probs
 
-                if is_final:
-                    
-                    if self.num_classes == 2:
-                        # ROC curve
-                        fig = plt.figure(figsize=(8, 6))
-                        
-                        fpr, tpr, thresholds = roc_curve(all_labels, l_probs)
-                        plt.plot(fpr, tpr, label='AUC = {:.4f}'.format(roc_auc))
-                        plt.xlim([0, 1])
-                        plt.ylim([0, 1])
-                        plt.xlabel('False Positive Rate')
-                        plt.ylabel('True Positive Rate')
-                        plt.title('ROC Curve')
-                        plt.legend()
-                        
-                        print(f'ROC VALUES: {self.roc_values}')
-                        print(f'ACC VALUES: {self.acc_values}')                        
-                    
-                    # CONFUSION MATRIX
-                    cm_norm = []
-                    cm_norm = matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis]
+        # Computa e exibe as métricas
+        metrics = tracker.compute_metrics()
+        tracker.print_report(metrics)
 
-                    disp = ConfusionMatrixDisplay(confusion_matrix=cm_norm, display_labels=range(self.num_classes))
-                    disp.plot()    
+        if is_final:
+            tracker.plot_final_reports(self.roc_values, self.acc_values)
 
-                return acc, kappa, roc_auc    
+        # Retorna os valores principais para o fluxo de salvamento do learner
+        roc_val = metrics.get('roc_auc', 0.0)
+        return metrics['acc'], metrics['kappa'], roc_val    

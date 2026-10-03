@@ -8,7 +8,7 @@ from typing import Any
 
 from yaml import YAMLError, safe_load
 
-from pt.orchestrator import pipelines, preprocessing
+from pt.orchestrator import architecture_pipeline, pipelines, preprocessing
 from pt.utils.constants import Constants
 
 # Resolve the absolute path of the script's directory (Project Root)
@@ -41,7 +41,7 @@ def load_config(config_rel_path: str = "config/config.yaml") -> dict[str, Any]:
     using an absolute path relative to project root."""
     config_abs_path: str = join(PROJECT_ROOT, config_rel_path)
     try:
-        with open(config_abs_path, "r") as f:
+        with open(config_abs_path) as f:
             return safe_load(f)
     except YAMLError as e:
         print(f"[!] Error loading config at {config_abs_path}: {e!s}")
@@ -81,6 +81,14 @@ def main():
         for i in datalist:
             data: str = join(PROJECT_ROOT, i)
             pipelines(debug_datalist=data, config=config)
+
+    elif task == "architecture":
+        architecture_pipeline(config=config)
+    else:
+        raise ValueError(
+            f"Unknown pipeline task '{task}'. "
+            "Expected 'preprocess', 'pipelines', or 'architecture'."
+        )
 
     # 3. Pipeline Summary
     end_total: float = perf_counter()

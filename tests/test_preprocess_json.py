@@ -1,7 +1,14 @@
 import json
 from pathlib import Path
 
-from pt.preprocessing.preprocess_json import load_datalist, resolve_datalist
+import numpy as np
+import pytest
+
+from pt.preprocessing.preprocess_json import (
+    load_datalist,
+    preprocess_json,
+    resolve_datalist,
+)
 
 
 def test_load_datalist_resolves_existing_images_and_skips_missing(
@@ -37,3 +44,49 @@ def test_resolve_datalist_does_not_mutate_selected_records(tmp_path: Path) -> No
 
     assert resolved == [{"image": str(tmp_path / "image.npy"), "label": 1}]
     assert selected == [{"image": "image.npy", "label": 1}]
+
+
+def test_preprocess_json_writes_variant_manifest_and_three_channel_images(
+    tmp_path: Path,
+) -> None:
+    source = tmp_path / "source.npy"
+    np.save(source, np.arange(16, dtype=np.float32).reshape(4, 4))
+    manifest = tmp_path / "input.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "train": [{"image": source.name, "label": 1, "patient_id": "p1"}],
+                "test": [],
+            }
+        )
+    )
+
+    result = preprocess_json(
+        out_path=str(tmp_path / "processed"),
+        datalist=str(manifest),
+        config={"io_dirs": {"preprocess_prefix": ""}},
+        norm="min-max",
+        size=8,
+    )
+
+    result_manifest = json.loads(Path(result).read_text())
+    output = tmp_path / "processed" / "min-max_none_8" / "source.npy"
+    image = np.load(output)
+    assert image.shape == (8, 8, 3)
+    assert image.min() == pytest.approx(0.0)
+    assert image.max() == pytest.approx(1.0)
+    assert result_manifest["train"][0]["image"] == "min-max_none_8/source.npy"
+
+
+def test_preprocess_json_reports_missing_source_image(tmp_path: Path) -> None:
+    manifest = tmp_path / "input.json"
+    manifest.write_text(
+        json.dumps({"train": [{"image": "missing.npy", "label": 0}], "test": []})
+    )
+
+    with pytest.raises(FileNotFoundError, match="Source image not found"):
+        preprocess_json(
+            out_path=str(tmp_path / "processed"),
+            datalist=str(manifest),
+            config={"io_dirs": {"preprocess_prefix": ""}},
+        )

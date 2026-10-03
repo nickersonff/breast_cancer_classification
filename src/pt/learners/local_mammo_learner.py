@@ -11,22 +11,17 @@
 from logging import Logger, getLogger
 from os import makedirs
 from os.path import basename, isfile, join
-from typing import Any, cast
+from typing import Any
 
+import numpy as np
 from matplotlib.pyplot import legend, plot, show, title, xlabel, xlim, ylabel, ylim
 from monai.data.dataloader import DataLoader
 from monai.data.dataset import CacheDataset
 from monai.transforms.compose import Compose
-from monai.transforms.intensity.dictionary import (
-    RandGaussianNoised,
-    RandGaussianSmoothd,
-    RandScaleIntensityd,
-    RandShiftIntensityd,
-)
 from monai.transforms.io.dictionary import LoadImaged
 from monai.transforms.spatial.dictionary import RandFlipd, RandRotated, RandZoomd
 from monai.transforms.utility.dictionary import CastToTyped, EnsureTyped, Transposed
-from numpy import newaxis, pi
+from numpy import pi
 from safetensors.torch import save_model
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
@@ -39,28 +34,14 @@ from sklearn.metrics import (
 )
 from torch import Tensor, device, float32, max as max_torch, no_grad, softmax
 from torch.cuda import is_available
-from torch.nn import CrossEntropyLoss, Dropout, Linear, ReLU, Sequential
+from torch.nn import CrossEntropyLoss, Module
 from torch.nn.utils import clip_grad_norm_
-from torch.optim import SGD
+from torch.optim import Adam
 from torch.optim.lr_scheduler import OneCycleLR
 from torch.utils.tensorboard.writer import SummaryWriter
-from torchvision.models import (
-    VGG,
-    DenseNet,
-    DenseNet121_Weights,
-    EfficientNet,
-    ResNet,
-    ResNet18_Weights,
-    VGG16_BN_Weights,
-    densenet121,
-    efficientnet_b3,
-    resnet18,
-    resnet152,
-    vgg16_bn,
-)
 
+from pt.models.model_factory import ModelFactory
 from pt.preprocessing.preprocess_json import load_datalist, resolve_datalist
-from pt.utils.custom_fc import CustomFC
 
 
 class MammoLearner:
@@ -69,6 +50,7 @@ class MammoLearner:
         dataset_root: str,
         datalist_prefix: str,
         conf: dict[str, Any],
+        datalist: str,
         aggregation_epochs: int = 1,
         lr: float = 1e-4,
         batch_size: int = 64,
@@ -81,38 +63,39 @@ class MammoLearner:
         super().__init__()
         # trainer init happens at the very beginning, only the basic info regarding the trainer is set here
         # the actual run has not started at this point
-        self.dataset_root: str = dataset_root
-        self.datalist_prefix: str = datalist_prefix
         self.aggregation_epochs: int = aggregation_epochs
-        self.lr: float = lr
         self.batch_size: int = batch_size
         self.best_metric: float = 0.0
-        self.run = None
+        self.datalist: str = datalist
+        self.datalist_prefix: str = datalist_prefix
+        self.dataset_root: str = dataset_root
+        self.lr: float = lr
         self.num_classes: int = 0
+        self.run = None
         # Epoch counter
-        self.epoch_global: int = 0
-        self.roc_values: list[float] = []
         self.acc_values: list[float] = []
         self.arch: str = architecture
+        self.config: dict[str, Any] = conf
+        self.epoch_global: int = 0
+        self.log: Logger = getLogger(__name__)
+        self.roc_values: list[float] = []
+        self.run_name = run_name
         self.train_datalist = train_datalist
         self.valid_datalist = valid_datalist
-        self.run_name = run_name
 
         # The following objects will be build in `initialize()`
-        self.writer: SummaryWriter
-        self.device: device
-        self.model: DenseNet | EfficientNet | ResNet | VGG
-        self.optimizer: SGD
         self.criterion: CrossEntropyLoss
-        self.transform_train: Compose
-        self.transform_valid: Compose
+        self.device: device
+        self.model: Module
+        self.optimizer: Adam
+        self.sched: OneCycleLR
         self.train_dataset: CacheDataset
         self.train_loader: DataLoader
+        self.transform_train: Compose
+        self.transform_valid: Compose
         self.valid_dataset: CacheDataset | None
         self.valid_loader: DataLoader | None
-        self.sched: OneCycleLR
-        self.log: Logger = getLogger(__name__)
-        self.config: dict[str, Any] = conf
+        self.writer: SummaryWriter
 
     def save_model(self, name: str = "local_model.safetensors"):
         model_dir: str = self.config["io_dirs"].get("save_model_dir")
@@ -125,33 +108,26 @@ class MammoLearner:
         self.transform_train = Compose(
             [
                 LoadImaged(keys=["image"]),
+                Transposed(keys=["image"], indices=[2, 0, 1]),
                 RandRotated(keys=["image"], range_x=pi / 12, prob=0.5, keep_size=True),
                 RandFlipd(keys=["image"], spatial_axis=0, prob=0.5),
                 RandFlipd(keys=["image"], spatial_axis=1, prob=0.5),
                 RandZoomd(
-                    keys=["image"], min_zoom=0.9, max_zoom=1.1, prob=0.5, keep_size=True
-                ),
-                RandGaussianSmoothd(
                     keys=["image"],
-                    sigma_x=(0.5, 1.15),
-                    sigma_y=(0.5, 1.15),
-                    sigma_z=(0.5, 1.15),
-                    prob=0.15,
+                    min_zoom=0.9,
+                    max_zoom=1.1,
+                    prob=0.5,
+                    keep_size=True,
                 ),
-                RandScaleIntensityd(keys=["image"], factors=0.3, prob=0.5),
-                RandShiftIntensityd(keys=["image"], offsets=0.1, prob=0.5),
-                RandGaussianNoised(keys=["image"], std=0.01, prob=0.15),
-                # make channels-first
-                Transposed(keys=["image"], indices=[2, 0, 1]),
                 CastToTyped(keys=["image"], dtype=float32),
                 EnsureTyped(keys=["image", "label"]),
             ]
         )
 
+        # 2. Transformações de Validação
         self.transform_valid = Compose(
             [
                 LoadImaged(keys=["image"]),
-                # make channels-first
                 Transposed(keys=["image"], indices=[2, 0, 1]),
                 CastToTyped(keys=["image"], dtype=float32),
                 EnsureTyped(keys=["image", "label"]),
@@ -173,6 +149,8 @@ class MammoLearner:
             if self.train_datalist is None
             else resolve_datalist(self.train_datalist, self.dataset_root)
         )
+        if not train_datalist:
+            raise ValueError("No training images were found in the selected manifest")
 
         val_datalist = (
             load_datalist(
@@ -221,57 +199,18 @@ class MammoLearner:
             print("Use no validation set")
 
     def build_model(self):
-        if self.arch == "resnet":
-            # RESNET18
+        self.model = ModelFactory.create_model(
+            architecture=self.arch, num_classes=self.num_classes
+        )
 
-            self.model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-            num_features: int = self.model.fc.in_features
-            self.model.fc = CustomFC(num_features, self.num_classes)
-
-        elif self.arch == "vgg":
-            # VGG16
-
-            self.model = vgg16_bn(weights=VGG16_BN_Weights.IMAGENET1K_V1)
-            num_features: int = self.model.classifier[6].in_features
-            nova_camada_final = Sequential(
-                Linear(
-                    num_features, 256
-                ),  # Additional linear layer with 256 output features
-                ReLU(
-                    inplace=True
-                ),  # Activation function (you can choose other activation functions too)
-                Dropout(0.5),  # Dropout layer with 50% probability
-                Linear(256, self.num_classes),  # Final prediction fc layer
-            )
-            self.model.classifier[6] = nova_camada_final
-
-        elif self.arch == "efficientnet":
-            # EfficientNet B3
-
-            self.model = efficientnet_b3(pretrained=True)
-            num_features: int = self.model.classifier[1].in_features
-            nova_camada_final = Sequential(
-                Linear(
-                    num_features, 256
-                ),  # Additional linear layer with 256 output features
-                ReLU(
-                    inplace=True
-                ),  # Activation function (you can choose other activation functions too)
-                Dropout(0.5),  # Dropout layer with 50% probability
-                Linear(256, self.num_classes),  # Final prediction fc layer
-            )
-            self.model.classifier[1] = nova_camada_final
-        elif self.arch == "resnet152":
-            # RESNET152
-
-            self.model = resnet152(pretrained=True)
-            num_features: int = self.model.fc.in_features
-            self.model.fc = CustomFC(num_features, self.num_classes)
-        elif self.arch == "densenet":
-            self.model = densenet121(weights=DenseNet121_Weights.DEFAULT)
-            num_features: int = self.model.classifier.in_features
-
-            self.model.classifier = CustomFC(num_features, self.num_classes)
+    def build_optimizer(self):
+        self.optimizer = Adam(
+            self.model.parameters(),
+            lr=self.lr,
+            betas=(0.9, 0.999),
+            eps=1e-08,
+            weight_decay=0,
+        )
 
     def initialize(self):
 
@@ -298,9 +237,7 @@ class MammoLearner:
         self.build_model()
 
         self.model = self.model.to(self.device)
-        self.optimizer = SGD(
-            self.model.parameters(), lr=self.lr, momentum=0.9, weight_decay=0
-        )
+        self.build_optimizer()
 
         self.criterion = CrossEntropyLoss()
 
@@ -316,7 +253,7 @@ class MammoLearner:
 
         print("Finished initializing")
 
-    def get_lr(self, optimizer: SGD) -> float:
+    def get_lr(self, optimizer: Adam) -> float:
         for param_group in optimizer.param_groups:
             return param_group["lr"]
         return self.lr
@@ -373,18 +310,15 @@ class MammoLearner:
             )
 
             acc, kappa, roc = self.local_valid(self.valid_loader)
-            acc_float, kappa_float, roc_float = (
-                cast(float, acc),
-                cast(float, kappa),
-                cast(float, roc),
-            )
-
-            if len(self.acc_values) == 0 or acc_float >= max(self.acc_values):
-                self.save_model()
-            self.roc_values.append(roc_float)
-            self.acc_values.append(acc_float)
-            self.writer.add_scalar("val_acc", acc_float, self.epoch_global)
-            self.writer.add_scalar("val_kappa", kappa_float, self.epoch_global)
+            if acc is not None:
+                if len(self.acc_values) == 0 or acc >= max(self.acc_values):
+                    self.save_model()
+                self.acc_values.append(acc)
+                self.writer.add_scalar("val_acc", acc, self.epoch_global)
+            if kappa is not None:
+                self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
+            if roc is not None:
+                self.roc_values.append(roc)
 
     def local_valid(
         self,
@@ -412,7 +346,6 @@ class MammoLearner:
 
                 # Find the Loss
                 validation_loss = self.criterion(outputs, lbls)
-                # Calculate Loss
                 val_avg_loss += validation_loss.item()
                 outputs_soft: Tensor = softmax(outputs, dim=1)
                 probs = outputs_soft.detach().cpu().numpy()
@@ -446,12 +379,16 @@ class MammoLearner:
             acc: float = correct / float(total)
             assert len(labels) == total
             assert len(pred_labels) == total
-            matrix = confusion_matrix(labels, pred_labels)
+            matrix = confusion_matrix(
+                labels, pred_labels, labels=list(range(self.num_classes))
+            )
             print("### eval report ###")
+            roc_auc: float | None = None
             if self.num_classes == 2:
-                roc_auc = roc_auc_score(labels, l_probs)
+                if len(set(labels)) == 2:
+                    roc_auc = roc_auc_score(labels, l_probs)
                 f1 = f1_score(labels, pred_labels)
-                print(f"ROC Score: {roc_auc}")
+                print(f"ROC Score: {roc_auc if roc_auc is not None else 'undefined'}")
                 print(f"F1-Score: {f1}")
 
             mcc: float = matthews_corrcoef(labels, pred_labels)
@@ -480,7 +417,13 @@ class MammoLearner:
                     print(f"ACC VALUES: {self.acc_values}")
 
                 # CONFUSION MATRIX
-                cm_norm = matrix.astype("float") / matrix.sum(axis=1)[:, newaxis]
+                row_totals = matrix.sum(axis=1, keepdims=True)
+                cm_norm = np.divide(
+                    matrix.astype("float"),
+                    row_totals,
+                    out=np.zeros_like(matrix, dtype=float),
+                    where=row_totals != 0,
+                )
 
                 disp = ConfusionMatrixDisplay(
                     confusion_matrix=cm_norm, display_labels=range(self.num_classes)

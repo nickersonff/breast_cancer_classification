@@ -1,22 +1,20 @@
-
-
-from sklearn.model_selection import GroupKFold, StratifiedGroupKFold
-
-from src.pt.utils.constants import Constants
-from src.pt.orchestrator import init_datalist_parser
 import numpy as np
+from sklearn.model_selection import StratifiedGroupKFold
+
+from pt.orchestrator import init_datalist_parser
+from pt.utils.constants import Constants
 
 
-#if __name__ == "__main__":
-def tester():    
+# if __name__ == "__main__":
+def tester():
     config = Constants.get_config()
     datalist = init_datalist_parser(config=config)
 
-    #Faz o split com o stratified group k fold 
+    # Faz o split com o stratified group k fold
     indices = np.arange(len(datalist))
-    labels = np.array([item['label'] for item in datalist])
+    labels = np.array([item["label"] for item in datalist])
     # Extrai o ID do paciente de cada dicionário para formar os grupos
-    groups = np.array([item['patient_id'] for item in datalist])
+    groups = np.array([item["patient_id"] for item in datalist])
 
     # 3. Configura o GroupKFold (garante que o mesmo patient_id não se repita entre treino e validação)
     n_splits = 5
@@ -30,18 +28,18 @@ def tester():
         fold_train_data = [datalist[i] for i in train_idx]
         fold_val_data = [datalist[i] for i in val_idx]
 
-        train_npy_paths = [item['npy'] for item in fold_train_data]
-        train_patient_ids = np.unique([item['patient_id'] for item in fold_train_data])
-        train_labels = [item['label'] for item in fold_train_data]
-        val_npy_paths = [item['npy'] for item in fold_val_data]
-        val_patient_ids = np.unique([item['patient_id'] for item in fold_val_data])
-        val_labels = [item['label'] for item in fold_val_data]
+        train_patient_ids = np.unique([item["patient_id"] for item in fold_train_data])
+        val_patient_ids = np.unique([item["patient_id"] for item in fold_val_data])
 
         # Encontra os IDs que estão presentes em ambos os arrays
         common_patients = np.intersect1d(train_patient_ids, val_patient_ids)
         # Verifica se existe pelo menos um elemento em comum
         if len(common_patients) > 0:
-            print(f"⚠️ Atenção! Existem {len(common_patients)} pacientes em comum entre treino e validação:")
+            print(
+                f"⚠️ Atenção! Existem {len(common_patients)} pacientes em comum entre treino e validação:"
+            )
             print(common_patients)
         else:
-            print("✅ Tudo certo! Não há vazamento de pacientes (nenhum ID se repete entre treino e validação).")
+            print(
+                "✅ Tudo certo! Não há vazamento de pacientes (nenhum ID se repete entre treino e validação)."
+            )

@@ -8,335 +8,426 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from typing import Dict
-import logging
-import os
-import numpy as np
-from sklearn.model_selection import StratifiedGroupKFold
-import torch
-import torch.optim as optim
-import torch.nn as nn
-from sklearn.metrics import cohen_kappa_score, f1_score, matthews_corrcoef, roc_auc_score, confusion_matrix, roc_curve, ConfusionMatrixDisplay
-from torch.utils.tensorboard import SummaryWriter
-import matplotlib.pyplot as plt
-from pt.models.model_factory import ModelFactory
-from src.pt.utils.dataset_torch import BreastDataset
-import torchvision.transforms.v2 as T
-from torch.utils.data import DataLoader
-from collections import Counter
-from pt.metrics.metrics_mammo import MetricsTracker
-from imblearn.under_sampling import RandomUnderSampler
+from logging import Logger, getLogger
+from os import makedirs
+from os.path import basename, isfile, join
+from typing import Any
 
-class MammoLearner():
+import numpy as np
+from matplotlib.pyplot import legend, plot, show, title, xlabel, xlim, ylabel, ylim
+from monai.data.dataloader import DataLoader
+from monai.data.dataset import CacheDataset
+from monai.transforms.compose import Compose
+from monai.transforms.io.dictionary import LoadImaged
+from monai.transforms.spatial.dictionary import RandFlipd, RandRotated, RandZoomd
+from monai.transforms.utility.dictionary import CastToTyped, EnsureTyped, Transposed
+from numpy import pi
+from safetensors.torch import save_model
+from sklearn.metrics import (
+    ConfusionMatrixDisplay,
+    cohen_kappa_score,
+    confusion_matrix,
+    f1_score,
+    matthews_corrcoef,
+    roc_auc_score,
+    roc_curve,
+)
+from torch import Tensor, device, float32, max as max_torch, no_grad, softmax
+from torch.cuda import is_available
+from torch.nn import CrossEntropyLoss, Module
+from torch.nn.utils import clip_grad_norm_
+from torch.optim import Adam
+from torch.optim.lr_scheduler import OneCycleLR
+from torch.utils.tensorboard.writer import SummaryWriter
+
+from pt.models.model_factory import ModelFactory
+from pt.preprocessing.preprocess_json import load_datalist, resolve_datalist
+
+
+class MammoLearner:
     def __init__(
         self,
-        datalist: str = None,
+        dataset_root: str,
+        datalist_prefix: str,
+        conf: dict[str, Any],
+        datalist: str,
         aggregation_epochs: int = 1,
         lr: float = 1e-4,
         batch_size: int = 64,
         architecture: str = "resnet",
-        conf: Dict = None,
+        train_datalist: list[dict[str, str | int]] | None = None,
+        valid_datalist: list[dict[str, str | int]] | None = None,
+        run_name: str = "default",
     ):
-       
+
         super().__init__()
         # trainer init happens at the very beginning, only the basic info regarding the trainer is set here
         # the actual run has not started at this point
-        self.datalist = datalist
-        self.aggregation_epochs = aggregation_epochs
-        self.lr = lr
-        self.batch_size = batch_size
-        self.best_metric = 0.0
-        self.num_classes = 0
+        self.aggregation_epochs: int = aggregation_epochs
+        self.batch_size: int = batch_size
+        self.best_metric: float = 0.0
+        self.datalist: str = datalist
+        self.datalist_prefix: str = datalist_prefix
+        self.dataset_root: str = dataset_root
+        self.lr: float = lr
+        self.num_classes: int = 0
+        self.run = None
         # Epoch counter
-        self.epoch_global = 0
-        self.roc_values = []
-        self.acc_values = []
-        self.arch = architecture
-        self.log = logging.getLogger(__name__)
-        self.config = conf
+        self.acc_values: list[float] = []
+        self.arch: str = architecture
+        self.config: dict[str, Any] = conf
+        self.epoch_global: int = 0
+        self.log: Logger = getLogger(__name__)
+        self.roc_values: list[float] = []
+        self.run_name = run_name
+        self.train_datalist = train_datalist
+        self.valid_datalist = valid_datalist
 
         # The following objects will be build in `initialize()`
-        self.writer = None
-        self.device = None
-        self.model = None
-        self.optimizer = None
-        self.criterion = None
-        self.transform_train = None
-        self.transform_valid = None
-        self.sched = None
+        self.criterion: CrossEntropyLoss
+        self.device: device
+        self.model: Module
+        self.optimizer: Adam
+        self.sched: OneCycleLR
+        self.train_dataset: CacheDataset
+        self.train_loader: DataLoader
+        self.transform_train: Compose
+        self.transform_valid: Compose
+        self.valid_dataset: CacheDataset | None
+        self.valid_loader: DataLoader | None
+        self.writer: SummaryWriter
 
-    def save_model(self, name="local_model.pt"):
-        # save model
-        model_weights = self.model.state_dict()
-        save_dict = {"model_weights": model_weights,
-                     "epoch": self.epoch_global}
-        model_path = os.path.join(self.config['io_dirs'].get('save_model_dir'), name)
-        torch.save(save_dict, model_path) # change path
+    def save_model(self, name: str = "local_model.safetensors"):
+        model_dir: str = self.config["io_dirs"].get("save_model_dir")
+        run_dir: str = join(model_dir, self.run_name)
+        makedirs(run_dir, exist_ok=True)
+        model_path: str = join(run_dir, name)
+        save_model(self.model, model_path)
 
     def build_transforms(self):
-        self.transform_train = T.Compose(
-        [
-            # Espera uma imagem já carregada em tensor no formato (C, H, W)
-            T.ToDtype(torch.float32, scale=False),
-            # RandRotated(range_x=pi/12, prob=0.5)
-            T.RandomApply(
-                [T.RandomRotation(degrees=(-15, 15))], p=0.5
-            ),  # pi/12 rads = 15 graus
-            # RandFlipd(spatial_axis=0, prob=0.5) -> Vertical Flip
-            T.RandomVerticalFlip(p=0.5),
-            # RandFlipd(spatial_axis=1, prob=0.5) -> Horizontal Flip
-            T.RandomHorizontalFlip(p=0.5),
-            # RandZoomd(min_zoom=0.9, max_zoom=1.1, prob=0.5)
-            T.RandomApply(
-                [
-                    T.RandomAffine(
-                        degrees=0, scale=(0.9, 1.1)
-                    )  # Zoom mantendo o tamanho
-                ],
-                p=0.5,
-            ),
-            # RandGaussianSmoothd(sigma_x/y/z=(0.5, 1.15), prob=0.15)
-            T.RandomApply(
-                [
-                    T.GaussianBlur(
-                        kernel_size=(5, 5), sigma=(0.5, 1.15)
-                    ) 
-                ],
-                p=0.15,
-            ),
-        ]
-        )
-
-        # 2. Transformações de Validação
-        self.transform_valid = T.Compose(
+        self.transform_train = Compose(
             [
-                T.ToDtype(torch.float32, scale=False),
+                LoadImaged(keys=["image"]),
+                Transposed(keys=["image"], indices=[2, 0, 1]),
+                RandRotated(keys=["image"], range_x=pi / 12, prob=0.5, keep_size=True),
+                RandFlipd(keys=["image"], spatial_axis=0, prob=0.5),
+                RandFlipd(keys=["image"], spatial_axis=1, prob=0.5),
+                RandZoomd(
+                    keys=["image"],
+                    min_zoom=0.9,
+                    max_zoom=1.1,
+                    prob=0.5,
+                    keep_size=True,
+                ),
+                CastToTyped(keys=["image"], dtype=float32),
+                EnsureTyped(keys=["image", "label"]),
             ]
         )
 
+        # 2. Transformações de Validação
+        self.transform_valid = Compose(
+            [
+                LoadImaged(keys=["image"]),
+                Transposed(keys=["image"], indices=[2, 0, 1]),
+                CastToTyped(keys=["image"], dtype=float32),
+                EnsureTyped(keys=["image", "label"]),
+            ]
+        )
+
+    def build_dataloaders(self):
+        # Note, do not change this syntax. The data list filename is given by the system.
+        datalist_file: str = self.datalist_prefix
+        if not isfile(datalist_file):
+            print(f"{datalist_file} does not exist!")
+
+        train_datalist = (
+            load_datalist(
+                datalist_file,
+                data_list_key="train",  # do not change this key name
+                base_dir=self.dataset_root,
+            )
+            if self.train_datalist is None
+            else resolve_datalist(self.train_datalist, self.dataset_root)
+        )
+        if not train_datalist:
+            raise ValueError("No training images were found in the selected manifest")
+
+        val_datalist = (
+            load_datalist(
+                datalist_file,
+                data_list_key="test",
+                base_dir=self.dataset_root,
+            )
+            if self.valid_datalist is None
+            else resolve_datalist(self.valid_datalist, self.dataset_root)
+        )
+
+        num_workers: int = self.config["dataloaders"].get("num_workers", 4)
+        cache_rate: int = self.config["dataloaders"].get("cache_rate", 1.0)
+
+        self.train_dataset = CacheDataset(
+            data=train_datalist,
+            transform=self.transform_train,
+            cache_rate=cache_rate,
+            num_workers=num_workers,
+        )
+        self.train_loader = DataLoader(
+            self.train_dataset,
+            batch_size=self.batch_size,
+            shuffle=True,
+            num_workers=num_workers,
+        )
+        print(f"Training set: {len(train_datalist)} entries")
+
+        if len(val_datalist) > 0:
+            self.valid_dataset = CacheDataset(
+                data=val_datalist,
+                transform=self.transform_valid,
+                cache_rate=cache_rate,
+                num_workers=num_workers,
+            )
+            self.valid_loader = DataLoader(
+                self.valid_dataset,
+                batch_size=self.batch_size,
+                shuffle=False,
+                num_workers=num_workers,
+            )
+            print(f"Validation set: {len(val_datalist)} entries")
+        else:
+            self.valid_dataset = None
+            self.valid_loader = None
+            print("Use no validation set")
+
     def build_model(self):
         self.model = ModelFactory.create_model(
-            architecture=self.arch, 
-            num_classes=self.num_classes
+            architecture=self.arch, num_classes=self.num_classes
         )
 
     def build_optimizer(self):
-        self.optimizer = optim.Adam(
+        self.optimizer = Adam(
             self.model.parameters(),
             lr=self.lr,
-            betas=(0.9, 0.999),  
-            eps=1e-08,            
-            weight_decay=0        
+            betas=(0.9, 0.999),
+            eps=1e-08,
+            weight_decay=0,
         )
 
     def initialize(self):
-        
-        self.writer = SummaryWriter()
 
-        layout = {
+        log_dir = self.config["io_dirs"].get("runs_dir")
+        self.writer = SummaryWriter(
+            log_dir=join(log_dir, self.run_name) if log_dir else None
+        )
+
+        layout: dict[str, dict[str, list[list[str] | str]]] = {
             "Analysis": {
                 "loss": ["Multiline", ["train_loss", "val_loss"]],
                 "accuracy": ["Multiline", ["train_acc", "val_acc"]],
             },
         }
         self.writer.add_custom_scalars(layout)
+
         self.build_transforms()
 
-        self.num_classes = self.config['hyperparameters'].get('num_classes', 2)
-        self.device = torch.device(
-                "cuda:0" if torch.cuda.is_available() else "cpu")
+        self.num_classes: int = self.config["hyperparameters"].get("num_classes", 2)
+        self.device = device("cuda:0" if is_available() else "cpu")
 
-        print(f"Finished initializing")
+        self.build_dataloaders()
 
-    def get_lr(self, optimizer):
+        self.build_model()
+
+        self.model = self.model.to(self.device)
+        self.build_optimizer()
+
+        self.criterion = CrossEntropyLoss()
+
+        self.criterion = self.criterion.to(self.device)
+
+        # Set up one-cycle learning rate scheduler
+        self.sched = OneCycleLR(
+            self.optimizer,
+            self.lr,
+            epochs=self.aggregation_epochs,
+            steps_per_epoch=len(self.train_loader),
+        )
+
+        print("Finished initializing")
+
+    def get_lr(self, optimizer: Adam) -> float:
         for param_group in optimizer.param_groups:
-            return param_group['lr']
+            return param_group["lr"]
+        return self.lr
 
-    def train(self):
+    def train(self, train_loader: DataLoader) -> None:
 
-        #Faz o split com o stratified group k fold 
-        indices = np.arange(len(self.datalist))
-        labels = np.array([item['label'] for item in self.datalist])
-        # Extrai o ID do paciente de cada dicionário para formar os grupos
-        groups = np.array([item['patient_id'] for item in self.datalist])
-
-        # 3. Configura o GroupKFold (garante que o mesmo patient_id não se repita entre treino e validação)
-        n_splits = 5
-        gkf = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
-
-
-        # 4. Loop de Validação Cruzada
-        # Note que passamos 'groups' no método .split()
-        for fold, (train_idx, val_idx) in enumerate(gkf.split(indices, labels, groups)):
-            print(f"\n--- Início do Fold {fold + 1}/{n_splits} ---")
-            print(f"Treino: {len(train_idx)} amostras, Validação: {len(val_idx)} amostras")
-            # Cria as sub-listas de dicionários para este fold
-            fold_train_data = [self.datalist[i] for i in train_idx]
-            fold_val_data = [self.datalist[i] for i in val_idx]
-            #train_npy_paths = [item['npy'] for item in fold_train_data]
-            #train_labels = [item['label'] for item in fold_train_data]
-            val_npy_paths = [item['npy'] for item in fold_val_data]
-            val_labels = [item['label'] for item in fold_val_data]
-
-            train_label_counts = Counter(train_labels)
-            val_label_counts = Counter(val_labels)
-
-            print(f"Treino - Contagem de Rótulos: {dict(train_label_counts)}")
-            print(f"Validação - Contagem de Rótulos: {dict(val_label_counts)}")
-
-            #aplica o undersample aqui
-            # Prepara arrays auxiliares para o imblearn identificar os labels
-            train_indices = np.arange(len(fold_train_data)).reshape(-1, 1)
-            train_labels_array = np.array([item['label'] for item in fold_train_data])
-            
-            # 2. APLICAÇÃO DO UNDERSAMPLING SOMENTE NO TREINO DO FOLD ATUAL
-            # O 'sampling_strategy='auto'' iguala a classe majoritária à minoritária
-            rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
-            resampled_indices, _ = rus.fit_resample(train_indices, train_labels_array)
-            
-            # 3. Filtra a lista de dicionários de treino usando os índices balanceados
-            balanced_train_data = [fold_train_data[i[0]] for i in resampled_indices]
-            
-            # Opcional: Você pode contar para conferir se balanceou
-            # from collections import Counter
-            print("Treino balanceado:", Counter([item['label'] for item in balanced_train_data]))
-
-            # 4. Extrai os caminhos e labels já balanceados para o Dataset do PyTorch
-            train_npy_paths = [item['npy'] for item in balanced_train_data]
-            train_labels = [item['label'] for item in balanced_train_data]
-            
-            # A validação continua 100% original e desbalanceada (refletindo o mundo real)
-            val_npy_paths = [item['npy'] for item in fold_val_data]
-            val_labels = [item['label'] for item in fold_val_data]
-
-            self.criterion = torch.nn.CrossEntropyLoss()
-
-            self.train_dataset = BreastDataset(train_npy_paths, train_labels, transform=self.transform_train)
-            self.valid_dataset = BreastDataset(val_npy_paths, val_labels, transform=self.transform_valid)
-
-            num_workers = self.config['dataloaders'].get('num_workers', 4)
-
-            train_loader = DataLoader(self.train_dataset, 
-                                    batch_size=self.batch_size, 
-                                    shuffle=True, 
-                                    num_workers=num_workers)
-            valid_loader = DataLoader(self.valid_dataset, 
-                                    batch_size=self.batch_size, 
-                                    shuffle=False, 
-                                    num_workers=num_workers)
-            self.build_model()
-            self.model = self.model.to(self.device)
-            self.build_optimizer()
-            
-            self.criterion = self.criterion.to(self.device)
-            # Set up one-cycle learning rate scheduler
-            self.sched = torch.optim.lr_scheduler.OneCycleLR(self.optimizer, self.lr , epochs=self.aggregation_epochs,
-                                                    steps_per_epoch=len(train_loader))
-            
-            for epoch in range(self.aggregation_epochs):            
-                self.model.train()
-                self.epoch_global = epoch + 1
-                lrs = []
-                print(
-                    f"Local epoch: {epoch + 1}/{self.aggregation_epochs} (lr={self.lr})",
+        for epoch in range(self.aggregation_epochs):
+            self.model.train()
+            self.epoch_global = epoch + 1
+            lrs: list[float] = []
+            print(
+                f"Local epoch: {epoch + 1}/{self.aggregation_epochs} (lr={self.lr})",
+            )
+            avg_loss: float = 0.0
+            correct, total = 0, 0
+            for batch_data in train_loader:
+                inputs, labels = (
+                    batch_data["image"].to(self.device),
+                    batch_data["label"].to(self.device),
                 )
-                avg_loss = 0.0
-                correct, total = 0,0
-                for batch_idx, (images, labels) in enumerate(train_loader):
-                    inputs, labels = (
-                        images.to(self.device),
-                        labels.to(self.device),
-                    )
-                    
-                    
-                    # zero the parameter gradients
-                    self.optimizer.zero_grad()
 
-                    # forward + backward + optimize
-                    outputs = self.model(inputs)
-                    #att, raw, outputs = self.model(inputs)
-                    loss = self.criterion(outputs, labels)
-                    
-                    loss.backward()
+                # Gradient Clipping for VGG-16
+                if self.arch == "vgg":
+                    clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+                # zero the parameter gradients
+                self.optimizer.zero_grad()
 
-                    # Gradient Clipping for VGG-16
-                    if self.arch == 'vgg':
-                        nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
+                # forward + backward + optimize
+                outputs = self.model(inputs)
+                # att, raw, outputs = self.model(inputs)
+                loss = self.criterion(outputs, labels)
 
-                    self.optimizer.step()
-                    
-                    # Record & update learning rate                
-                    lrs.append(self.get_lr(self.optimizer))
-                    self.sched.step()
-                    avg_loss += loss.item()
+                loss.backward()
+                self.optimizer.step()
 
-                    _, _pred_label = torch.max(outputs.data, 1)
-                    _labels = labels
-                    total += inputs.data.size()[0]
-                    correct += (_pred_label == _labels.data).sum().item()
+                # Record & update learning rate
+                lrs.append(self.get_lr(self.optimizer))
+                self.sched.step()
+                avg_loss += loss.item()
 
-                self.writer.add_scalar(
-                    "lr", self.get_lr(self.optimizer), epoch + 1)
+                _, _pred_label = max_torch(outputs.data, 1)
+                _labels = batch_data["label"].to(self.device)
+                total += inputs.data.size()[0]
+                correct += (_pred_label == _labels.data).sum().item()
 
-                self.writer.add_scalar(
-                    "train_loss", avg_loss / len(train_loader), self.epoch_global)
-                
-                self.writer.add_scalar(
-                    "train_acc", correct/float(total), self.epoch_global)
+            self.writer.add_scalar("lr", self.get_lr(self.optimizer), epoch + 1)
 
-                acc, kappa, roc = self.local_valid(valid_loader)
+            self.writer.add_scalar(
+                "train_loss", avg_loss / len(train_loader), self.epoch_global
+            )
 
-                if len(self.acc_values) == 0:
+            self.writer.add_scalar(
+                "train_acc", correct / float(total), self.epoch_global
+            )
+
+            acc, kappa, roc = self.local_valid(self.valid_loader)
+            if acc is not None:
+                if len(self.acc_values) == 0 or acc >= max(self.acc_values):
                     self.save_model()
-                elif acc >= max(self.acc_values):
-                    self.save_model()
-                self.roc_values.append(roc)
                 self.acc_values.append(acc)
                 self.writer.add_scalar("val_acc", acc, self.epoch_global)
+            if kappa is not None:
                 self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
+            if roc is not None:
+                self.roc_values.append(roc)
 
     def local_valid(
         self,
-        valid_loader,
-        return_probs_only=False,
-        is_final=False
-    ):
+        valid_loader: DataLoader | None,
+        is_final: bool = False,
+        fold: int | None = None,
+    ) -> tuple[float | None, float | None, float | None]:
         if not valid_loader:
-            return None
+            return (None, None, None)
         self.model.eval()
-        
-        # Instancia o rastreador de métricas
-        tracker = MetricsTracker(num_classes=self.num_classes)
-        val_avg_loss = 0.0
+        return_probs: list[dict[str, list[float] | str]] = []
+        labels: list[int] = []
+        pred_labels: list[int] = []
+        l_probs: list[float] = []
+        val_avg_loss: float = 0.0
+        with no_grad():
+            correct, total = 0, 0
+            for batch_data in valid_loader:
+                inputs, lbls = (
+                    batch_data["image"].to(self.device),
+                    batch_data["label"].to(self.device),
+                )
 
-        with torch.no_grad():
-            for batch_idx, (images, labels) in enumerate(valid_loader):
-                inputs, lbls = images.to(self.device), labels.to(self.device)
                 outputs = self.model(inputs)
-                
+
+                # Find the Loss
                 validation_loss = self.criterion(outputs, lbls)
                 val_avg_loss += validation_loss.item()
-                
-                outputs_soft = torch.softmax(outputs, dim=1)
+                outputs_soft: Tensor = softmax(outputs, dim=1)
                 probs = outputs_soft.detach().cpu().numpy()
-                _, _pred_label = torch.max(outputs_soft.data, 1)
-                
-                # Atualiza os dados no tracker
-                tracker.update(images, labels, probs, _pred_label)
+                _, _pred_label = max_torch(outputs_soft.data, 1)
+                _labels = batch_data["label"].to(self.device)
+                total += inputs.data.size()[0]
+                correct += (_pred_label == _labels.data).sum().item()
+                labels.extend(_labels.detach().cpu().numpy())
+                pred_labels.extend(_pred_label.detach().cpu().numpy())
 
-        # Loga a loss média no TensorBoard
-        self.writer.add_scalar("val_loss", (val_avg_loss / len(valid_loader)), self.epoch_global)
+                # make json serializable
+                for _img_file, _probs, lbl in zip(
+                    batch_data["image"].meta["filename_or_obj"],
+                    probs,
+                    batch_data["label"],
+                ):
+                    p: list[float] = [float(p) for p in _probs]
+                    return_probs.append(
+                        {
+                            "image": basename(_img_file),
+                            "probs": p,
+                            "label": lbl,
+                        }
+                    )
+                    l_probs.append(p[1])  # probs da classe positiva
 
-        if return_probs_only:
-            return tracker.return_probs
+            self.writer.add_scalar(
+                "val_loss", (val_avg_loss / len(valid_loader)), self.epoch_global
+            )
 
-        # Computa e exibe as métricas
-        metrics = tracker.compute_metrics()
-        tracker.print_report(metrics)
+            acc: float = correct / float(total)
+            assert len(labels) == total
+            assert len(pred_labels) == total
+            matrix = confusion_matrix(
+                labels, pred_labels, labels=list(range(self.num_classes))
+            )
+            print("### eval report ###")
+            roc_auc: float | None = None
+            if self.num_classes == 2:
+                if len(set(labels)) == 2:
+                    roc_auc = roc_auc_score(labels, l_probs)
+                f1 = f1_score(labels, pred_labels)
+                print(f"ROC Score: {roc_auc if roc_auc is not None else 'undefined'}")
+                print(f"F1-Score: {f1}")
 
-        if is_final:
-            tracker.plot_final_reports(self.roc_values, self.acc_values)
+            mcc: float = matthews_corrcoef(labels, pred_labels)
+            kappa: float = cohen_kappa_score(labels, pred_labels, weights="linear")
 
-        # Retorna os valores principais para o fluxo de salvamento do learner
-        roc_val = metrics.get('roc_auc', 0.0)
-        return metrics['acc'], metrics['kappa'], roc_val    
+            print(f"ACC: {acc}")
+            print(f"MCC: {mcc}")
+            print(f"Cohen Kappa Score: {kappa}")
+            print(matrix)
+            print("###################")
+
+            if is_final:
+                if self.num_classes == 2:
+                    # ROC curve
+                    fold_in_title: str = f" for fold {fold}" if fold is not None else ""
+                    fpr, tpr, _ = roc_curve(labels, l_probs)
+                    plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
+                    xlim([0, 1])
+                    ylim([0, 1])
+                    xlabel("False Positive Rate")
+                    ylabel("True Positive Rate")
+                    title(f"ROC Curve{fold_in_title}")
+                    legend()
+                    show()
+                    print(f"ROC VALUES: {self.roc_values}")
+                    print(f"ACC VALUES: {self.acc_values}")
+
+                # CONFUSION MATRIX
+                row_totals = matrix.sum(axis=1, keepdims=True)
+                cm_norm = np.divide(
+                    matrix.astype("float"),
+                    row_totals,
+                    out=np.zeros_like(matrix, dtype=float),
+                    where=row_totals != 0,
+                )
+
+                disp = ConfusionMatrixDisplay(
+                    confusion_matrix=cm_norm, display_labels=range(self.num_classes)
+                )
+                disp.plot()
+
+            return acc, kappa, roc_auc

@@ -1,190 +1,315 @@
-import random
-from src.pt.utils.parser import CBISDDSMParser, VinDrParser
-from src.pt.learners.local_mammo_learner import MammoLearner
-from src.pt.preprocessing.preprocess_json import preprocess_json, path_exists, preprocess_db
-import os
-from typing import Dict
-from src.pt.utils.constants import Constants
+from json import dump
+from os import makedirs
+from os.path import basename, join
+from statistics import mean, stdev
+from typing import Any, cast
 
-# Resolve the absolute path of the script's directory (Project Root)
-PROJECT_ROOT = Constants.get_absolute_project_path()
+from matplotlib.pyplot import (
+    close,
+    figure,
+    legend,
+    plot,
+    savefig,
+    title,
+    xlabel,
+    ylabel,
+)
 
-def init_datalist_parser(config):
-    datalist = []
-    db = config['dataset_config'].get('databases')
-    parsers = {
-                "vindr": VinDrParser,   
-                "cbis-ddsm": CBISDDSMParser
-            }        
-    for d in db:
-        if d['name'] not in parsers:
-            raise ValueError(f"Dataset '{d['name']}' não suportado. Escolha entre: {list(parsers.keys())}")
-        datalist.extend(parsers[d['name']](metadata_file=d['metadata_file']).parse())
-    return datalist
+from pt.learners.local_mammo_learner import MammoLearner
+from pt.preprocessing.preprocess_json import preprocess_db, preprocess_json
+from pt.utils.constants import Constants
+from pt.utils.parser import CBISDDSMParser, VinDrParser
+from pt.utils.records import get_records
+from pt.validation.kfold import iter_kfold_splits, validation_config
 
-def run_train(dataset_root, datalist, batch=64, cnn='resnet', config: Dict = None):
-    print("Testing MammoLearner...")
+PROJECT_ROOT: str = Constants.get_absolute_project_path()
+_run_sequence: int = 0
+
+
+def _plot_fold_metrics(
+    fold_metrics: list[dict[str, float | int | None]], output_path: str
+) -> None:
+    metric_names = ("accuracy", "kappa", "roc_auc")
+    folds = [cast(int, metrics["fold"]) for metrics in fold_metrics]
+
+    figure(figsize=(9, 5))
+    for metric_name in metric_names:
+        values = [
+            cast(float, metrics[metric_name])
+            for metrics in fold_metrics
+            if metrics[metric_name] is not None
+        ]
+        metric_folds = [
+            cast(int, metrics["fold"])
+            for metrics in fold_metrics
+            if metrics[metric_name] is not None
+        ]
+        if values:
+            plot(metric_folds, values, marker="o", linestyle="", label=metric_name)
+            plot(
+                folds,
+                [mean(values)] * len(folds),
+                linestyle="--",
+                alpha=0.5,
+            )
+
+    xlabel("Fold")
+    ylabel("Score")
+    title("Classification metrics by fold")
+    legend()
+    savefig(output_path, bbox_inches="tight")
+    close()
+
+
+def _run_single_train(
+    dataset_root: str,
+    datalist_prefix: str,
+    config: dict[str, Any],
+    fold: int | None = None,
+    batch: int = 64,
+    cnn: str = "resnet",
+    train_datalist: list[dict[str, str | int]] | None = None,
+    valid_datalist: list[dict[str, str | int]] | None = None,
+    run_name: str = "default",
+) -> tuple[float | None, float | None, float | None]:
     learner = MammoLearner(
-        datalist=datalist,
-        aggregation_epochs=config['hyperparameters'].get('aggregation_epochs', 60),
-        lr=config['hyperparameters'].get('lr', 0.001),
+        dataset_root=dataset_root,
+        datalist_prefix=datalist_prefix,
+        conf=config,
+        datalist=datalist_prefix,
+        aggregation_epochs=int(config["hyperparameters"].get("aggregation_epochs", 60)),
+        lr=float(config["hyperparameters"].get("lr", 0.001)),
         batch_size=batch,
         architecture=cnn,
-        conf=config
+        train_datalist=train_datalist,
+        valid_datalist=valid_datalist,
+        run_name=run_name,
     )
-    print("test initialize...")
     learner.initialize()
+    learner.train(train_loader=learner.train_loader)
+    learner.save_model("final-model.safetensors")
+    metrics = learner.local_valid(
+        valid_loader=learner.valid_loader, is_final=True, fold=fold
+    )
+    learner.writer.close()
+    return metrics
 
-    print("test train...")
-    learner.train()
-    
-    learner.save_model('final-model.pt')
-        
-def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json', 
-                    config: Dict = None):
 
-    cnn = config['hyperparameters'].get('architecture')
-    debug_dataset_root = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
+def init_datalist_parser(config: dict[str, Any]) -> list[dict[str, Any]]:
+    databases = config.get("dataset_config", {}).get("databases", [])
+    parsers = {"vindr": VinDrParser, "cbis-ddsm": CBISDDSMParser}
+    datalist: list[dict[str, Any]] = []
+    for database in databases:
+        name = database["name"]
+        if name not in parsers:
+            raise ValueError(
+                f"Dataset '{name}' não suportado. Escolha entre: {list(parsers)}"
+            )
+        datalist.extend(parsers[name](metadata_file=database["metadata_file"]).parse())
+    return datalist
 
-    print(f'FILE: {debug_datalist}')
-    """
-    DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224
-    """
-    print(f'**** Pipeline: DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224 ****')
-    preprocess_json(out_path=debug_dataset_root, datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=64, cnn=cnn, config=config)
 
-    """
-    MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
-    """
-    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", filter="CLAHE", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024
-    """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384
-    """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384 ****')
-    preprocess_json(out_path=debug_dataset_root, size=384, datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
-    """
-    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512
-    """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512 ****')
-    preprocess_json(out_path=debug_dataset_root, size=512, datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
-    """
-    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024
-    """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024 ****')
-    preprocess_json(out_path=debug_dataset_root, size=1024, datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
-    """
-    RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048
-    """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048 ****')
-    preprocess_json(out_path=debug_dataset_root, size=2048, datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=4, cnn=cnn, config=config)
+def run_kfold(
+    dataset_root: str,
+    datalist_prefix: str,
+    config: dict[str, Any],
+    batch: int = 64,
+    cnn: str = "resnet",
+    run_prefix: str | None = None,
+) -> None:
+    settings = validation_config(config)
+    if run_prefix is not None:
+        settings["run_prefix"] = run_prefix
 
-def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json", 
-              cnn='resnet', config: Dict= None):
+    records = get_records(datalist_prefix, settings, dataset_root)
+    fold_metrics: list[dict[str, float | int | None]] = []
+    for fold_index, train_records, valid_records in iter_kfold_splits(
+        records,
+        n_splits=settings["n_splits"],
+        shuffle=settings["shuffle"],
+        random_state=settings["random_state"],
+    ):
+        fold = fold_index + 1
+        run_name = f"{settings['run_prefix']}_fold_{fold:02d}"
+        metrics = _run_single_train(
+            dataset_root,
+            datalist_prefix,
+            config,
+            batch=batch,
+            cnn=cnn,
+            fold=fold,
+            train_datalist=train_records,
+            valid_datalist=valid_records,
+            run_name=run_name,
+        )
+        fold_metrics.append(
+            {
+                "fold": fold,
+                "train_size": len(train_records),
+                "validation_size": len(valid_records),
+                "accuracy": metrics[0],
+                "kappa": metrics[1],
+                "roc_auc": metrics[2],
+            }
+        )
 
-    norm = ['min-max', 'z-score']
-    filters = ['CLAHE', 'BILATERAL', 'WIENER', 'GAUSSIAN', 
-               'MEDIAN', 'CLAHE+BILATERAL', 
-    'CLAHE+WIENER', 'CLAHE+GAUSSIAN', 'CLAHE+MEDIAN']
+    aggregate: dict[str, float | None] = {}
+    for metric_name in ("accuracy", "kappa", "roc_auc"):
+        values = [
+            float(value)
+            for metrics in fold_metrics
+            for value in [metrics[metric_name]]
+            if value is not None
+        ]
+        aggregate[f"{metric_name}_mean"] = mean(values) if values else None
+        aggregate[f"{metric_name}_std"] = stdev(values) if len(values) > 1 else 0.0
+
+    results_dir = config["io_dirs"].get(
+        "results_dir", join(PROJECT_ROOT, "logs", "kfold")
+    )
+    makedirs(results_dir, exist_ok=True)
+    result_path = join(results_dir, f"{settings['run_prefix']}_metrics.json")
+    with open(result_path, "w") as result_file:
+        dump(
+            {
+                "strategy": "kfold",
+                "n_splits": settings["n_splits"],
+                "shuffle": settings["shuffle"],
+                "random_state": settings["random_state"],
+                "data_list_key": settings["data_list_key"],
+                "folds": fold_metrics,
+                "aggregate": aggregate,
+            },
+            result_file,
+            indent=2,
+        )
+    _plot_fold_metrics(
+        fold_metrics,
+        join(results_dir, f"{settings['run_prefix']}_metrics_scatter.png"),
+    )
+
+
+def run_train(
+    dataset_root: str,
+    datalist_prefix: str,
+    config: dict[str, Any],
+    batch: int = 64,
+    cnn: str = "resnet",
+    run_prefix: str | None = None,
+) -> None:
+    global _run_sequence
+    settings = validation_config(config)
+    if run_prefix is None:
+        _run_sequence += 1
+        run_prefix = (
+            f"{basename(datalist_prefix).replace('.json', '')}_run_{_run_sequence:02d}"
+        )
+    if settings["enabled"]:
+        run_kfold(dataset_root, datalist_prefix, config, batch, cnn, run_prefix)
+    else:
+        _run_single_train(
+            dataset_root,
+            datalist_prefix,
+            config,
+            batch=batch,
+            cnn=cnn,
+            run_name=run_prefix,
+        )
+
+
+def preprocessing(
+    config: dict[str, Any],
+    debug_datalist: str = "/home/nfferreira/data/dataset_site-1.json",
+) -> None:
+    out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
+    manifest_path = preprocess_json(
+        out_path=out_path, datalist=debug_datalist, config=config
+    )
+    run_train(
+        out_path,
+        manifest_path,
+        config,
+        batch=int(config["hyperparameters"].get("batch_size", 32)),
+        cnn=str(config["hyperparameters"].get("architecture", "resnet")),
+    )
+
+
+def pipelines(
+    config: dict[str, Any],
+    debug_datalist: str = "/home/nfferreira/data/dataset_site-1.json",
+    cnn: str = "resnet",
+) -> None:
+    norms = ["min-max", "z-score"]
+    filters = [
+        "CLAHE",
+        "BILATERAL",
+        "WIENER",
+        "GAUSSIAN",
+        "MEDIAN",
+        "CLAHE+BILATERAL",
+        "CLAHE+WIENER",
+        "CLAHE+GAUSSIAN",
+        "CLAHE+MEDIAN",
+    ]
     sizes = [224, 384, 512, 1024, 2048]
-    pipe = []
+    requested = int(config["hyperparameters"].get("num_pipelines", 25))
+    if requested > len(norms) * len(filters) * len(sizes):
+        raise ValueError("num_pipelines exceeds the number of unique combinations")
 
-    random.seed(42)
-    qt_exec = config['hyperparameters'].get('num_pipelines', 25)
-    
-    while len(pipe) < qt_exec:
-        t = (random.sample(range(len(norm)), k=1)[0],
-            random.sample(range(len(filters)), k=1)[0],
-            random.sample(range(len(sizes)), k=1)[0] )
-        if (t not in pipe):
-            pipe.append(t)
+    combinations = [
+        (norm_index, filter_index, size_index)
+        for norm_index in range(len(norms))
+        for filter_index in range(len(filters))
+        for size_index in range(len(sizes))
+    ][:requested]
 
-    for i in pipe:
-        outpath = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
-        
-        print(f'**** Pipeline: {norm[i[0]]} - {filters[i[1]]} - {sizes[i[2]]} ****')
-        preprocess_json(out_path=outpath, norm=norm[i[0]], filter=filters[i[1]], 
-                size=sizes[i[2]], datalist=debug_datalist, config=config)
-        
-        run_train(outpath, debug_datalist, batch=config['hyperparameters'].get('batch_size', 32), cnn=cnn, config=config)
+    out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
+    for norm_index, filter_index, size_index in combinations:
+        manifest_path = preprocess_json(
+            out_path=out_path,
+            norm=norms[norm_index],
+            filter=filters[filter_index],
+            size=sizes[size_index],
+            datalist=debug_datalist,
+            config=config,
+        )
+        run_train(
+            out_path,
+            manifest_path,
+            config,
+            batch=int(config["hyperparameters"].get("batch_size", 32)),
+            cnn=cnn,
+        )
 
-def architecture_pipeline(config: Dict= None):
-    cnn = config['hyperparameters'].get('architecture')
-    debug_dataset_root = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
 
-    #PEGA A LISTA DE DATASETS PARA TESTAR
-    debug_datalist = init_datalist_parser(config=config)
-    """
-    Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
-    """
-    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
-    if config['hyperparameters'].get('preprocess', False):
-        preprocess_db(out_path=debug_dataset_root, size=1024, norm="z-score", filter="CLAHE", datalist=debug_datalist, config=config)
-    run_train(debug_dataset_root, debug_datalist, batch=config['hyperparameters'].get('batch_size', 16), cnn=cnn, config=config)
-    
+def architecture_pipeline(config: dict[str, Any]) -> None:
+    datalist = init_datalist_parser(config)
+    out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
+    preprocess_db(
+        out_path=out_path,
+        size=1024,
+        norm="z-score",
+        filter="CLAHE",
+        datalist=datalist,
+    )
+    manifest_path = join(out_path, "architecture.json")
+    records = {
+        "train": [
+            {
+                "image": item["npy"],
+                "label": item["label"],
+                "patient_id": item["patient_id"],
+            }
+            for item in datalist
+        ],
+        "test": [],
+    }
+    with open(manifest_path, "w") as manifest_file:
+        dump(records, manifest_file, indent=2)
+    run_train(
+        out_path,
+        manifest_path,
+        config,
+        batch=int(config["hyperparameters"].get("batch_size", 16)),
+        cnn=str(config["hyperparameters"].get("architecture", "resnet")),
+    )

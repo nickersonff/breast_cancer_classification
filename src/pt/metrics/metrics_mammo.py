@@ -1,19 +1,21 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.metrics import (
-    cohen_kappa_score, 
-    f1_score, 
-    matthews_corrcoef, 
-    roc_auc_score, 
-    confusion_matrix, 
-    roc_curve, 
-    ConfusionMatrixDisplay
+    ConfusionMatrixDisplay,
+    cohen_kappa_score,
+    confusion_matrix,
+    f1_score,
+    matthews_corrcoef,
+    roc_auc_score,
+    roc_curve,
 )
+
 
 class MetricsTracker:
     """
     Classe responsável por acumular predições e calcular todas as métricas clínicas e de validação.
     """
+
     def __init__(self, num_classes: int):
         self.num_classes = num_classes
         self.reset()
@@ -29,12 +31,14 @@ class MetricsTracker:
         """Adiciona os dados de um batch aos acumuladores."""
         for _img_file, _probs, lbl in zip(images, probs, labels):
             p = [float(p) for p in _probs]
-            self.return_probs.append({
-                "image": str(_img_file),
-                "probs": p,
-                "label": int(lbl.item() if hasattr(lbl, 'item') else lbl),
-            })
-            self.all_probs.append(p[1]) # Probabilidade da classe positiva
+            self.return_probs.append(
+                {
+                    "image": str(_img_file),
+                    "probs": p,
+                    "label": int(lbl.item() if hasattr(lbl, "item") else lbl),
+                }
+            )
+            self.all_probs.append(p[1])  # Probabilidade da classe positiva
 
         self.all_labels.extend(labels.detach().cpu().numpy())
         self.all_preds.extend(pred_labels.detach().cpu().numpy())
@@ -50,12 +54,7 @@ class MetricsTracker:
         kappa = cohen_kappa_score(labels, preds, weights="linear")
         matrix = confusion_matrix(labels, preds)
 
-        metrics = {
-            "acc": acc,
-            "mcc": mcc,
-            "kappa": kappa,
-            "confusion_matrix": matrix
-        }
+        metrics = {"acc": acc, "mcc": mcc, "kappa": kappa, "confusion_matrix": matrix}
 
         if self.num_classes == 2:
             metrics["roc_auc"] = roc_auc_score(labels, probs)
@@ -69,12 +68,12 @@ class MetricsTracker:
         print(f"ACC: {metrics['acc']:.4f}")
         print(f"MCC: {metrics['mcc']:.4f}")
         print(f"Cohen Kappa Score: {metrics['kappa']:.4f}")
-        
+
         if self.num_classes == 2:
             print(f"ROC Score: {metrics.get('roc_auc', 0.0):.4f}")
             print(f"F1-Score: {metrics.get('f1', 0.0):.4f}")
-            
-        print(metrics['confusion_matrix'])
+
+        print(metrics["confusion_matrix"])
         print("###################")
 
     def plot_final_reports(self, roc_values, acc_values):
@@ -88,16 +87,18 @@ class MetricsTracker:
             plt.figure(figsize=(8, 6))
             fpr, tpr, _ = roc_curve(labels, probs)
             roc_auc = roc_auc_score(labels, probs)
-            plt.plot(fpr, tpr, label=f'AUC = {roc_auc:.4f}')
+            plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
             plt.xlim([0, 1])
             plt.ylim([0, 1])
-            plt.xlabel('False Positive Rate')
-            plt.ylabel('True Positive Rate')
-            plt.title('ROC Curve')
+            plt.xlabel("False Positive Rate")
+            plt.ylabel("True Positive Rate")
+            plt.title("ROC Curve")
             plt.legend()
             plt.show()
 
-        cm_norm = matrix.astype('float') / matrix.sum(axis=1)[:, np.newaxis]
-        disp = ConfusionMatrixDisplay(confusion_matrix=cm_norm, display_labels=range(self.num_classes))
+        cm_norm = matrix.astype("float") / matrix.sum(axis=1)[:, np.newaxis]
+        disp = ConfusionMatrixDisplay(
+            confusion_matrix=cm_norm, display_labels=range(self.num_classes)
+        )
         disp.plot()
         plt.show()

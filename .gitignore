@@ -1,1 +1,10 @@
-requirements-old.txt
+
+.**/
+__pycache__/
+logs/
+preprocessed/
+runs/
+model/
+
+# DATASETS - Felipe
+vindr-mammo/

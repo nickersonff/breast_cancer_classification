@@ -97,7 +97,7 @@ def _run_single_train(
 
 def init_datalist_parser(config: dict[str, Any]) -> list[dict[str, Any]]:
     databases = config.get("dataset_config", {}).get("databases", [])
-    parsers = {"vindr": VinDrParser, "cbis-ddsm": CBISDDSMParser}
+    parsers: dict[str, type] = {"vindr": VinDrParser, "cbis-ddsm": CBISDDSMParser}
     datalist: list[dict[str, Any]] = []
     for database in databases:
         name = database["name"]
@@ -293,7 +293,7 @@ def architecture_pipeline(config: dict[str, Any]) -> None:
         datalist=datalist,
     )
     manifest_path = join(out_path, "architecture.json")
-    records = {
+    records: dict[str, list[dict[str, Any]]] = {
         "train": [
             {
                 "image": item["npy"],

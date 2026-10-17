@@ -8,9 +8,20 @@ hyperparameters:
   num_classes: 2
   architecture: "resnet"
   num_pipelines: 25
-  preprocess: False
-  task: "architecture" # Options: "preprocess", "pipelines", "architecture"
-  
+  task: "pipelines" # Options: "preprocess", "pipelines"
+  preprocess: false
+
+# ============================================================================
+# VALIDATION
+# ============================================================================
+validation:
+  enabled: true
+  strategy: "kfold"
+  n_splits: 10
+  shuffle: true
+  random_state: 42
+  data_list_key: "train"
+  run_prefix: "kfold"
 
 # ==============================================================================
 # DATALOADERS PARAMETERS
@@ -53,7 +64,8 @@ io_dirs:
     - "data/datasets/ddsm-kfolds/dataset_site-8_DDSM_KFOLD.json"
     - "data/datasets/ddsm-kfolds/dataset_site-9_DDSM_KFOLD.json"
   preprocess_prefix: "data/preprocessed/"
-
+  runs_dir: "runs/"
+  results_dir: "logs/kfold/"
 
 dataset_config:
   databases: # Options: "cbis-ddsm",  "vindr"
@@ -62,4 +74,4 @@ dataset_config:
   manufacturers: # Options: "planmed", "ims", "siemens"
     - "siemens"
     - "ims"
-  group_birads: True 
+  group_birads: true

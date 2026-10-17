@@ -5,13 +5,12 @@ from statistics import mean, stdev
 from typing import Any, cast
 
 from matplotlib.pyplot import (
+    boxplot,
     close,
     figure,
-    legend,
-    plot,
     savefig,
     title,
-    xlabel,
+    xticks,
     ylabel,
 )
 
@@ -27,36 +26,24 @@ _run_sequence: int = 0
 
 
 def _plot_fold_metrics(
-    fold_metrics: list[dict[str, float | int | None]], output_path: str
+    fold_metrics: list[dict[str, float | int | None]],
+    metric_name: str,
+    metric_label: str,
+    output_path: str,
 ) -> None:
-    metric_names = ("accuracy", "kappa", "roc_auc")
-    folds = [cast(int, metrics["fold"]) for metrics in fold_metrics]
+    values = [
+        cast(float, metrics[metric_name])
+        for metrics in fold_metrics
+        if metrics[metric_name] is not None
+    ]
+    if not values:
+        return
 
-    figure(figsize=(9, 5))
-    for metric_name in metric_names:
-        values = [
-            cast(float, metrics[metric_name])
-            for metrics in fold_metrics
-            if metrics[metric_name] is not None
-        ]
-        metric_folds = [
-            cast(int, metrics["fold"])
-            for metrics in fold_metrics
-            if metrics[metric_name] is not None
-        ]
-        if values:
-            plot(metric_folds, values, marker="o", linestyle="", label=metric_name)
-            plot(
-                folds,
-                [mean(values)] * len(folds),
-                linestyle="--",
-                alpha=0.5,
-            )
-
-    xlabel("Fold")
+    figure(figsize=(6, 5))
+    boxplot(values, showmeans=True)
+    xticks([1], [metric_label])
     ylabel("Score")
-    title("Classification metrics by fold")
-    legend()
+    title(f"{metric_label} distribution across folds")
     savefig(output_path, bbox_inches="tight")
     close()
 
@@ -71,7 +58,7 @@ def _run_single_train(
     train_datalist: list[dict[str, str | int]] | None = None,
     valid_datalist: list[dict[str, str | int]] | None = None,
     run_name: str = "default",
-) -> tuple[float | None, float | None, float | None]:
+) -> tuple[float | None, float | None, float | None, float | None]:
     learner = MammoLearner(
         dataset_root=dataset_root,
         datalist_prefix=datalist_prefix,
@@ -150,11 +137,12 @@ def run_kfold(
                 "accuracy": metrics[0],
                 "kappa": metrics[1],
                 "roc_auc": metrics[2],
+                "f1": metrics[3],
             }
         )
 
     aggregate: dict[str, float | None] = {}
-    for metric_name in ("accuracy", "kappa", "roc_auc"):
+    for metric_name in ("accuracy", "kappa", "roc_auc", "f1"):
         values = [
             float(value)
             for metrics in fold_metrics
@@ -183,10 +171,18 @@ def run_kfold(
             result_file,
             indent=2,
         )
-    _plot_fold_metrics(
-        fold_metrics,
-        join(results_dir, f"{settings['run_prefix']}_metrics_scatter.png"),
-    )
+    metric_labels = {
+        "roc_auc": "AUC",
+        "accuracy": "ACC",
+        "f1": "F1-score",
+    }
+    for metric_name, metric_label in metric_labels.items():
+        _plot_fold_metrics(
+            fold_metrics,
+            metric_name,
+            metric_label,
+            join(results_dir, f"{settings['run_prefix']}_{metric_name}_boxplot.png"),
+        )
 
 
 def run_train(

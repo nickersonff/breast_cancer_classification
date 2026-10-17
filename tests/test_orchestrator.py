@@ -41,7 +41,7 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
 
     def fake_train(
         *args: tuple[Any], **kwargs: dict[str, dict[str, str | int]]
-    ) -> tuple[float, float, float]:
+    ) -> tuple[float, float, float, float]:
         calls.append(
             {
                 "train_size": len(kwargs["train_datalist"]),
@@ -49,7 +49,7 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
                 "run_name": kwargs["run_name"],
             }
         )
-        return 0.8, 0.6, 0.9
+        return 0.8, 0.6, 0.9, 0.7
 
     monkeypatch.setattr(orchestrator, "_run_single_train", fake_train)
 
@@ -61,7 +61,10 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
     )
 
     result_path: Path = tmp_path / "results" / "experiment_metrics.json"
-    plot_path: Path = tmp_path / "results" / "experiment_metrics_scatter.png"
+    plot_paths = [
+        tmp_path / "results" / f"experiment_{metric}_boxplot.png"
+        for metric in ("roc_auc", "accuracy", "f1")
+    ]
     result: dict[str, dict[str, float]] = json.loads(result_path.read_text())
     assert len(calls) == 3
     assert all(call["train_size"] == 6 for call in calls)
@@ -78,9 +81,12 @@ def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
         "kappa_std": 0.0,
         "roc_auc_mean": 0.9,
         "roc_auc_std": 0.0,
+        "f1_mean": 0.7,
+        "f1_std": 0.0,
     }
-    assert plot_path.exists()
-    assert plot_path.stat().st_size > 0
+    assert all(
+        plot_path.exists() and plot_path.stat().st_size > 0 for plot_path in plot_paths
+    )
 
 
 def test_run_kfold_rejects_unknown_manifest_key(tmp_path: Path) -> None:

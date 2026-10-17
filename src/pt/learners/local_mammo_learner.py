@@ -258,6 +258,32 @@ class MammoLearner:
             return param_group["lr"]
         return self.lr
 
+    def save_epoch_data(
+        self,
+        epoch: int,
+        avg_loss: float,
+        train_loader: DataLoader,
+        correct: float,
+        total: float,
+    ) -> None:
+        self.writer.add_scalar("lr", self.get_lr(self.optimizer), epoch + 1)
+
+        self.writer.add_scalar(
+            "train_loss", avg_loss / len(train_loader), self.epoch_global
+        )
+
+        self.writer.add_scalar("train_acc", correct / float(total), self.epoch_global)
+        acc, kappa, roc, _ = self.local_valid(self.valid_loader)
+        if acc is not None:
+            if len(self.acc_values) == 0 or acc >= max(self.acc_values):
+                self.save_model()
+            self.acc_values.append(acc)
+            self.writer.add_scalar("val_acc", acc, self.epoch_global)
+        if kappa is not None:
+            self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
+        if roc is not None:
+            self.roc_values.append(roc)
+
     def train(self, train_loader: DataLoader) -> None:
 
         for epoch in range(self.aggregation_epochs):
@@ -283,7 +309,6 @@ class MammoLearner:
 
                 # forward + backward + optimize
                 outputs = self.model(inputs)
-                # att, raw, outputs = self.model(inputs)
                 loss = self.criterion(outputs, labels)
 
                 loss.backward()
@@ -299,35 +324,16 @@ class MammoLearner:
                 total += inputs.data.size()[0]
                 correct += (_pred_label == _labels.data).sum().item()
 
-            self.writer.add_scalar("lr", self.get_lr(self.optimizer), epoch + 1)
-
-            self.writer.add_scalar(
-                "train_loss", avg_loss / len(train_loader), self.epoch_global
-            )
-
-            self.writer.add_scalar(
-                "train_acc", correct / float(total), self.epoch_global
-            )
-
-            acc, kappa, roc = self.local_valid(self.valid_loader)
-            if acc is not None:
-                if len(self.acc_values) == 0 or acc >= max(self.acc_values):
-                    self.save_model()
-                self.acc_values.append(acc)
-                self.writer.add_scalar("val_acc", acc, self.epoch_global)
-            if kappa is not None:
-                self.writer.add_scalar("val_kappa", kappa, self.epoch_global)
-            if roc is not None:
-                self.roc_values.append(roc)
+            self.save_epoch_data(epoch, avg_loss, train_loader, correct, total)
 
     def local_valid(
         self,
         valid_loader: DataLoader | None,
         is_final: bool = False,
         fold: int | None = None,
-    ) -> tuple[float | None, float | None, float | None]:
+    ) -> tuple[float | None, float | None, float | None, float | None]:
         if not valid_loader:
-            return (None, None, None)
+            return (None, None, None, None)
         self.model.eval()
         return_probs: list[dict[str, list[float] | str]] = []
         labels: list[int] = []
@@ -384,6 +390,7 @@ class MammoLearner:
             )
             print("### eval report ###")
             roc_auc: float | None = None
+            f1: float | None = None
             if self.num_classes == 2:
                 if len(set(labels)) == 2:
                     roc_auc = roc_auc_score(labels, l_probs)
@@ -430,4 +437,4 @@ class MammoLearner:
                 )
                 disp.plot()
 
-            return acc, kappa, roc_auc
+            return acc, kappa, roc_auc, f1

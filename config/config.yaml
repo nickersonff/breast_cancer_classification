@@ -58,8 +58,7 @@ io_dirs:
 dataset_config:
   databases: # Options: "cbis-ddsm",  "vindr"
     - {"name": "cbis-ddsm", "metadata_file": "data/metadata/cbis-ddsm/metadata_cbis_ddsm.csv"}
-    - {"name": "vindr", "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv"}
+    #- {"name": "vindr", "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv"}
   manufacturers: # Options: "planmed", "ims", "siemens"
     - "siemens"
-    - "ims"
   group_birads: True 

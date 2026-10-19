@@ -9,6 +9,7 @@ from sklearn.metrics import (
     roc_curve, 
     ConfusionMatrixDisplay
 )
+import logging
 
 class MetricsTracker:
     """
@@ -65,17 +66,17 @@ class MetricsTracker:
 
     def print_report(self, metrics):
         """Imprime o relatório formatado no console."""
-        print("### eval report ###")
-        print(f"ACC: {metrics['acc']:.4f}")
-        print(f"MCC: {metrics['mcc']:.4f}")
-        print(f"Cohen Kappa Score: {metrics['kappa']:.4f}")
+        logging.info("### eval report ###")
+        logging.info(f"ACC: {metrics['acc']:.4f}")
+        logging.info(f"MCC: {metrics['mcc']:.4f}")
+        logging.info(f"Cohen Kappa Score: {metrics['kappa']:.4f}")
         
         if self.num_classes == 2:
-            print(f"ROC Score: {metrics.get('roc_auc', 0.0):.4f}")
-            print(f"F1-Score: {metrics.get('f1', 0.0):.4f}")
+            logging.info(f"ROC Score: {metrics.get('roc_auc', 0.0):.4f}")
+            logging.info(f"F1-Score: {metrics.get('f1', 0.0):.4f}")
             
-        print(metrics['confusion_matrix'])
-        print("###################")
+        logging.info(metrics['confusion_matrix'])
+        logging.info("###################")
 
     def plot_final_reports(self, roc_values, acc_values):
         """Gera os plots finais (Curva ROC e Matriz de Confusão Normalizada)."""

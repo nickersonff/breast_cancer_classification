@@ -5,6 +5,7 @@ from src.pt.preprocessing.preprocess_json import preprocess_json, path_exists, p
 import os
 from typing import Dict
 from src.pt.utils.constants import Constants
+import logging
 
 # Resolve the absolute path of the script's directory (Project Root)
 PROJECT_ROOT = Constants.get_absolute_project_path()
@@ -23,7 +24,7 @@ def init_datalist_parser(config):
     return datalist
 
 def run_train(dataset_root, datalist, batch=64, cnn='resnet', config: Dict = None):
-    print("Testing MammoLearner...")
+    logging.info(f'Testing MammoLearner...model: {cnn} / batch: {batch}')
     learner = MammoLearner(
         datalist=datalist,
         aggregation_epochs=config['hyperparameters'].get('aggregation_epochs', 60),
@@ -32,10 +33,10 @@ def run_train(dataset_root, datalist, batch=64, cnn='resnet', config: Dict = Non
         architecture=cnn,
         conf=config
     )
-    print("test initialize...")
+    logging.info("test initialize...")
     learner.initialize()
 
-    print("test train...")
+    logging.info("test train...")
     learner.train()
     
     learner.save_model('final-model.pt')
@@ -46,102 +47,102 @@ def preprocessing(debug_datalist='/home/nfferreira/data/dataset_site-1.json',
     cnn = config['hyperparameters'].get('architecture')
     debug_dataset_root = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
 
-    print(f'FILE: {debug_datalist}')
+    logging.info(f'FILE: {debug_datalist}')
     """
     DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224
     """
-    print(f'**** Pipeline: DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224 ****')
+    logging.info(f'**** Pipeline: DEFAULT PIPELINE - NO NORMALIZATION - NO FILTERS - 224 X 224 ****')
     preprocess_json(out_path=debug_dataset_root, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=64, cnn=cnn, config=config)
 
     """
     MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024
     """
-    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - NO FILTERS - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024, norm="z-score", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024, norm="min-max", filter="CLAHE", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - GAUSSIAN - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="GAUSSIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - BILATERAL - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="BILATERAL", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - WIENER - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="WIENER", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - MEDIAN - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="MEDIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+BILATERAL - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024,norm="min-max", filter="CLAHE+BILATERAL", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+GAUSSIAN - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+GAUSSIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+WIENER - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max",filter="CLAHE+WIENER", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024
     """
-    print(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: MIN-MAX NORMALIZATION PIPELINE - CLAHE+MEDIAN - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root,size=1024, norm="min-max", filter="CLAHE+MEDIAN", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384
     """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384 ****')
+    logging.info(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 384 X 384 ****')
     preprocess_json(out_path=debug_dataset_root, size=384, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512
     """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512 ****')
+    logging.info(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 512 X 512 ****')
     preprocess_json(out_path=debug_dataset_root, size=512, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=32, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024
     """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 1024 X 1024 ****')
     preprocess_json(out_path=debug_dataset_root, size=1024, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=16, cnn=cnn, config=config)
     """
     RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048
     """
-    print(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048 ****')
+    logging.info(f'**** Pipeline: RESIZE PIPELINE - NO NORMALIZATION - NO FILTER - 2048 X 2048 ****')
     preprocess_json(out_path=debug_dataset_root, size=2048, datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=4, cnn=cnn, config=config)
 
@@ -168,7 +169,7 @@ def pipelines(debug_datalist = "/home/nfferreira/data/dataset_site-1.json",
     for i in pipe:
         outpath = os.path.join(PROJECT_ROOT, config['io_dirs'].get('preprocess_prefix'))
         
-        print(f'**** Pipeline: {norm[i[0]]} - {filters[i[1]]} - {sizes[i[2]]} ****')
+        logging.info(f'**** Pipeline: {norm[i[0]]} - {filters[i[1]]} - {sizes[i[2]]} ****')
         preprocess_json(out_path=outpath, norm=norm[i[0]], filter=filters[i[1]], 
                 size=sizes[i[2]], datalist=debug_datalist, config=config)
         
@@ -183,7 +184,7 @@ def architecture_pipeline(config: Dict= None):
     """
     Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024
     """
-    print(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
+    logging.info(f'**** Pipeline: Z-SCORE NORMALIZATION PIPELINE - CLAHE - 1024 X 1024 ****')
     if config['hyperparameters'].get('preprocess', False):
         preprocess_db(out_path=debug_dataset_root, size=1024, norm="z-score", filter="CLAHE", datalist=debug_datalist, config=config)
     run_train(debug_dataset_root, debug_datalist, batch=config['hyperparameters'].get('batch_size', 16), cnn=cnn, config=config)

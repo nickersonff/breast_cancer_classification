@@ -3,6 +3,7 @@ import glob
 import os
 import pandas as pd
 from src.pt.utils.constants import Constants
+import logging
 
 # --- Classe Base (Interface) ---
 class BaseDatasetParser(ABC):
@@ -68,7 +69,7 @@ class VinDrParser(BaseDatasetParser):
                 'dataset': 'vindr'
             }
             data_list.append(sample_info)
-        print(f'Number of samples in VinDr dataset: {len(data_list)}')     
+        logging.info(f'Number of samples in VinDr dataset: {len(data_list)}')     
         return data_list
 
 # --- Parser para o CBIS-DDSM (estruturado por pastas/pacientes) ---
@@ -102,5 +103,5 @@ class CBISDDSMParser(BaseDatasetParser):
             }
             data_list.append(sample_info)
 
-        print(f'Number of samples in CBIS-DDSM dataset: {len(data_list)}')
+        logging.info(f'Number of samples in CBIS-DDSM dataset: {len(data_list)}')
         return data_list

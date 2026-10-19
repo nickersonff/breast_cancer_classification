@@ -11,7 +11,7 @@ from src.pt.utils.test_parser import tester
 # Resolve the absolute path of the script's directory (Project Root)
 PROJECT_ROOT = Constants.get_absolute_project_path()
 
-def setup_logging(timestamp: str, log_dir: str):
+def setup_logging(timestamp: str, log_dir: str, model: str):
     """
     Configures dual logging. 
     Uses the directory specified in io_dirs.logs_dir.
@@ -19,7 +19,7 @@ def setup_logging(timestamp: str, log_dir: str):
     if not os.path.exists(log_dir):
         os.makedirs(log_dir, exist_ok=True)
         
-    log_filename = f"pipeline_{timestamp}.log"
+    log_filename = f"pipeline_{model}_{timestamp}.log"
     log_path = os.path.join(log_dir, log_filename)
     
     logging.basicConfig(
@@ -54,7 +54,8 @@ def main():
 
     # 2. Initialize Logging using path from config
     logs_base_dir = config['io_dirs'].get('logs_dir', os.path.join(PROJECT_ROOT, 'logs'))
-    log_path = setup_logging(session_timestamp, logs_base_dir)
+    cnn = config['hyperparameters'].get('architecture')
+    log_path = setup_logging(session_timestamp, logs_base_dir, cnn)
     
     logging.info("="*60)
     logging.info("PREPROCESS MAMMOGRAPHY PIPELINE")

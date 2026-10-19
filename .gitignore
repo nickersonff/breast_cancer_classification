@@ -1,1 +1,3 @@
 requirements-old.txt
+logs/*
+runs/*

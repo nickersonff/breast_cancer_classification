@@ -51,7 +51,7 @@ def preprocess_json(out_path, norm="", filter="", size=224, datalist='', config:
         image_file_path.extend([l['image'] for l in c['train']])
         image_file_path.extend([l['image'] for l in c['test']])
     
-    print(f'Images found: {len(image_file_path)}')
+    logging.info(f'Images found: {len(image_file_path)}')
 
     list_img = []
     for i in image_file_path:
@@ -80,7 +80,7 @@ def preprocess_json(out_path, norm="", filter="", size=224, datalist='', config:
         else:
             _success = False
     
-    print(f'Images transformed: {len(list_img)}')
+    logging.info(f'Images transformed: {len(list_img)}')
 
 
 def preprocess_db(out_path, norm="", filter="", size=224, datalist=None, config: Dict = None):
@@ -110,4 +110,4 @@ def preprocess_db(out_path, norm="", filter="", size=224, datalist=None, config:
         else:
             _success = False
     
-    print(f'Images transformed: {len(list_img)}')
+    logging.info(f'Images transformed: {len(list_img)}')

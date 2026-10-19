@@ -146,64 +146,62 @@ class MammoLearner():
         self.device = torch.device(
                 "cuda:0" if torch.cuda.is_available() else "cpu")
 
-        print(f"Finished initializing")
+        logging.info(f"Finished initializing")
 
     def get_lr(self, optimizer):
         for param_group in optimizer.param_groups:
             return param_group['lr']
 
     def train(self):
-
         #Faz o split com o stratified group k fold 
-        indices = np.arange(len(self.datalist))
+        indices = np.arange(len(self.datalist)).reshape(-1, 1)
         labels = np.array([item['label'] for item in self.datalist])
+        label_counts = Counter(labels)
+        logging.info(f"DATASET - Contagem de Rótulos: {dict(label_counts)}")
+        
+        # 2. APLICAÇÃO DO UNDERSAMPLING SOMENTE NO TREINO DO FOLD ATUAL
+        # O 'sampling_strategy='auto'' iguala a classe majoritária à minoritária
+        rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
+        resampled_indices, _ = rus.fit_resample(indices, labels)
+        # 3. Filtra a lista de dicionários de treino usando os índices balanceados
+        balanced_data = [self.datalist[i[0]] for i in resampled_indices]
+        
+        # Opcional: Você pode contar para conferir se balanceou
+        # from collections import Counter
+        label_counts = Counter([item['label'] for item in balanced_data])
+        logging.info(f"DATASET balanceado: {dict(label_counts)}")
+
+
+        indices = np.arange(len(balanced_data))
+        labels = np.array([item['label'] for item in balanced_data])
         # Extrai o ID do paciente de cada dicionário para formar os grupos
-        groups = np.array([item['patient_id'] for item in self.datalist])
+        groups = np.array([item['patient_id'] for item in balanced_data])
 
         # 3. Configura o GroupKFold (garante que o mesmo patient_id não se repita entre treino e validação)
         n_splits = 5
         gkf = StratifiedGroupKFold(n_splits=5, shuffle=True, random_state=42)
 
-
         # 4. Loop de Validação Cruzada
         # Note que passamos 'groups' no método .split()
         for fold, (train_idx, val_idx) in enumerate(gkf.split(indices, labels, groups)):
-            print(f"\n--- Início do Fold {fold + 1}/{n_splits} ---")
-            print(f"Treino: {len(train_idx)} amostras, Validação: {len(val_idx)} amostras")
+            logging.info(f"\n--- Início do Fold {fold + 1}/{n_splits} ---")
+            logging.info(f"Treino: {len(train_idx)} amostras, Validação: {len(val_idx)} amostras")
             # Cria as sub-listas de dicionários para este fold
-            fold_train_data = [self.datalist[i] for i in train_idx]
-            fold_val_data = [self.datalist[i] for i in val_idx]
+            fold_train_data = [balanced_data[i] for i in train_idx]
+            fold_val_data = [balanced_data[i] for i in val_idx]
             #train_npy_paths = [item['npy'] for item in fold_train_data]
-            #train_labels = [item['label'] for item in fold_train_data]
-            val_npy_paths = [item['npy'] for item in fold_val_data]
+            train_labels = [item['label'] for item in fold_train_data]
+            #val_npy_paths = [item['npy'] for item in fold_val_data]
             val_labels = [item['label'] for item in fold_val_data]
-
-            train_label_counts = Counter(train_labels)
-            val_label_counts = Counter(val_labels)
-
-            print(f"Treino - Contagem de Rótulos: {dict(train_label_counts)}")
-            print(f"Validação - Contagem de Rótulos: {dict(val_label_counts)}")
 
             #aplica o undersample aqui
             # Prepara arrays auxiliares para o imblearn identificar os labels
             train_indices = np.arange(len(fold_train_data)).reshape(-1, 1)
             train_labels_array = np.array([item['label'] for item in fold_train_data])
             
-            # 2. APLICAÇÃO DO UNDERSAMPLING SOMENTE NO TREINO DO FOLD ATUAL
-            # O 'sampling_strategy='auto'' iguala a classe majoritária à minoritária
-            rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
-            resampled_indices, _ = rus.fit_resample(train_indices, train_labels_array)
-            
-            # 3. Filtra a lista de dicionários de treino usando os índices balanceados
-            balanced_train_data = [fold_train_data[i[0]] for i in resampled_indices]
-            
-            # Opcional: Você pode contar para conferir se balanceou
-            # from collections import Counter
-            print("Treino balanceado:", Counter([item['label'] for item in balanced_train_data]))
-
             # 4. Extrai os caminhos e labels já balanceados para o Dataset do PyTorch
-            train_npy_paths = [item['npy'] for item in balanced_train_data]
-            train_labels = [item['label'] for item in balanced_train_data]
+            train_npy_paths = [item['npy'] for item in fold_train_data]
+            train_labels = [item['label'] for item in fold_train_data]
             
             # A validação continua 100% original e desbalanceada (refletindo o mundo real)
             val_npy_paths = [item['npy'] for item in fold_val_data]
@@ -237,7 +235,7 @@ class MammoLearner():
                 self.model.train()
                 self.epoch_global = epoch + 1
                 lrs = []
-                print(
+                logging.info(
                     f"Local epoch: {epoch + 1}/{self.aggregation_epochs} (lr={self.lr})",
                 )
                 avg_loss = 0.0

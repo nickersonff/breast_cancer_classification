@@ -6,11 +6,22 @@ hyperparameters:
   aggregation_epochs: 60
   batch_size: 32
   num_classes: 2
-  architecture: "resnet"
+  architecture: "resnet" # Options: "densenet", "efficientnet", "efficientnet_bilstm", "ensemble", "fccs-net", "mv_swin_t", "resnet", "resnet50", "resnet152", "vgg"
   num_pipelines: 25
-  preprocess: False
-  task: "architecture" # Options: "preprocess", "pipelines", "architecture"
-  
+  task: "pipelines" # Options: "preprocess", "pipelines", "architecture"
+  preprocess: false
+
+# ============================================================================
+# VALIDATION
+# ============================================================================
+validation:
+  enabled: true
+  strategy: "kfold"
+  n_splits: 10
+  shuffle: true
+  random_state: 42
+  data_list_key: "train"
+  run_prefix: "kfold"
 
 # ==============================================================================
 # DATALOADERS PARAMETERS
@@ -53,12 +64,19 @@ io_dirs:
     - "data/datasets/ddsm-kfolds/dataset_site-8_DDSM_KFOLD.json"
     - "data/datasets/ddsm-kfolds/dataset_site-9_DDSM_KFOLD.json"
   preprocess_prefix: "data/preprocessed/"
-
+  runs_dir: "runs/"
+  results_dir: "logs/kfold/"
 
 dataset_config:
   databases: # Options: "cbis-ddsm",  "vindr"
-    - {"name": "cbis-ddsm", "metadata_file": "data/metadata/cbis-ddsm/metadata_cbis_ddsm.csv"}
-    #- {"name": "vindr", "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv"}
+    - {
+        "name": "cbis-ddsm",
+        "metadata_file": "data/metadata/cbis-ddsm/metadata_cbis_ddsm.csv",
+      }
+    # - {
+    #     "name": "vindr",
+    #     "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv",
+    #   }
   manufacturers: # Options: "planmed", "ims", "siemens"
     - "siemens"
-  group_birads: True 
+  group_birads: True

@@ -1,5 +1,17 @@
-import matplotlib.pyplot as plt
-import numpy as np
+from logging import info
+
+from matplotlib.pyplot import (
+    figure,
+    legend,
+    plot,
+    show,
+    title,
+    xlabel,
+    xlim,
+    ylabel,
+    ylim,
+)
+from numpy import array, mean, newaxis
 from sklearn.metrics import (
     ConfusionMatrixDisplay,
     cohen_kappa_score,
@@ -22,15 +34,21 @@ class MetricsTracker:
 
     def reset(self):
         """Reseta os acumuladores para iniciar uma nova avaliação/época."""
-        self.all_labels = []
-        self.all_preds = []
-        self.all_probs = []
-        self.return_probs = []
+        self.all_labels: list[int] = []
+        self.all_preds: list[int] = []
+        self.all_probs: list[float] = []
+        self.return_probs: list[dict[str, list[float] | int | str]] = []
 
-    def update(self, images, labels, probs, pred_labels):
+    def update(
+        self,
+        images: list[str],
+        labels: list[int],
+        probs: list[list[float]],
+        pred_labels: list[int],
+    ):
         """Adiciona os dados de um batch aos acumuladores."""
         for _img_file, _probs, lbl in zip(images, probs, labels):
-            p = [float(p) for p in _probs]
+            p: list[float] = [float(p) for p in _probs]
             self.return_probs.append(
                 {
                     "image": str(_img_file),
@@ -45,11 +63,11 @@ class MetricsTracker:
 
     def compute_metrics(self):
         """Calcula o dicionário completo de métricas com base nos dados acumulados."""
-        labels = np.array(self.all_labels)
-        preds = np.array(self.all_preds)
-        probs = np.array(self.all_probs)
+        labels = array(self.all_labels)
+        preds = array(self.all_preds)
+        probs = array(self.all_probs)
 
-        acc = np.mean(labels == preds)
+        acc = mean(labels == preds)
         mcc = matthews_corrcoef(labels, preds)
         kappa = cohen_kappa_score(labels, preds, weights="linear")
         matrix = confusion_matrix(labels, preds)
@@ -64,41 +82,41 @@ class MetricsTracker:
 
     def print_report(self, metrics):
         """Imprime o relatório formatado no console."""
-        print("### eval report ###")
-        print(f"ACC: {metrics['acc']:.4f}")
-        print(f"MCC: {metrics['mcc']:.4f}")
-        print(f"Cohen Kappa Score: {metrics['kappa']:.4f}")
+        info("### eval report ###")
+        info(f"ACC: {metrics['acc']:.4f}")
+        info(f"MCC: {metrics['mcc']:.4f}")
+        info(f"Cohen Kappa Score: {metrics['kappa']:.4f}")
 
         if self.num_classes == 2:
-            print(f"ROC Score: {metrics.get('roc_auc', 0.0):.4f}")
-            print(f"F1-Score: {metrics.get('f1', 0.0):.4f}")
+            info(f"ROC Score: {metrics.get('roc_auc', 0.0):.4f}")
+            info(f"F1-Score: {metrics.get('f1', 0.0):.4f}")
 
-        print(metrics["confusion_matrix"])
-        print("###################")
+        info(metrics["confusion_matrix"])
+        info("###################")
 
     def plot_final_reports(self, roc_values, acc_values):
         """Gera os plots finais (Curva ROC e Matriz de Confusão Normalizada)."""
-        labels = np.array(self.all_labels)
-        preds = np.array(self.all_preds)
-        probs = np.array(self.all_probs)
+        labels = array(self.all_labels)
+        preds = array(self.all_preds)
+        probs = array(self.all_probs)
         matrix = confusion_matrix(labels, preds)
 
         if self.num_classes == 2:
-            plt.figure(figsize=(8, 6))
+            figure(figsize=(8, 6))
             fpr, tpr, _ = roc_curve(labels, probs)
             roc_auc = roc_auc_score(labels, probs)
-            plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
-            plt.xlim([0, 1])
-            plt.ylim([0, 1])
-            plt.xlabel("False Positive Rate")
-            plt.ylabel("True Positive Rate")
-            plt.title("ROC Curve")
-            plt.legend()
-            plt.show()
+            plot(fpr, tpr, label=f"AUC = {roc_auc:.4f}")
+            xlim([0, 1])
+            ylim([0, 1])
+            xlabel("False Positive Rate")
+            ylabel("True Positive Rate")
+            title("ROC Curve")
+            legend()
+            show()
 
-        cm_norm = matrix.astype("float") / matrix.sum(axis=1)[:, np.newaxis]
+        cm_norm = matrix.astype("float") / matrix.sum(axis=1)[:, newaxis]
         disp = ConfusionMatrixDisplay(
             confusion_matrix=cm_norm, display_labels=range(self.num_classes)
         )
         disp.plot()
-        plt.show()
+        show()

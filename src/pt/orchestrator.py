@@ -1,4 +1,5 @@
 from json import dump
+from logging import info
 from os import makedirs
 from os.path import basename, join
 from statistics import mean, stdev
@@ -63,6 +64,7 @@ def _run_single_train(
     valid_datalist: list[dict[str, str | int]] | None = None,
     run_name: str = "default",
 ) -> tuple[float | None, float | None, float | None, float | None]:
+    info(f"Testing MammoLearner...model: {cnn} / batch: {batch}")
     learner = MammoLearner(
         dataset_root=dataset_root,
         datalist_prefix=datalist_prefix,
@@ -76,7 +78,9 @@ def _run_single_train(
         valid_datalist=valid_datalist,
         run_name=run_name,
     )
+    info("test initialize...")
     learner.initialize()
+    info("test train...")
     learner.train(train_loader=learner.train_loader)
     learner.save_model("final-model.safetensors")
     metrics = learner.local_valid(

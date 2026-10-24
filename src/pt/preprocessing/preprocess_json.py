@@ -1,11 +1,12 @@
 from json import dump, load
+from logging import info
 from os import listdir, makedirs, remove
 from os.path import exists, isdir, isfile, join
 from pathlib import Path
 from typing import Any
 
-import cv2
-import numpy as np
+from cv2 import INTER_AREA, resize
+from numpy import float32, load as numpy_load, newaxis, save, zeros_like
 
 from pt.preprocessing.preprocess_dicom import dicom_preprocess
 from pt.utils.constants import Constants
@@ -101,7 +102,7 @@ def preprocess_json(
             if not isfile(source_path):
                 raise FileNotFoundError(f"Source image not found: {source_path}")
 
-            image = np.load(source_path).astype(np.float32)
+            image = numpy_load(source_path).astype(float32)
             if image.ndim == 3:
                 image = image[..., 0] if image.shape[-1] in (1, 3) else image[0]
             if image.ndim != 2:
@@ -111,27 +112,25 @@ def preprocess_json(
                 image_min = float(image.min())
                 image_range = float(image.max() - image_min)
                 image = (
-                    np.zeros_like(image)
+                    zeros_like(image)
                     if image_range == 0
                     else (image - image_min) / image_range * 255.0
                 )
-                image = apply_filters(image, filter, np.float32)
+                image = apply_filters(image, filter, float32)
             if norm == "min-max":
                 image_min = float(image.min())
                 image_range = float(image.max() - image_min)
                 image = (
-                    np.zeros_like(image)
+                    zeros_like(image)
                     if image_range == 0
                     else (image - image_min) / image_range
                 )
             elif norm == "z-score":
                 image = (image - image.mean()) / (image.std() + 1e-8)
 
-            image = cv2.resize(image, (size, size), interpolation=cv2.INTER_AREA)
+            image = resize(image, (size, size), interpolation=INTER_AREA)
             output_name = f"{Path(source).stem}.npy"
-            np.save(
-                join(variant_dir, output_name), image[..., np.newaxis].repeat(3, axis=2)
-            )
+            save(join(variant_dir, output_name), image[..., newaxis].repeat(3, axis=2))
             processed_item = dict(item)
             processed_item["image"] = join(variant, output_name)
             processed_manifest[split].append(processed_item)
@@ -140,10 +139,6 @@ def preprocess_json(
     with open(manifest_path, "w") as manifest_file:
         dump(processed_manifest, manifest_file, indent=2)
     return manifest_path
-
-
-def path_exists(path: str = "") -> bool:
-    return exists(path) and isdir(path) and bool(listdir(path))
 
 
 def clean_path(path: str):
@@ -170,8 +165,7 @@ def preprocess_db(
 
         if isfile(save_prefix + ".npy"):
             list_img.append(save_prefix)
-
-    print(f"Images transformed: {len(list_img)}")
+        info(f"Images transformed: {len(list_img)}")
 
 
 def preprocess_multiview_db(

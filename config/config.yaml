@@ -6,7 +6,7 @@ hyperparameters:
   aggregation_epochs: 60
   batch_size: 32
   num_classes: 2
-  architecture: "resnet" # Options: "densenet", "efficientnet", "efficientnet_bilstm", "mv_swin_t", "resnet", "resnet152", "vgg"
+  architecture: "resnet" # Options: "densenet", "efficientnet", "efficientnet_bilstm", "ensemble", "fccs-net", "mv_swin_t", "resnet", "resnet50", "resnet152", "vgg"
   num_pipelines: 25
   task: "pipelines" # Options: "preprocess", "pipelines", "architecture"
   preprocess: false
@@ -73,11 +73,10 @@ dataset_config:
         "name": "cbis-ddsm",
         "metadata_file": "data/metadata/cbis-ddsm/metadata_cbis_ddsm.csv",
       }
-    - {
-        "name": "vindr",
-        "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv",
-      }
+    # - {
+    #     "name": "vindr",
+    #     "metadata_file": "data/metadata/vindr/breast-level_annotations_manufactures.csv",
+    #   }
   manufacturers: # Options: "planmed", "ims", "siemens"
     - "siemens"
-    - "ims"
-  group_birads: true
+  group_birads: True

@@ -1,8 +1,9 @@
-import glob
-import os
 from abc import ABC, abstractmethod
+from glob import glob
+from logging import info
+from os.path import join
 
-import pandas as pd
+from pandas import read_csv
 
 from pt.utils.constants import Constants
 
@@ -53,7 +54,7 @@ class VinDrParser(BaseDatasetParser):
             "view_position": str,
             "laterality": str,
         }
-        df = pd.read_csv(self.metadata_file, dtype=columns)
+        df = read_csv(self.metadata_file, dtype=columns)
         df = self.birads_cleaner(df=df, column_name="breast_birads")
         manufacturers = self.config["dataset_config"].get("manufacturers", [])
         if len(manufacturers) > 0:
@@ -68,7 +69,7 @@ class VinDrParser(BaseDatasetParser):
             dicom_root = self.config["io_dirs"].get("dicom_root_VINDR")
             sample_info = {
                 "npy": file_name,
-                "dicom": os.path.join(dicom_root, dicom_file),
+                "dicom": join(dicom_root, dicom_file),
                 "label": self.make_grouping_birads(row["breast_birads"])
                 if group_birads
                 else (row["breast_birads"] - 1),
@@ -78,7 +79,7 @@ class VinDrParser(BaseDatasetParser):
                 "dataset": "vindr",
             }
             data_list.append(sample_info)
-        print(f"Number of samples in VinDr dataset: {len(data_list)}")
+        info(f"Number of samples in VinDr dataset: {len(data_list)}")
         return data_list
 
 
@@ -92,7 +93,7 @@ class CBISDDSMParser(BaseDatasetParser):
             "image view": str,
             "left or right breast": str,
         }
-        df = pd.read_csv(self.metadata_file, dtype=columns)
+        df = read_csv(self.metadata_file, dtype=columns)
         df = (
             df.groupby(
                 ["patient_id", "image view", "left or right breast", "image file path"]
@@ -107,8 +108,8 @@ class CBISDDSMParser(BaseDatasetParser):
             dicom_root = self.config["io_dirs"].get("dicom_root_DDSM")
             dir_name = row["image file path"].split("/")[0]
             file_name = f"{dir_name}.npy"
-            dicom_file = glob.glob(
-                os.path.join(dicom_root, dir_name, "**", "*.dcm"), recursive=True
+            dicom_file = glob(
+                join(dicom_root, dir_name, "**", "*.dcm"), recursive=True
             )
             if not dicom_file:
                 continue
@@ -125,5 +126,5 @@ class CBISDDSMParser(BaseDatasetParser):
             }
             data_list.append(sample_info)
 
-        print(f"Number of samples in CBIS-DDSM dataset: {len(data_list)}")
+        info(f"Number of samples in CBIS-DDSM dataset: {len(data_list)}")
         return data_list

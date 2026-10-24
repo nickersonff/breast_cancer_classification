@@ -15,7 +15,7 @@ from pt.utils.constants import Constants
 PROJECT_ROOT: str = Constants.get_absolute_project_path()
 
 
-def setup_logging(timestamp: str, log_dir: str) -> tuple[str, Logger]:
+def setup_logging(timestamp: str, log_dir: str, model: str) -> tuple[str, Logger]:
     """
     Configures dual logging.
     Uses the directory specified in io_dirs.logs_dir.
@@ -23,7 +23,7 @@ def setup_logging(timestamp: str, log_dir: str) -> tuple[str, Logger]:
     if not exists(log_dir):
         makedirs(log_dir, exist_ok=True)
 
-    log_filename: str = f"pipeline_{timestamp}.log"
+    log_filename: str = f"pipeline_{model}_{timestamp}.log"
     log_path: str = join(log_dir, log_filename)
 
     basicConfig(
@@ -60,7 +60,8 @@ def main():
 
     # 2. Initialize Logging using path from config
     logs_base_dir: str = config["io_dirs"].get("logs_dir", join(PROJECT_ROOT, "logs"))
-    log_path, logger = setup_logging(session_timestamp, logs_base_dir)
+    cnn: str = config['hyperparameters'].get('architecture')
+    log_path, logger = setup_logging(session_timestamp, logs_base_dir, cnn)
 
     logger.info("=" * 60)
     logger.info("PREPROCESS MAMMOGRAPHY PIPELINE")

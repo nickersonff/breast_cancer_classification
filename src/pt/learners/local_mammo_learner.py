@@ -8,7 +8,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from logging import Logger, getLogger
+from logging import Logger, getLogger, info
 from os import makedirs
 from os.path import basename, isfile, join
 from typing import Any
@@ -262,7 +262,7 @@ class MammoLearner:
             steps_per_epoch=len(self.train_loader),
         )
 
-        print("Finished initializing")
+        info("Finished initializing")
 
     def get_lr(self, optimizer: Adam) -> float:
         for param_group in optimizer.param_groups:

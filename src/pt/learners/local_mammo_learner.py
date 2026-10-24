@@ -105,32 +105,35 @@ class MammoLearner:
         save_model(self.model, model_path)
 
     def build_transforms(self):
+        image_keys = (
+            ["image_cc", "image_mlo"] if self.arch.lower() == "mv_swin_t" else ["image"]
+        )
         self.transform_train = Compose(
             [
-                LoadImaged(keys=["image"]),
-                Transposed(keys=["image"], indices=[2, 0, 1]),
-                RandRotated(keys=["image"], range_x=pi / 12, prob=0.5, keep_size=True),
-                RandFlipd(keys=["image"], spatial_axis=0, prob=0.5),
-                RandFlipd(keys=["image"], spatial_axis=1, prob=0.5),
+                LoadImaged(keys=image_keys),
+                Transposed(keys=image_keys, indices=[2, 0, 1]),
+                RandRotated(keys=image_keys, range_x=pi / 12, prob=0.5, keep_size=True),
+                RandFlipd(keys=image_keys, spatial_axis=0, prob=0.5),
+                RandFlipd(keys=image_keys, spatial_axis=1, prob=0.5),
                 RandZoomd(
-                    keys=["image"],
+                    keys=image_keys,
                     min_zoom=0.9,
                     max_zoom=1.1,
                     prob=0.5,
                     keep_size=True,
                 ),
-                CastToTyped(keys=["image"], dtype=float32),
-                EnsureTyped(keys=["image", "label"]),
+                CastToTyped(keys=image_keys, dtype=float32),
+                EnsureTyped(keys=[*image_keys, "label"]),
             ]
         )
 
         # 2. Transformações de Validação
         self.transform_valid = Compose(
             [
-                LoadImaged(keys=["image"]),
-                Transposed(keys=["image"], indices=[2, 0, 1]),
-                CastToTyped(keys=["image"], dtype=float32),
-                EnsureTyped(keys=["image", "label"]),
+                LoadImaged(keys=image_keys),
+                Transposed(keys=image_keys, indices=[2, 0, 1]),
+                CastToTyped(keys=image_keys, dtype=float32),
+                EnsureTyped(keys=[*image_keys, "label"]),
             ]
         )
 
@@ -197,6 +200,14 @@ class MammoLearner:
             self.valid_dataset = None
             self.valid_loader = None
             print("Use no validation set")
+
+    def _model_inputs(self, batch_data: dict[str, Any]) -> tuple[Tensor, ...]:
+        if self.arch.lower() == "mv_swin_t":
+            return (
+                batch_data["image_cc"].to(self.device),
+                batch_data["image_mlo"].to(self.device),
+            )
+        return (batch_data["image"].to(self.device),)
 
     def build_model(self):
         self.model = ModelFactory.create_model(
@@ -296,10 +307,8 @@ class MammoLearner:
             avg_loss: float = 0.0
             correct, total = 0, 0
             for batch_data in train_loader:
-                inputs, labels = (
-                    batch_data["image"].to(self.device),
-                    batch_data["label"].to(self.device),
-                )
+                labels = batch_data["label"].to(self.device)
+                inputs = self._model_inputs(batch_data)
 
                 # Gradient Clipping for VGG-16
                 if self.arch == "vgg":
@@ -308,7 +317,7 @@ class MammoLearner:
                 self.optimizer.zero_grad()
 
                 # forward + backward + optimize
-                outputs = self.model(inputs)
+                outputs = self.model(*inputs)
                 loss = self.criterion(outputs, labels)
 
                 loss.backward()
@@ -321,7 +330,7 @@ class MammoLearner:
 
                 _, _pred_label = max_torch(outputs.data, 1)
                 _labels = batch_data["label"].to(self.device)
-                total += inputs.data.size()[0]
+                total += labels.size(0)
                 correct += (_pred_label == _labels.data).sum().item()
 
             self.save_epoch_data(epoch, avg_loss, train_loader, correct, total)
@@ -343,12 +352,10 @@ class MammoLearner:
         with no_grad():
             correct, total = 0, 0
             for batch_data in valid_loader:
-                inputs, lbls = (
-                    batch_data["image"].to(self.device),
-                    batch_data["label"].to(self.device),
-                )
+                lbls = batch_data["label"].to(self.device)
+                inputs = self._model_inputs(batch_data)
 
-                outputs = self.model(inputs)
+                outputs = self.model(*inputs)
 
                 # Find the Loss
                 validation_loss = self.criterion(outputs, lbls)
@@ -357,14 +364,16 @@ class MammoLearner:
                 probs = outputs_soft.detach().cpu().numpy()
                 _, _pred_label = max_torch(outputs_soft.data, 1)
                 _labels = batch_data["label"].to(self.device)
-                total += inputs.data.size()[0]
+                total += lbls.size(0)
                 correct += (_pred_label == _labels.data).sum().item()
                 labels.extend(_labels.detach().cpu().numpy())
                 pred_labels.extend(_pred_label.detach().cpu().numpy())
 
                 # make json serializable
                 for _img_file, _probs, lbl in zip(
-                    batch_data["image"].meta["filename_or_obj"],
+                    batch_data.get("image_cc", batch_data["image"]).meta[
+                        "filename_or_obj"
+                    ],
                     probs,
                     batch_data["label"],
                 ):

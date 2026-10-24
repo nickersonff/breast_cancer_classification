@@ -16,18 +16,21 @@ def get_records(
 
     resolved_records: list[dict[str, str | int]] = []
     for record in records:
-        image_path: str | None = (
-            record["image"]
-            if "image" in record and isinstance(record["image"], str)
-            else None
-        )
+        image_path: str | None = record.get("image")
+        if image_path is None and all(
+            isinstance(record.get(key), str) for key in ("image_cc", "image_mlo")
+        ):
+            image_path = record["image_cc"]
 
         if image_path is None:
             continue
-        resolved_path: str = (
-            image_path if image_path.startswith("/") else join(dataset_root, image_path)
-        )
-        if exists(resolved_path):
+        view_paths: list[str | int | None] = [record.get("image")]
+        if "image_cc" in record and "image_mlo" in record:
+            view_paths = [record["image_cc"], record["image_mlo"]]
+        if all(
+            exists(path if str(path).startswith("/") else join(dataset_root, str(path)))
+            for path in view_paths
+        ):
             resolved_records.append(record)
 
     if not resolved_records:

@@ -15,7 +15,11 @@ from matplotlib.pyplot import (
 )
 
 from pt.learners.local_mammo_learner import MammoLearner
-from pt.preprocessing.preprocess_json import preprocess_db, preprocess_json
+from pt.preprocessing.preprocess_json import (
+    preprocess_db,
+    preprocess_json,
+    preprocess_multiview_db,
+)
 from pt.utils.constants import Constants
 from pt.utils.parser import CBISDDSMParser, VinDrParser
 from pt.utils.records import get_records
@@ -235,6 +239,13 @@ def pipelines(
     debug_datalist: str = "/home/nfferreira/data/dataset_site-1.json",
     cnn: str = "resnet",
 ) -> None:
+    if str(config["hyperparameters"].get("architecture", "")).lower() in {
+        "mv_swin_t",
+        "mvswin",
+    } and config["io_dirs"].get("dicom_root_VINDR"):
+        architecture_pipeline(config)
+        return
+
     norms = ["min-max", "z-score"]
     filters = [
         "CLAHE",
@@ -281,25 +292,35 @@ def pipelines(
 def architecture_pipeline(config: dict[str, Any]) -> None:
     datalist = init_datalist_parser(config)
     out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
-    preprocess_db(
-        out_path=out_path,
-        size=1024,
-        norm="z-score",
-        filter="CLAHE",
-        datalist=datalist,
-    )
+    if str(config["hyperparameters"].get("architecture", "")).lower() == "mv_swin_t":
+        paired = preprocess_multiview_db(
+            out_path=out_path,
+            size=224,
+            norm="z-score",
+            filter="CLAHE",
+            datalist=datalist,
+        )
+        records = {"train": paired, "test": []}
+    else:
+        preprocess_db(
+            out_path=out_path,
+            size=1024,
+            norm="z-score",
+            filter="CLAHE",
+            datalist=datalist,
+        )
+        records = {
+            "train": [
+                {
+                    "image": item["npy"],
+                    "label": item["label"],
+                    "patient_id": item["patient_id"],
+                }
+                for item in datalist
+            ],
+            "test": [],
+        }
     manifest_path = join(out_path, "architecture.json")
-    records: dict[str, list[dict[str, Any]]] = {
-        "train": [
-            {
-                "image": item["npy"],
-                "label": item["label"],
-                "patient_id": item["patient_id"],
-            }
-            for item in datalist
-        ],
-        "test": [],
-    }
     with open(manifest_path, "w") as manifest_file:
         dump(records, manifest_file, indent=2)
     run_train(

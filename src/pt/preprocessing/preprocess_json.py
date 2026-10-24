@@ -21,12 +21,14 @@ def load_datalist(
     data_list: list[dict[str, str | int]] = []
     missing_count: int = 0
     for item in data[data_list_key]:
-        image_path: str = join(base_dir, str(item["image"]))
-        if not isfile(image_path):
+        keys = ("image_cc", "image_mlo") if "image_cc" in item else ("image",)
+        image_paths = [join(base_dir, str(item[key])) for key in keys]
+        if not all(isfile(path) for path in image_paths):
             missing_count += 1
             continue
         item: dict[str, str | int] = item.copy()
-        item["image"] = image_path
+        for key, path in zip(keys, image_paths):
+            item[key] = path
         data_list.append(item)
 
     if missing_count:
@@ -44,12 +46,14 @@ def resolve_datalist(
     resolved: list[dict[str, str | int]] = []
     missing_count: int = 0
     for item in data:
-        image_path: str = join(base_dir, str(item["image"]))
-        if not isfile(image_path):
+        keys = ("image_cc", "image_mlo") if "image_cc" in item else ("image",)
+        image_paths = [join(base_dir, str(item[key])) for key in keys]
+        if not all(isfile(path) for path in image_paths):
             missing_count += 1
             continue
         resolved_item = item.copy()
-        resolved_item["image"] = image_path
+        for key, path in zip(keys, image_paths):
+            resolved_item[key] = path
         resolved.append(resolved_item)
 
     if missing_count:
@@ -156,9 +160,6 @@ def preprocess_db(
     filter: str = "",
     size: int = 224,
 ):
-
-    # clean_path(out_path) # if want delete all files inside the path
-
     list_img: list[str] = []
     for i in datalist:
         dir_name: str = i["npy"].replace(".npy", "")
@@ -171,3 +172,68 @@ def preprocess_db(
             list_img.append(save_prefix)
 
     print(f"Images transformed: {len(list_img)}")
+
+
+def preprocess_multiview_db(
+    out_path: str,
+    datalist: list[dict[str, Any]],
+    norm: str = "",
+    filter: str = "",
+    size: int = 224,
+) -> list[dict[str, Any]]:
+    """Preprocess complete CC/MLO pairs and return paired manifest records."""
+    grouped: dict[tuple[str, str], dict[str, dict[str, Any]]] = {}
+    missing = 0
+    for item in datalist:
+        view = str(item.get("view", "")).upper()
+        if view not in {"CC", "MLO"}:
+            continue
+        if not isfile(str(item.get("dicom", ""))):
+            missing += 1
+            continue
+        key = (str(item["patient_id"]), str(item.get("laterality", "")))
+        grouped.setdefault(key, {})[view] = item
+
+    paired: list[dict[str, Any]] = []
+    failed_pairs = 0
+    for (patient_id, laterality), views in grouped.items():
+        if "CC" not in views or "MLO" not in views:
+            continue
+        output: dict[str, Any] = {
+            "patient_id": patient_id,
+            "laterality": laterality,
+            "label": int(views["CC"]["label"]),
+        }
+        generated: list[str] = []
+        try:
+            for view in ("CC", "MLO"):
+                item = views[view]
+                stem = Path(str(item["npy"])).stem
+                save_prefix = join(out_path, stem)
+                dicom_preprocess(
+                    str(item["dicom"]),
+                    save_prefix,
+                    norm=norm,
+                    filter=filter,
+                    size=size,
+                )
+                generated.append(save_prefix + ".npy")
+                output[f"image_{view.lower()}"] = f"{stem}.npy"
+        except (OSError, ValueError) as error:
+            failed_pairs += 1
+            print(
+                f"[WARNING] Skipping invalid multi-view pair "
+                f"{patient_id}/{laterality}: {error}"
+            )
+            for generated_file in generated:
+                if isfile(generated_file):
+                    remove(generated_file)
+            continue
+        paired.append(output)
+
+    if missing:
+        print(f"Skipped {missing} VinDr record(s) with missing DICOM files")
+    if failed_pairs:
+        print(f"Skipped {failed_pairs} multi-view pair(s) with invalid DICOM data")
+    print(f"Multi-view pairs transformed: {len(paired)}")
+    return paired

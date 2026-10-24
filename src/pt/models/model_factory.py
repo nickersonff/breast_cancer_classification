@@ -10,6 +10,7 @@ from torchvision.models import (
 )
 
 from pt.models.mammo_efficientnet_bilstm import MammoEfficientNetBiLSTM
+from pt.models.mv_swin_transformer import MVSwinTransformer
 from pt.utils.custom_fc import CustomFC
 
 
@@ -24,12 +25,13 @@ class ModelFactory:
 
         # Mapeamento de arquiteturas para métodos privados de construção
         registry = {
+            "densenet": ModelFactory._build_densenet,
+            "efficientnet": ModelFactory._build_efficientnet,
+            "efficientnet_bilstm": ModelFactory._build_efficientnet_bilstm,
+            "mv_swin_t": ModelFactory._build_mv_swin_t,
             "resnet": ModelFactory._build_resnet18,
             "resnet152": ModelFactory._build_resnet152,
             "vgg": ModelFactory._build_vgg16,
-            "efficientnet": ModelFactory._build_efficientnet,
-            "efficientnet_bilstm": ModelFactory._build_efficientnet_bilstm,
-            "densenet": ModelFactory._build_densenet,
         }
 
         if arch not in registry:
@@ -99,3 +101,7 @@ class ModelFactory:
             num_features, num_classes
         )
         return model
+
+    @staticmethod
+    def _build_mv_swin_t(num_classes: int) -> Module:
+        return MVSwinTransformer(num_classes=num_classes)

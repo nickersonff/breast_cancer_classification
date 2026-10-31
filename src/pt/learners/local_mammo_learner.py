@@ -14,7 +14,17 @@ from os.path import basename, isfile, join
 from typing import Any
 
 import numpy as np
-from matplotlib.pyplot import legend, plot, show, title, xlabel, xlim, ylabel, ylim
+from matplotlib.pyplot import (
+    close,
+    legend,
+    plot,
+    savefig,
+    title,
+    xlabel,
+    xlim,
+    ylabel,
+    ylim,
+)
 from monai.data.dataloader import DataLoader
 from monai.data.dataset import CacheDataset
 from monai.transforms.compose import Compose
@@ -417,7 +427,12 @@ class MammoLearner:
             print("###################")
 
             if is_final:
-                if self.num_classes == 2:
+                plot_dir = self.config["io_dirs"].get("results_dir")
+                if plot_dir:
+                    plot_dir = join(plot_dir, self.run_name)
+                    makedirs(plot_dir, exist_ok=True)
+
+                if self.num_classes == 2 and roc_auc is not None:
                     # ROC curve
                     fold_in_title: str = f" for fold {fold}" if fold is not None else ""
                     fpr, tpr, _ = roc_curve(labels, l_probs)
@@ -428,7 +443,9 @@ class MammoLearner:
                     ylabel("True Positive Rate")
                     title(f"ROC Curve{fold_in_title}")
                     legend()
-                    show()
+                    if plot_dir:
+                        savefig(join(plot_dir, "roc_curve.png"), bbox_inches="tight")
+                    close()
                     print(f"ROC VALUES: {self.roc_values}")
                     print(f"ACC VALUES: {self.acc_values}")
 
@@ -445,5 +462,11 @@ class MammoLearner:
                     confusion_matrix=cm_norm, display_labels=range(self.num_classes)
                 )
                 disp.plot()
+                if plot_dir:
+                    savefig(
+                        join(plot_dir, "confusion_matrix.png"),
+                        bbox_inches="tight",
+                    )
+                close()
 
             return acc, kappa, roc_auc, f1

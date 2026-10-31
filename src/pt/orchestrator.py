@@ -1,19 +1,11 @@
+import random
 from json import dump
 from logging import info
 from os import makedirs
 from os.path import basename, join
-from statistics import mean, stdev
-from typing import Any, cast
+from typing import Any
 
-from matplotlib.pyplot import (
-    boxplot,
-    close,
-    figure,
-    savefig,
-    title,
-    xticks,
-    ylabel,
-)
+from matplotlib.pyplot import boxplot, close, figure, savefig, title, xticks, ylabel
 
 from pt.learners.local_mammo_learner import MammoLearner
 from pt.preprocessing.preprocess_json import (
@@ -23,34 +15,9 @@ from pt.preprocessing.preprocess_json import (
 )
 from pt.utils.constants import Constants
 from pt.utils.parser import CBISDDSMParser, VinDrParser
-from pt.utils.records import get_records
-from pt.validation.kfold import iter_kfold_splits, validation_config
 
 PROJECT_ROOT: str = Constants.get_absolute_project_path()
 _run_sequence: int = 0
-
-
-def _plot_fold_metrics(
-    fold_metrics: list[dict[str, float | int | None]],
-    metric_name: str,
-    metric_label: str,
-    output_path: str,
-) -> None:
-    values = [
-        cast(float, metrics[metric_name])
-        for metrics in fold_metrics
-        if metrics[metric_name] is not None
-    ]
-    if not values:
-        return
-
-    figure(figsize=(6, 5))
-    boxplot(values, showmeans=True)
-    xticks([1], [metric_label])
-    ylabel("Score")
-    title(f"{metric_label} distribution across folds")
-    savefig(output_path, bbox_inches="tight")
-    close()
 
 
 def _run_single_train(
@@ -104,95 +71,6 @@ def init_datalist_parser(config: dict[str, Any]) -> list[dict[str, Any]]:
     return datalist
 
 
-def run_kfold(
-    dataset_root: str,
-    datalist_prefix: str,
-    config: dict[str, Any],
-    batch: int = 64,
-    cnn: str = "resnet",
-    run_prefix: str | None = None,
-) -> None:
-    settings = validation_config(config)
-    if run_prefix is not None:
-        settings["run_prefix"] = run_prefix
-
-    records = get_records(datalist_prefix, settings, dataset_root)
-    fold_metrics: list[dict[str, float | int | None]] = []
-    for fold_index, train_records, valid_records in iter_kfold_splits(
-        records,
-        n_splits=settings["n_splits"],
-        shuffle=settings["shuffle"],
-        random_state=settings["random_state"],
-    ):
-        fold = fold_index + 1
-        run_name = f"{settings['run_prefix']}_fold_{fold:02d}"
-        metrics = _run_single_train(
-            dataset_root,
-            datalist_prefix,
-            config,
-            batch=batch,
-            cnn=cnn,
-            fold=fold,
-            train_datalist=train_records,
-            valid_datalist=valid_records,
-            run_name=run_name,
-        )
-        fold_metrics.append(
-            {
-                "fold": fold,
-                "train_size": len(train_records),
-                "validation_size": len(valid_records),
-                "accuracy": metrics[0],
-                "kappa": metrics[1],
-                "roc_auc": metrics[2],
-                "f1": metrics[3],
-            }
-        )
-
-    aggregate: dict[str, float | None] = {}
-    for metric_name in ("accuracy", "kappa", "roc_auc", "f1"):
-        values = [
-            float(value)
-            for metrics in fold_metrics
-            for value in [metrics[metric_name]]
-            if value is not None
-        ]
-        aggregate[f"{metric_name}_mean"] = mean(values) if values else None
-        aggregate[f"{metric_name}_std"] = stdev(values) if len(values) > 1 else 0.0
-
-    results_dir = config["io_dirs"].get(
-        "results_dir", join(PROJECT_ROOT, "logs", "kfold")
-    )
-    makedirs(results_dir, exist_ok=True)
-    result_path = join(results_dir, f"{settings['run_prefix']}_metrics.json")
-    with open(result_path, "w") as result_file:
-        dump(
-            {
-                "strategy": "kfold",
-                "n_splits": settings["n_splits"],
-                "shuffle": settings["shuffle"],
-                "random_state": settings["random_state"],
-                "data_list_key": settings["data_list_key"],
-                "folds": fold_metrics,
-                "aggregate": aggregate,
-            },
-            result_file,
-            indent=2,
-        )
-    metric_labels = {
-        "roc_auc": "AUC",
-        "accuracy": "ACC",
-        "f1": "F1-score",
-    }
-    for metric_name, metric_label in metric_labels.items():
-        _plot_fold_metrics(
-            fold_metrics,
-            metric_name,
-            metric_label,
-            join(results_dir, f"{settings['run_prefix']}_{metric_name}_boxplot.png"),
-        )
-
-
 def run_train(
     dataset_root: str,
     datalist_prefix: str,
@@ -200,42 +78,112 @@ def run_train(
     batch: int = 64,
     cnn: str = "resnet",
     run_prefix: str | None = None,
-) -> None:
+) -> tuple[float | None, float | None, float | None, float | None]:
     global _run_sequence
-    settings = validation_config(config)
     if run_prefix is None:
         _run_sequence += 1
         run_prefix = (
             f"{basename(datalist_prefix).replace('.json', '')}_run_{_run_sequence:02d}"
         )
-    if settings["enabled"]:
-        run_kfold(dataset_root, datalist_prefix, config, batch, cnn, run_prefix)
-    else:
-        _run_single_train(
-            dataset_root,
-            datalist_prefix,
-            config,
-            batch=batch,
-            cnn=cnn,
-            run_name=run_prefix,
-        )
+    return _run_single_train(
+        dataset_root,
+        datalist_prefix,
+        config,
+        batch=batch,
+        cnn=cnn,
+        run_name=run_prefix,
+    )
 
 
 def preprocessing(
     config: dict[str, Any],
     debug_datalist: str = "/home/nfferreira/data/dataset_site-1.json",
-) -> None:
+) -> list[dict[str, Any]]:
     out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
-    manifest_path = preprocess_json(
-        out_path=out_path, datalist=debug_datalist, config=config
-    )
-    run_train(
-        out_path,
-        manifest_path,
-        config,
-        batch=int(config["hyperparameters"].get("batch_size", 32)),
-        cnn=str(config["hyperparameters"].get("architecture", "resnet")),
-    )
+    cnn = str(config["hyperparameters"].get("architecture", "resnet"))
+    pipeline_specs = [
+        ("raw_224", "", "", 224, 64),
+        ("min-max_1024", "min-max", "", 1024, 16),
+        ("z-score_1024", "z-score", "", 1024, 16),
+        ("min-max_clahe_1024", "min-max", "CLAHE", 1024, 16),
+        ("min-max_gaussian_1024", "min-max", "GAUSSIAN", 1024, 16),
+        ("min-max_bilateral_1024", "min-max", "BILATERAL", 1024, 16),
+        ("min-max_wiener_1024", "min-max", "WIENER", 1024, 16),
+        ("min-max_median_1024", "min-max", "MEDIAN", 1024, 16),
+        ("min-max_clahe-bilateral_1024", "min-max", "CLAHE+BILATERAL", 1024, 16),
+        ("min-max_clahe-gaussian_1024", "min-max", "CLAHE+GAUSSIAN", 1024, 16),
+        ("min-max_clahe-wiener_1024", "min-max", "CLAHE+WIENER", 1024, 16),
+        ("min-max_clahe-median_1024", "min-max", "CLAHE+MEDIAN", 1024, 16),
+        ("raw_384", "", "", 384, 32),
+        ("raw_512", "", "", 512, 32),
+        ("raw_1024", "", "", 1024, 16),
+        ("raw_2048", "", "", 2048, 4),
+    ]
+    results: list[dict[str, Any]] = []
+    for pipeline, norm, filter_name, size, batch in pipeline_specs:
+        manifest_path = preprocess_json(
+            out_path=out_path,
+            norm=norm,
+            filter=filter_name,
+            size=size,
+            datalist=debug_datalist,
+            config=config,
+        )
+        metrics = run_train(
+            out_path,
+            manifest_path,
+            config,
+            batch=batch,
+            cnn=cnn,
+        )
+        results.append(
+            {
+                "pipeline": pipeline,
+                "accuracy": metrics[0],
+                "kappa": metrics[1],
+                "roc_auc": metrics[2],
+                "f1": metrics[3],
+            }
+        )
+    return results
+
+
+def save_fold_metrics(
+    fold_metrics: list[dict[str, float | int | None]],
+    config: dict[str, Any],
+) -> None:
+    results_dir = config["io_dirs"].get("results_dir")
+    if not results_dir or not fold_metrics:
+        return
+
+    makedirs(results_dir, exist_ok=True)
+    with open(join(results_dir, "fold_metrics.json"), "w") as metrics_file:
+        dump(fold_metrics, metrics_file, indent=2)
+
+    metric_labels = {
+        "accuracy": "Accuracy",
+        "kappa": "Kappa",
+        "roc_auc": "ROC AUC",
+        "f1": "F1-score",
+    }
+    for metric_name, metric_label in metric_labels.items():
+        values = [
+            float(metrics[metric_name])
+            for metrics in fold_metrics
+            if metrics[metric_name] is not None
+        ]
+        if not values:
+            continue
+        figure(figsize=(6, 5))
+        boxplot(values, showmeans=True)
+        xticks([1], [metric_label])
+        ylabel("Score")
+        title(f"{metric_label} across folds")
+        savefig(
+            join(results_dir, f"folds_{metric_name}_boxplot.png"),
+            bbox_inches="tight",
+        )
+        close()
 
 
 def pipelines(
@@ -267,12 +215,16 @@ def pipelines(
     if requested > len(norms) * len(filters) * len(sizes):
         raise ValueError("num_pipelines exceeds the number of unique combinations")
 
-    combinations = [
-        (norm_index, filter_index, size_index)
-        for norm_index in range(len(norms))
-        for filter_index in range(len(filters))
-        for size_index in range(len(sizes))
-    ][:requested]
+    random.seed(42)
+    combinations: list[tuple[int, int, int]] = []
+    while len(combinations) < requested:
+        combination = (
+            random.randrange(len(norms)),
+            random.randrange(len(filters)),
+            random.randrange(len(sizes)),
+        )
+        if combination not in combinations:
+            combinations.append(combination)
 
     out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
     for norm_index, filter_index, size_index in combinations:
@@ -296,6 +248,7 @@ def pipelines(
 def architecture_pipeline(config: dict[str, Any]) -> None:
     datalist = init_datalist_parser(config)
     out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
+    makedirs(out_path, exist_ok=True)
     if str(config["hyperparameters"].get("architecture", "")).lower() == "mv_swin_t":
         paired = preprocess_multiview_db(
             out_path=out_path,

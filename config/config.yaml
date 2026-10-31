@@ -11,18 +11,6 @@ hyperparameters:
   task: "pipelines" # Options: "preprocess", "pipelines", "architecture"
   preprocess: false
 
-# ============================================================================
-# VALIDATION
-# ============================================================================
-validation:
-  enabled: true
-  strategy: "kfold"
-  n_splits: 10
-  shuffle: true
-  random_state: 42
-  data_list_key: "train"
-  run_prefix: "kfold"
-
 # ==============================================================================
 # DATALOADERS PARAMETERS
 # ==============================================================================

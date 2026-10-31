@@ -8,7 +8,12 @@ from typing import Any
 
 from yaml import YAMLError, safe_load
 
-from pt.orchestrator import architecture_pipeline, pipelines, preprocessing
+from pt.orchestrator import (
+    architecture_pipeline,
+    pipelines,
+    preprocessing,
+    save_fold_metrics,
+)
 from pt.utils.constants import Constants
 
 # Resolve the absolute path of the script's directory (Project Root)
@@ -74,9 +79,13 @@ def main():
 
     if task == "preprocess":
         datasets: list[str] = config["io_dirs"].get("kfold_ddsm", [])
-        for i in datasets:
+        fold_metrics: list[dict[str, Any]] = []
+        for fold, i in enumerate(datasets, start=1):
             data: str = join(PROJECT_ROOT, i)
-            preprocessing(debug_datalist=data, config=config)
+            metrics = preprocessing(debug_datalist=data, config=config)
+            for pipeline_metrics in metrics:
+                fold_metrics.append({"fold": fold, **pipeline_metrics})
+        save_fold_metrics(fold_metrics, config)
 
     elif task == "pipelines":
         for i in datalist:

@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from typing import Any
 
@@ -7,99 +6,60 @@ import pytest
 from pt import orchestrator
 
 
-def _config(results_dir: Path) -> dict[str, dict[str, str | int | bool | float]]:
-    return {
-        "hyperparameters": {"aggregation_epochs": 1, "lr": 0.001},
-        "validation": {
-            "enabled": True,
-            "n_splits": 3,
-            "shuffle": True,
-            "random_state": 42,
-            "data_list_key": "train",
-            "run_prefix": "experiment",
-        },
-        "io_dirs": {"results_dir": str(results_dir)},
-    }
-
-
-def test_run_kfold_trains_each_fold_and_writes_aggregate_results(
+def test_run_train_uses_manifest_without_repartitioning(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    manifest_path: Path = tmp_path / "manifest.json"
-    records: list[dict[str, str | int]] = [
-        {
-            "image": f"image-{index}.npy",
-            "label": index % 2,
-            "patient_id": f"patient-{index}",
-        }
-        for index in range(9)
-    ]
-    for record in records:
-        (tmp_path / str(record["image"])).touch()
-    manifest_path.write_text(json.dumps({"train": records, "test": []}))
-    calls: list[dict[str, str | int | dict[str, dict[str, str | int]]]] = []
+    calls: list[tuple[tuple[Any, ...], dict[str, Any]]] = []
 
-    def fake_train(
-        *args: tuple[Any], **kwargs: dict[str, dict[str, str | int]]
-    ) -> tuple[float, float, float, float]:
-        calls.append(
-            {
-                "train_size": len(kwargs["train_datalist"]),
-                "valid_size": len(kwargs["valid_datalist"]),
-                "run_name": kwargs["run_name"],
-            }
-        )
-        return 0.8, 0.6, 0.9, 0.7
+    def fake_train(*args: Any, **kwargs: Any) -> None:
+        calls.append((args, kwargs))
 
     monkeypatch.setattr(orchestrator, "_run_single_train", fake_train)
 
-    orchestrator.run_kfold(
+    manifest_path = tmp_path / "dataset_site-0_DDSM_KFOLD.json"
+    orchestrator.run_train(
         str(tmp_path),
         str(manifest_path),
-        _config(tmp_path / "results"),
-        run_prefix="experiment",
+        {"hyperparameters": {}},
+        batch=32,
+        cnn="resnet",
     )
 
-    result_path: Path = tmp_path / "results" / "experiment_metrics.json"
-    plot_paths = [
-        tmp_path / "results" / f"experiment_{metric}_boxplot.png"
-        for metric in ("roc_auc", "accuracy", "f1")
-    ]
-    result: dict[str, dict[str, float]] = json.loads(result_path.read_text())
-    assert len(calls) == 3
-    assert all(call["train_size"] == 6 for call in calls)
-    assert all(call["valid_size"] == 3 for call in calls)
-    assert [call["run_name"] for call in calls] == [
-        "experiment_fold_01",
-        "experiment_fold_02",
-        "experiment_fold_03",
-    ]
-    assert result["aggregate"] == {
-        "accuracy_mean": 0.8,
-        "accuracy_std": 0.0,
-        "kappa_mean": 0.6,
-        "kappa_std": 0.0,
-        "roc_auc_mean": 0.9,
-        "roc_auc_std": 0.0,
-        "f1_mean": 0.7,
-        "f1_std": 0.0,
-    }
-    assert all(
-        plot_path.exists() and plot_path.stat().st_size > 0 for plot_path in plot_paths
+    assert len(calls) == 1
+    args, kwargs = calls[0]
+    assert args[:2] == (str(tmp_path), str(manifest_path))
+    assert kwargs["batch"] == 32
+    assert kwargs["cnn"] == "resnet"
+    assert kwargs["run_name"].startswith("dataset_site-0_DDSM_KFOLD_run_")
+
+
+def test_preprocessing_builds_variants_from_manifest(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    calls: list[tuple[str, dict[str, Any]]] = []
+
+    def fake_preprocess_json(**kwargs: Any) -> str:
+        calls.append(("preprocess_json", kwargs))
+        return str(tmp_path / f"{kwargs['size']}.json")
+
+    def fake_run_train(*args: Any, **kwargs: Any) -> tuple[float, float, float, float]:
+        calls.append(("run_train", {"args": args, "kwargs": kwargs}))
+        return 0.8, 0.6, 0.9, 0.7
+
+    monkeypatch.setattr(orchestrator, "preprocess_json", fake_preprocess_json)
+    monkeypatch.setattr(orchestrator, "run_train", fake_run_train)
+
+    manifest_path = tmp_path / "dataset_site-0_DDSM_KFOLD.json"
+    orchestrator.preprocessing(
+        {
+            "io_dirs": {"preprocess_prefix": "data/preprocessed/"},
+            "hyperparameters": {"batch_size": 32, "architecture": "resnet"},
+        },
+        str(manifest_path),
     )
 
-
-def test_run_kfold_rejects_unknown_manifest_key(tmp_path: Path) -> None:
-    manifest_path: Path = tmp_path / "manifest.json"
-    manifest_path.write_text(json.dumps({"train": [], "test": []}))
-
-    try:
-        orchestrator.run_kfold(
-            str(tmp_path),
-            str(manifest_path),
-            _config(tmp_path / "results"),
-        )
-    except ValueError as error:
-        assert "No records found" in str(error)
-    else:
-        raise AssertionError("run_kfold should reject an empty manifest split")
+    assert calls[0][0] == "preprocess_json"
+    assert calls[1][0] == "run_train"
+    assert calls[1][1]["args"][1] == str(tmp_path / "224.json")
+    assert len([call for call in calls if call[0] == "preprocess_json"]) == 16
+    assert len([call for call in calls if call[0] == "run_train"]) == 16

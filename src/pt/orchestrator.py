@@ -121,7 +121,7 @@ def preprocessing(
     ]
     results: list[dict[str, Any]] = []
     for pipeline, norm, filter_name, size, batch in pipeline_specs:
-        manifest_path = preprocess_json(
+        preprocess_json(
             out_path=out_path,
             norm=norm,
             filter=filter_name,
@@ -131,7 +131,7 @@ def preprocessing(
         )
         metrics = run_train(
             out_path,
-            manifest_path,
+            debug_datalist,
             config,
             batch=batch,
             cnn=cnn,
@@ -228,7 +228,7 @@ def pipelines(
 
     out_path = join(PROJECT_ROOT, config["io_dirs"].get("preprocess_prefix", ""))
     for norm_index, filter_index, size_index in combinations:
-        manifest_path = preprocess_json(
+        preprocess_json(
             out_path=out_path,
             norm=norms[norm_index],
             filter=filters[filter_index],
@@ -238,7 +238,7 @@ def pipelines(
         )
         run_train(
             out_path,
-            manifest_path,
+            debug_datalist,
             config,
             batch=int(config["hyperparameters"].get("batch_size", 32)),
             cnn=cnn,

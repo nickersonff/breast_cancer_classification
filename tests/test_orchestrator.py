@@ -60,6 +60,6 @@ def test_preprocessing_builds_variants_from_manifest(
 
     assert calls[0][0] == "preprocess_json"
     assert calls[1][0] == "run_train"
-    assert calls[1][1]["args"][1] == str(tmp_path / "224.json")
+    assert calls[1][1]["args"][1] == str(manifest_path)
     assert len([call for call in calls if call[0] == "preprocess_json"]) == 16
     assert len([call for call in calls if call[0] == "run_train"]) == 16

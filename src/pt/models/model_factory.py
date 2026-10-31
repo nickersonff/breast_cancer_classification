@@ -14,6 +14,11 @@ from torchvision.models import (
     vgg16_bn,
 )
 
+from pt.models.detector_classifiers import (
+    FasterRCNNClassifier,
+    RetinaNetClassifier,
+    YOLOClassifier,
+)
 from pt.models.fccs_net import ResNet18CBAM
 from pt.models.mammo_efficientnet_bilstm import MammoEfficientNetBiLSTM
 from pt.models.mammo_ensemble import MammographyEnsemble
@@ -37,11 +42,14 @@ class ModelFactory:
             "efficientnet_bilstm": ModelFactory._build_efficientnet_bilstm,
             "ensemble": ModelFactory._build_ensemble,
             "fccs-net": ModelFactory._build_fccs_net,
+            "faster-rcnn": ModelFactory._build_faster_rcnn,
             "mv_swin_t": ModelFactory._build_mv_swin_t,
             "resnet": ModelFactory._build_resnet18,
+            "retinanet": ModelFactory._build_retinanet,
             "resnet50": ModelFactory._build_resnet50,
             "resnet152": ModelFactory._build_resnet152,
             "vgg": ModelFactory._build_vgg16,
+            "yolo": ModelFactory._build_yolo,
         }
 
         if arch not in registry:
@@ -126,6 +134,18 @@ class ModelFactory:
     @staticmethod
     def _build_fccs_net(num_classes: int) -> Module:
         return ResNet18CBAM(num_classes=num_classes)
+
+    @staticmethod
+    def _build_retinanet(num_classes: int) -> Module:
+        return RetinaNetClassifier(num_classes=num_classes)
+
+    @staticmethod
+    def _build_faster_rcnn(num_classes: int) -> Module:
+        return FasterRCNNClassifier(num_classes=num_classes)
+
+    @staticmethod
+    def _build_yolo(num_classes: int) -> Module:
+        return YOLOClassifier(num_classes=num_classes)
 
     @staticmethod
     def _build_ensemble(num_classes: int) -> Module:

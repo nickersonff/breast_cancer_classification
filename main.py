@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from logging import INFO, FileHandler, Logger, StreamHandler, basicConfig, getLogger
 from os import makedirs
 from os.path import exists, join
+from pathlib import Path
 from sys import exit, stdout
 from time import perf_counter
 from typing import Any
@@ -62,10 +63,15 @@ def main():
 
     # 1. Load Configuration First (to know where to log)
     config: dict[str, Any] = load_config()
+    task: str = config["hyperparameters"].get("task")
 
     # 2. Initialize Logging using path from config
     logs_base_dir: str = config["io_dirs"].get("logs_dir", join(PROJECT_ROOT, "logs"))
-    cnn: str = config['hyperparameters'].get('architecture')
+    cnn: str = (
+        "au_net"
+        if task in ("au_net", "au_net_test")
+        else config["hyperparameters"].get("architecture", "unknown")
+    )
     log_path, logger = setup_logging(session_timestamp, logs_base_dir, cnn)
 
     logger.info("=" * 60)
@@ -75,7 +81,6 @@ def main():
     start_total: float = perf_counter()
 
     datalist: list[str] = config["io_dirs"].get("dataset_list", [])
-    task: str = config["hyperparameters"].get("task")
 
     if task == "preprocess":
         datasets: list[str] = config["io_dirs"].get("kfold_ddsm", [])
@@ -94,10 +99,19 @@ def main():
 
     elif task == "architecture":
         architecture_pipeline(config=config)
+    elif task == "au_net":
+        from pt.learners.au_net_trainer import train_au_net_from_config
+
+        train_au_net_from_config(config.get("au_net", {}), Path(PROJECT_ROOT))
+    elif task == "au_net_test":
+        from pt.learners.au_net_trainer import test_au_net_from_config
+
+        test_au_net_from_config(config.get("au_net", {}), Path(PROJECT_ROOT))
     else:
         raise ValueError(
             f"Unknown pipeline task '{task}'. "
-            "Expected 'preprocess', 'pipelines', or 'architecture'."
+            "Expected 'preprocess', 'pipelines', 'architecture', 'au_net', "
+            "or 'au_net_test'."
         )
 
     # 3. Pipeline Summary
